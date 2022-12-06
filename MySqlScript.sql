@@ -11,7 +11,7 @@ CREATE TABLE Utilisateur(
 	nom varchar(30) NOT NULL,
 	prenom varchar(30) NOT NULL,
 	courriel varchar(60) NOT NULL,
-	telephone int NOT NULL,
+	telephone bigint NOT NULL,
 	password varchar(20) NOT NULL,
 	num_rue int NOT NULL,
 	nom_rue varchar(50) NOT NULL,
