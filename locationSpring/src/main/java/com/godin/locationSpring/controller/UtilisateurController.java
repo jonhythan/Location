@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import com.godin.locationSpring.model.Utilisateur;
 import com.godin.locationSpring.repository.UtilisateurRepository;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class UtilisateurController {
 	@Autowired
 	UtilisateurRepository utilisateurRepository;
@@ -42,7 +44,17 @@ public class UtilisateurController {
 			return "OK";
 		} catch (Exception e) {
 			return "ERREUR";
-		}
-		
+		}	
 	}
+	//à effacer
+	@PostMapping("/img")
+	public String uploadImage(@RequestBody Map<String, String> body) {
+		String image = (body.get("image"));
+		
+		
+
+		return "Annonce sauvegardée";
+	}
+	
+	
 }

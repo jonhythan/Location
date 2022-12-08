@@ -1,5 +1,6 @@
 package com.godin.locationSpring.model;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 
 import javax.persistence.Column;
@@ -35,6 +36,8 @@ public class Utilisateur {
 	public Utilisateur() {
 		super();
 	}
+	
+	
 
 	public int getId() {
 		return id;
