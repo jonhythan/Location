@@ -9,23 +9,23 @@ public class Annonce {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "utilisateur_proprietaire_id", referencedColumnName = "utilisateur_id")
     private Membre utilisateurProprietaire;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "categorie_id", referencedColumnName = "id")
     private Categorie categorie;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "etatoutil_id", referencedColumnName = "id")
     private EtatOutil etatOutil;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "administrateur_id_activateur", referencedColumnName = "utilisateur_id")
     private Administrateur administrateurActivateur;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "administrateur_id_desactivateur", referencedColumnName = "utilisateur_id")
     private Administrateur administrateurDesactivateur;
 

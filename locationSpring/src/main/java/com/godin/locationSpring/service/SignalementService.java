@@ -14,8 +14,8 @@ public class SignalementService {
     @Autowired
     private SignalementRepository signalementRepository;
 
-    public Signalement createSignalement(Signalement signalement) {
-        return signalementRepository.save(signalement);
+    public void createSignalement(Signalement signalement) {
+        signalementRepository.save(signalement);
     }
 
     public List<Signalement> getAllSignalements() {

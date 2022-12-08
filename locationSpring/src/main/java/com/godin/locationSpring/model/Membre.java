@@ -5,17 +5,17 @@ import java.io.Serializable;
 
 @Entity
 public class Membre implements Serializable {
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "utilisateur_id", referencedColumnName = "id")
     @Id
     private Utilisateur utilisateurId;
     private boolean status;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "administrateur_id_desactivateur", referencedColumnName = "utilisateur_id")
     private Administrateur administrateurDesactivateur;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "administrateur_id_activateur", referencedColumnName = "utilisateur_id")
     private Administrateur administrateurActivateur;
 

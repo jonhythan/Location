@@ -11,14 +11,14 @@ public class Signalement {
     @Column(name = "idsignalement")
     private int idSignalement;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "membreutilisateur_id", referencedColumnName = "utilisateur_id")
     private Membre membreUtilisateur;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "annonceid", referencedColumnName = "id")
     private Annonce annonce;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "administrateur_id", referencedColumnName = "utilisateur_id")
     private Administrateur administrateur;
 
