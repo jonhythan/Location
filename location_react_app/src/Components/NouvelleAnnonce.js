@@ -1,6 +1,19 @@
 import React from 'react'
-import logo from '../Logo.svg'
+import {useState, useEffect} from 'react';
+
 const NouvelleAnnonce = () => {
+    const [formState, setFormState]=useState({
+        titre : '',
+        categorie : '',
+        etat: '', 
+        description:'',
+
+
+    })
+    useEffect(()=>{
+        console.log(formState);
+    })
+
   return (
     <div>
         <div className='header'>Header</div>
@@ -10,14 +23,14 @@ const NouvelleAnnonce = () => {
                     <h4 className='text-center text-secondary'>Nouvelle annonce</h4>
                     <div className='row px-5 p-3'>
                         <div className='col-1'>Titre : </div>
-                        <input type="text" className='col-11'></input>
+                        <input type="text" className='col-11' onChange={e=>setFormState({...formState, titre : e.target.value})}></input>
                     </div>
                     <div className='row px-5 p-3'>
                         <div className='col-3'>
                             <label >Catégorie : </label>
                             <span className='px-3'>
                                 <select>
-                                    <option >option 1</option>
+                                    <option>option 1</option>
                                 </select>
                             </span>
                         </div>
@@ -32,8 +45,11 @@ const NouvelleAnnonce = () => {
                     </div>
                     <div className='row px-5 p-3'>
                         <label className='col-1' >Image :</label>
-                        <input type="file"  accept="image/*" className='col-3'></input>
-                        {/* <img src={logo} alt="choisie"/> */}
+                        <input type="file"  accept="image/PNG" className='col-3'></input>
+                    </div>
+                    <div className='row px-5 p-3'>
+                        <div className='col-1'></div>
+                        <canvas className='col-1' width="120px" height="120px"></canvas>
                     </div>
                     <div className='row px-5 p-3'>
                         <label className='col-2'>Description :</label>
