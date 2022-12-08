@@ -44,7 +44,17 @@ public class UtilisateurController {
 			return "OK";
 		} catch (Exception e) {
 			return "ERREUR";
-		}
-		
+		}	
 	}
+	//à effacer
+	@PostMapping("/img")
+	public String uploadImage(@RequestBody Map<String, String> body) {
+		String image = (body.get("image"));
+		
+		
+
+		return "Annonce sauvegardée";
+	}
+	
+	
 }
