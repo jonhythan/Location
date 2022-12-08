@@ -18,15 +18,15 @@ public class Annonce {
     private Categorie categorie;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "etatOutil_id", referencedColumnName = "id")
+    @JoinColumn(name = "etatoutil_id", referencedColumnName = "id")
     private EtatOutil etatOutil;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Administrateur_id_activateur", referencedColumnName = "utilisateur_id")
+    @JoinColumn(name = "administrateur_id_activateur", referencedColumnName = "utilisateur_id")
     private Administrateur administrateurActivateur;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Administrateur_id_desactivateur", referencedColumnName = "utilisateur_id")
+    @JoinColumn(name = "administrateur_id_desactivateur", referencedColumnName = "utilisateur_id")
     private Administrateur administrateurDesactivateur;
 
     private String titre ;

@@ -8,21 +8,23 @@ public class Signalement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idsignalement")
     private int idSignalement;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "MembreUtilisateur_id", referencedColumnName = "utilisateur_id")
+    @JoinColumn(name = "membreutilisateur_id", referencedColumnName = "utilisateur_id")
     private Membre membreUtilisateur;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "AnnonceId", referencedColumnName = "id")
+    @JoinColumn(name = "annonceid", referencedColumnName = "id")
     private Annonce annonce;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Administrateur_id", referencedColumnName = "utilisateur_id")
+    @JoinColumn(name = "administrateur_id", referencedColumnName = "utilisateur_id")
     private Administrateur administrateur;
 
     private String raison;
 
+    @Column(name = "datesignalement")
     private LocalDate dateSignalement;
 
     public int getIdSignalement() {

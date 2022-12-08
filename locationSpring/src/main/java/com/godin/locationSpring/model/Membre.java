@@ -12,11 +12,11 @@ public class Membre implements Serializable {
     private boolean status;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Administrateur_id_desactivateur", referencedColumnName = "utilisateur_id")
+    @JoinColumn(name = "administrateur_id_desactivateur", referencedColumnName = "utilisateur_id")
     private Administrateur administrateurDesactivateur;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Administrateur_id_activateur", referencedColumnName = "utilisateur_id")
+    @JoinColumn(name = "administrateur_id_activateur", referencedColumnName = "utilisateur_id")
     private Administrateur administrateurActivateur;
 
     public Membre() {

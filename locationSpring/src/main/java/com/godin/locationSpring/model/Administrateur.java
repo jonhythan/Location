@@ -10,6 +10,7 @@ public class Administrateur {
     @Column(name = "utilisateur_id")
     private int utilisateurId;
 
+    @Column(name = "dateembauche")
     private LocalDate dateEmbauche;
 
     public int getUtilisateurId() {
