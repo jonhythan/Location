@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import logo from '../Logo.svg'
+import logo from '../logo.svg'
 
 const Login = ()=>{
     const [prenom, setPrenom]=useState("");
