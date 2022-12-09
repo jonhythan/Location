@@ -10,6 +10,7 @@ const NouvelleAnnonce = () => {
     const [arrayChoixCategoriePeriode, setArrayChoixCategoriePeriode]= useState([]);
     const [imageByte, setImageByte]=useState(null);
     const [formState, setFormState]=useState({
+        utilisateurProprietaireId: 1, //changer lorsque l'utilisateur pourra login
         titre : '',
         categorie : '',
         etat: '', 
@@ -61,9 +62,31 @@ const NouvelleAnnonce = () => {
           }
         }
     }
+    const handleSubmit=(e)=>{
+        e.preventDefault();
+        const requestOptions={
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                "listeDetail":arrayChoixCategoriePeriode,
+                "annonce":{
+                    "utilisateurProprietaireId": formState.utilisateurProprietaireId,
+                    "categorieId": formState.categorie,
+                    "etatOutilId": formState.etat,
+                    "titre": formState.titre,
+                    "description":formState.description,
+                    "image": imageByte
+                }                
+            })
+        }
+        console.log(requestOptions)
+        fetch('http://localhost:8080/annonce/insert', requestOptions)
+        .then(response => response.text())
+        .then(data=>console.log(data));
+    }
 
   return (
-    <div>
+    <div><form onSubmit={handleSubmit}>
         <div className='header'>Header</div>
         <div className=''>
             <div className='div-after-header'>
@@ -112,8 +135,8 @@ const NouvelleAnnonce = () => {
                             <select onChange={e=>{setChoixCategoriePeriode(parseInt(e.target.value))}}>
                                 {categoriePeriodes.map((cp)=>(<option value={cp.id} key={cp.id}>{cp.titre}</option>))}
                             </select>&nbsp;
-                            <button className='btn btn-light' onClick={()=>{
-                                
+                            <button className='btn btn-light' onClick={(e)=>{
+                                e.preventDefault();
                                 setArrayChoixCategoriePeriode([...arrayChoixCategoriePeriode.filter(choix=>choix.id!==choixCategoriePeriode), {id: choixCategoriePeriode, prix: prixCategoriePeriode}])
                                 }}>
                                     Ajouter</button>
@@ -135,7 +158,7 @@ const NouvelleAnnonce = () => {
                     </div>  
                 </div>
             </div>
-        </div>
+        </div></form>
     </div>
   )
 }

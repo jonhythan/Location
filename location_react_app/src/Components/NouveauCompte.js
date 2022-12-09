@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import logo from '../Logo.svg'
 
-const Login = ()=>{
+const NouveauCompte = ()=>{
     const [prenom, setPrenom]=useState("");
     const [nom, setNom]=useState("");
     const [telephone, setTelephone]=useState("");
@@ -90,4 +90,4 @@ const Login = ()=>{
     )
 }
 
-export default Login;
+export default NouveauCompte;

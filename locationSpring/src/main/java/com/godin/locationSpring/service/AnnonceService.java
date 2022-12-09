@@ -17,7 +17,7 @@ public class AnnonceService {
 		return annonce;
 	}
 	
-	public boolean insert(Map<String, Object> body) {
+	public int insert(Map<String, Object> body) {
 		Annonce annonce = new Annonce();
 		annonce.setUtilisateurProprietaireId((int)body.get("utilisateurProprietaireId"));
 		annonce.setCategorieId((int)body.get("categorieId"));
@@ -27,10 +27,9 @@ public class AnnonceService {
 		annonce.setTitre((String)body.get("titre"));
 		annonce.setDescription((String)body.get("description"));
 		annonce.setImage((String)body.get("image"));
-		annonce.setStatus(0);
-		annonce.setDateCreation(Timestamp.valueOf((String)body.get("dateCreation")));
+		annonce.setStatus(1);
 		
-		annonceRepository.save(annonce);	
-		return true;
+		int i = annonceRepository.save(annonce).getId();	
+		return i;
 	}
 }

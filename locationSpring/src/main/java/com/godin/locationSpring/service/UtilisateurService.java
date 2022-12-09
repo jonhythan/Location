@@ -17,7 +17,7 @@ public class UtilisateurService {
 		return utilisateurRepository.findAll();
 	}
 	
-	public void saveOne(Utilisateur u) {
-		utilisateurRepository.save(u);
+	public int saveOne(Utilisateur u) {
+		return utilisateurRepository.save(u).getId();
 	}
 }
