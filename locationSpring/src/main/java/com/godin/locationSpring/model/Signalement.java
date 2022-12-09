@@ -1,0 +1,75 @@
+package com.godin.locationSpring.model;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+
+@Entity
+public class Signalement {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int idSignalement;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "MembreUtilisateur_id", referencedColumnName = "utilisateur_id")
+    private Membre membreUtilisateur;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "AnnonceId", referencedColumnName = "id")
+    private Annonce annonce;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "Administrateur_id", referencedColumnName = "utilisateur_id")
+    private Administrateur administrateur;
+
+    private String raison;
+
+    private LocalDate dateSignalement;
+
+    public int getIdSignalement() {
+        return idSignalement;
+    }
+
+    public void setIdSignalement(int idSignalement) {
+        this.idSignalement = idSignalement;
+    }
+
+    public Membre getMembreUtilisateur() {
+        return membreUtilisateur;
+    }
+
+    public void setMembreUtilisateur(Membre membreUtilisateur) {
+        this.membreUtilisateur = membreUtilisateur;
+    }
+
+    public Annonce getAnnonce() {
+        return annonce;
+    }
+
+    public void setAnnonce(Annonce annonce) {
+        this.annonce = annonce;
+    }
+
+    public Administrateur getAdministrateur() {
+        return administrateur;
+    }
+
+    public void setAdministrateur(Administrateur administrateur) {
+        this.administrateur = administrateur;
+    }
+
+    public String getRaison() {
+        return raison;
+    }
+
+    public void setRaison(String raison) {
+        this.raison = raison;
+    }
+
+    public LocalDate getDateSignalement() {
+        return dateSignalement;
+    }
+
+    public void setDateSignalement(LocalDate dateSignalement) {
+        this.dateSignalement = dateSignalement;
+    }
+}
