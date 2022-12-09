@@ -1,21 +1,37 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {Component} from "react";
+import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import NouveauCompte from "./Components/NouveauCompte";
 import NouvelleAnnonce from "./Components/NouvelleAnnonce";
+import MainNavigation from "./Components/Navigation/MainNavigation";
 import Test from "./Components/Test"
 import Test2 from "./Components/Test2";
-function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
+import ComptePage from "./pages/Compte";
+import AnnoncesPage from "./pages/Annonces";
+import MessagesPage from "./pages/Messages";
+import Login from "./pages/Login";
 
-        <Route path="/nouveaucompte" element={<NouveauCompte />} />
-        <Route path="/nouvelleannonce" element={<NouvelleAnnonce />} />
-        <Route path="/test" element={<Test />} />
-        <Route path="/test2" element={<Test2 />} />
+class App extends Component {
+    render() {
+        return (
+            <BrowserRouter>
+                {/*Composant : barre de navigation principale*/}
+                <MainNavigation/>
+                <Routes>
+                    {/*Passer automatiquement à la page par défaut.*/}
+                    <Route path="/" element={<Navigate to={"/nouveaucompte"}/>}/>
+                    <Route path="/nouveaucompte" element={<NouveauCompte/>}/>
+                    <Route path="/nouvelleannonce" element={<NouvelleAnnonce/>}/>
+                    <Route path="/test" element={<Test/>}/>
+                    <Route path="/test2" element={<Test2/>}/>
+                    <Route path="/compte" element={<ComptePage/>}/>
+                    <Route path="/annonces" element={<AnnoncesPage/>}/>
+                    <Route path="/messages" element={<MessagesPage/>}/>
+                    <Route path="/login" element={<Login/>}/>
 
-      </Routes>
-    </BrowserRouter>
-  );
+                </Routes>
+            </BrowserRouter>
+        );
+    }
 }
 
 export default App;
