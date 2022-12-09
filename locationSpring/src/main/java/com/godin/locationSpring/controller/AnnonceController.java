@@ -37,13 +37,12 @@ public class AnnonceController {
 		try {
 			@SuppressWarnings("unchecked")
 			List<Map<String, Object>> listeDetail= (List<Map<String, Object>>)body.get("listeDetail");
+			@SuppressWarnings("unchecked")
 			Map<String, Object> annonceMap = (Map<String, Object>)body.get("annonce");
 			int annonceId = annonceService.insert(annonceMap);
-			
-			
 			detailService.insert(listeDetail, annonceId);
 			
-			return "enregistré";
+			return "ENREGISTRÉ";
 			
 		} catch (Exception e) {
 			return e.toString();
