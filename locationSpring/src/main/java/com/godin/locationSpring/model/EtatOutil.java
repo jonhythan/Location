@@ -1,9 +1,13 @@
 package com.godin.locationSpring.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "Etatoutil")
+@Table(name = "etatoutil")
 public class EtatOutil {
 
     @Id
@@ -27,4 +31,9 @@ public class EtatOutil {
     public void setTitre(String titre) {
         this.titre = titre;
     }
+
+	public EtatOutil() {
+		super();
+	}
+    
 }

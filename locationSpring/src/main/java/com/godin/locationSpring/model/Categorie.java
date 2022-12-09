@@ -29,4 +29,9 @@ public class Categorie {
     public void setNom(String nom) {
         this.nom = nom;
     }
+
+	public Categorie() {
+		super();
+	}
+    
 }
