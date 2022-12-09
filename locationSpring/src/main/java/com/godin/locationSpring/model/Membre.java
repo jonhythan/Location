@@ -8,30 +8,24 @@ import javax.persistence.*;
 @Entity
 @Table(name="membre")
 public class Membre implements Serializable{
-	
+
 	private boolean status;
-	
+
 	@Column(name="utilisateur_id")
 	@Id
 	private int utilisateurId;
-//	
-//	@Column(name="Administrateur_id_desactivateur")
-//	private int administrateurIdDesactivateur;
-//	
-//	@Column(name="Administrateur_id_activateur")
-//	private int administrateurIdActivateur;
-	
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "utilisateur_id", referencedColumnName = "id")
     private Utilisateur utilisateur;
-    
+
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Administrateur_id_desactivateur", referencedColumnName = "utilisateur_id")
+    @JoinColumn(name = "administrateur_id_desactivateur", referencedColumnName = "utilisateur_id")
     private Administrateur administrateurDesactivateur;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Administrateur_id_activateur", referencedColumnName = "utilisateur_id")
+    @JoinColumn(name = "administrateur_id_activateur", referencedColumnName = "utilisateur_id")
     private Administrateur administrateurActivateur;
 
     public Membre() {
@@ -76,7 +70,7 @@ public class Membre implements Serializable{
 	public void setAdministrateurActivateur(Administrateur administrateurActivateur) {
 		this.administrateurActivateur = administrateurActivateur;
 	}
-    
 
-    
+
+
 }
