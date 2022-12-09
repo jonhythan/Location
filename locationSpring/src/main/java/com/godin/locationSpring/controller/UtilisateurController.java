@@ -4,6 +4,8 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.godin.locationSpring.model.Membre;
 import com.godin.locationSpring.model.Utilisateur;
-
+import com.godin.locationSpring.service.MembreService;
 import com.godin.locationSpring.service.UtilisateurService;
 
 @RestController
@@ -20,15 +23,20 @@ import com.godin.locationSpring.service.UtilisateurService;
 public class UtilisateurController {
 	@Autowired
 	UtilisateurService utilisateurService;
+	@Autowired
+	MembreService membreService;
 	
 	@GetMapping("/utilisateurs")
 	public List<Utilisateur> getAllUsers(){
 		return utilisateurService.getAllUsers();
 	}
 	
+	@Transactional
 	@PostMapping("/utilisateur")
 	public String createUtilisateur(@RequestBody Map<String, String> body) {
 		Utilisateur u = new Utilisateur();
+		Membre m = new Membre();
+		
 		u.setNom(body.get("nom"));
 		u.setPrenom(body.get("prenom"));
 		u.setCourriel(body.get("courriel"));
@@ -41,21 +49,17 @@ public class UtilisateurController {
 		u.setVille(body.get("ville"));
 		
 		try {
-			return String.valueOf(utilisateurService.saveOne(u));
+			int idMembre = utilisateurService.save(u);//returne l'id de l'utilisateur
+			m.setUtilisateurId(idMembre);
+			m.setStatus(true);
+			membreService.save(m);
+			return "ENREGISTRÉ";
 			
 		} catch (Exception e) {
 			return "ERREUR";
 		}	
 	}
-	//à effacer
-	@PostMapping("/img")
-	public String uploadImage(@RequestBody Map<String, String> body) {
-		String image = (body.get("image"));
-		
-		
 
-		return "Annonce sauvegardée";
-	}
 	
 	
 }
