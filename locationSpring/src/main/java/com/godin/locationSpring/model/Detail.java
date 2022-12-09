@@ -1,19 +1,19 @@
 package com.godin.locationSpring.model;
 
-import java.io.Serializable;
+ 
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.ManyToOne;
+
 
 import com.godin.locationSpring.model.idClass.DetailId;
 
 @Entity
 @IdClass(DetailId.class)
-public class Detail implements Serializable{
+public class Detail{
 	
 	@Id
 	@Column(name="categorieperiodeid")

@@ -41,8 +41,8 @@ public class UtilisateurController {
 		u.setVille(body.get("ville"));
 		
 		try {
-			utilisateurService.saveOne(u);
-			return "OK";
+			return String.valueOf(utilisateurService.saveOne(u));
+			
 		} catch (Exception e) {
 			return "ERREUR";
 		}	
