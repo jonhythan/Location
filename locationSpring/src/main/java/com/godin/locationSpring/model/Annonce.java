@@ -1,130 +1,200 @@
 package com.godin.locationSpring.model;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+
+import org.springframework.lang.Nullable;
+
+import java.sql.Timestamp;
+
 @Entity
 public class Annonce {
+	public Annonce() {
+		super();
+		this.dateCreation = new Timestamp(System.currentTimeMillis());
+	}
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@Column(name="utilisateur_proprietaire_id")
+	private int utilisateurProprietaireId;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "utilisateur_proprietaire_id", referencedColumnName = "utilisateur_id")
-    private Membre utilisateurProprietaire;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "categorie_id", referencedColumnName = "id")
-    private Categorie categorie;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "etatOutil_id", referencedColumnName = "id")
-    private EtatOutil etatOutil;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Administrateur_id_activateur", referencedColumnName = "utilisateur_id")
-    private Administrateur administrateurActivateur;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Administrateur_id_desactivateur", referencedColumnName = "utilisateur_id")
-    private Administrateur administrateurDesactivateur;
-
+	@Column(name="categorie_id")
+	private int categorieId;
+	
+	@Column(name="etatoutil_id")
+	private int etatOutilId;
+	
+	@Nullable
+	@Column(name="Administrateur_id_activateur")
+	private Integer administrateurIdActivateur;
+	
+	@Nullable
+	@Column(name="Administrateur_id_desactivateur")
+	private Integer administrateurIdDesactivateur;
+	
     private String titre ;
 
     private String description;
 
-    private byte[] image;
+    private String image;
 
     private int status;
 
     @Column(name="date_creation")
-    private LocalDate dateCreation;
+    private Timestamp dateCreation;
+    
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "utilisateur_proprietaire_id", referencedColumnName = "utilisateur_id", insertable = false, updatable = false)
+    private Membre utilisateurProprietaire;
 
-    public int getId() {
-        return id;
-    }
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "categorie_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private Categorie categorie;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "etatoutil_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private EtatOutil etatOutil;
 
-    public Membre getUtilisateurProprietaire() {
-        return utilisateurProprietaire;
-    }
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "Administrateur_id_activateur", referencedColumnName = "utilisateur_id", insertable = false, updatable = false)
+    private Administrateur administrateurActivateur;
 
-    public void setUtilisateurProprietaire(Membre utilisateurProprietaire) {
-        this.utilisateurProprietaire = utilisateurProprietaire;
-    }
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "Administrateur_id_desactivateur", referencedColumnName = "utilisateur_id", insertable = false, updatable = false)
+    private Administrateur administrateurDesactivateur;
 
-    public Categorie getCategorie() {
-        return categorie;
-    }
 
-    public void setCategorie(Categorie categorie) {
-        this.categorie = categorie;
-    }
+	public Membre getUtilisateurProprietaire() {
+		return utilisateurProprietaire;
+	}
 
-    public EtatOutil getEtatOutil() {
-        return etatOutil;
-    }
+	public void setUtilisateurProprietaire(Membre utilisateurProprietaire) {
+		this.utilisateurProprietaire = utilisateurProprietaire;
+	}
 
-    public void setEtatOutil(EtatOutil etatOutil) {
-        this.etatOutil = etatOutil;
-    }
+	public Categorie getCategorie() {
+		return categorie;
+	}
 
-    public Administrateur getAdministrateurActivateur() {
-        return administrateurActivateur;
-    }
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
 
-    public void setAdministrateurActivateur(Administrateur administrateurActivateur) {
-        this.administrateurActivateur = administrateurActivateur;
-    }
+	public EtatOutil getEtatOutil() {
+		return etatOutil;
+	}
 
-    public Administrateur getAdministrateurDesactivateur() {
-        return administrateurDesactivateur;
-    }
+	public void setEtatOutil(EtatOutil etatOutil) {
+		this.etatOutil = etatOutil;
+	}
 
-    public void setAdministrateurDesactivateur(Administrateur administrateurDesactivateur) {
-        this.administrateurDesactivateur = administrateurDesactivateur;
-    }
+	public Administrateur getAdministrateurActivateur() {
+		return administrateurActivateur;
+	}
 
-    public String getTitre() {
-        return titre;
-    }
+	public void setAdministrateurActivateur(Administrateur administrateurActivateur) {
+		this.administrateurActivateur = administrateurActivateur;
+	}
 
-    public void setTitre(String titre) {
-        this.titre = titre;
-    }
+	public Administrateur getAdministrateurDesactivateur() {
+		return administrateurDesactivateur;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setAdministrateurDesactivateur(Administrateur administrateurDesactivateur) {
+		this.administrateurDesactivateur = administrateurDesactivateur;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public byte[] getImage() {
-        return image;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
+	public int getUtilisateurProprietaireId() {
+		return utilisateurProprietaireId;
+	}
 
-    public int getStatus() {
-        return status;
-    }
+	public void setUtilisateurProprietaireId(int utilisateurProprietaireId) {
+		this.utilisateurProprietaireId = utilisateurProprietaireId;
+	}
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
+	public int getCategorieId() {
+		return categorieId;
+	}
 
-    public LocalDate getDateCreation() {
-        return dateCreation;
-    }
+	public void setCategorieId(int categorieId) {
+		this.categorieId = categorieId;
+	}
 
-    public void setDateCreation(LocalDate dateCreation) {
-        this.dateCreation = dateCreation;
-    }
+	public int getEtatOutilId() {
+		return etatOutilId;
+	}
+
+	public void setEtatOutilId(int etatOutilId) {
+		this.etatOutilId = etatOutilId;
+	}
+
+	public Integer getAdministrateurIdActivateur() {
+		return administrateurIdActivateur;
+	}
+
+	public void setAdministrateurIdActivateur(Integer administrateurIdActivateur) {
+		this.administrateurIdActivateur = administrateurIdActivateur;
+	}
+
+	public Integer getAdministrateurIdDesactivateur() {
+		return administrateurIdDesactivateur;
+	}
+
+	public void setAdministrateurIdDesactivateur(Integer administrateurIdDesactivateur) {
+		this.administrateurIdDesactivateur = administrateurIdDesactivateur;
+	}
+
+	public String getTitre() {
+		return titre;
+	}
+
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public Timestamp getDateCreation() {
+		return dateCreation;
+	}
+
+	public void setDateCreation(Timestamp dateCreation) {
+		this.dateCreation = dateCreation;
+	}
+
+	
+    
+    
+
 }

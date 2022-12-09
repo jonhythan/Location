@@ -1,15 +1,30 @@
 package com.godin.locationSpring.model;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
+import javax.persistence.*;
+
+
 @Entity
-public class Membre implements Serializable {
+@Table(name="membre")
+public class Membre implements Serializable{
+	
+	private boolean status;
+	
+	@Column(name="utilisateur_id")
+	@Id
+	private int utilisateurId;
+//	
+//	@Column(name="Administrateur_id_desactivateur")
+//	private int administrateurIdDesactivateur;
+//	
+//	@Column(name="Administrateur_id_activateur")
+//	private int administrateurIdActivateur;
+	
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "utilisateur_id", referencedColumnName = "id")
-    @Id
-    private Utilisateur utilisateurId;
-    private boolean status;
+    private Utilisateur utilisateur;
+    
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "Administrateur_id_desactivateur", referencedColumnName = "utilisateur_id")
@@ -22,35 +37,46 @@ public class Membre implements Serializable {
     public Membre() {
     }
 
-    public Utilisateur getUtilisateurId() {
-        return utilisateurId;
-    }
+	public boolean isStatus() {
+		return status;
+	}
 
-    public void setUtilisateurId(Utilisateur utilisateurId) {
-        this.utilisateurId = utilisateurId;
-    }
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
 
-    public boolean isStatus() {
-        return status;
-    }
+	public int getUtilisateurId() {
+		return utilisateurId;
+	}
 
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
+	public void setUtilisateurId(int utilisateurId) {
+		this.utilisateurId = utilisateurId;
+	}
 
-    public Administrateur getAdministrateurDesactivateur() {
-        return administrateurDesactivateur;
-    }
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
 
-    public void setAdministrateurDesactivateur(Administrateur administrateurDesactivateur) {
-        this.administrateurDesactivateur = administrateurDesactivateur;
-    }
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
 
-    public Administrateur getAdministrateurActivateur() {
-        return administrateurActivateur;
-    }
+	public Administrateur getAdministrateurDesactivateur() {
+		return administrateurDesactivateur;
+	}
 
-    public void setAdministrateurActivateur(Administrateur administrateurActivateur) {
-        this.administrateurActivateur = administrateurActivateur;
-    }
+	public void setAdministrateurDesactivateur(Administrateur administrateurDesactivateur) {
+		this.administrateurDesactivateur = administrateurDesactivateur;
+	}
+
+	public Administrateur getAdministrateurActivateur() {
+		return administrateurActivateur;
+	}
+
+	public void setAdministrateurActivateur(Administrateur administrateurActivateur) {
+		this.administrateurActivateur = administrateurActivateur;
+	}
+    
+
+    
 }
