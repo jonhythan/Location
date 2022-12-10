@@ -1,5 +1,6 @@
 import React from 'react'
 import {useState, useEffect, useRef} from 'react';
+import logo from '../logo.svg'
 
 const NouvelleAnnonce = () => {
     const [categories, setCategories]= useState([])
@@ -106,7 +107,7 @@ const NouvelleAnnonce = () => {
 
   return (
     <div><form onSubmit={handleSubmit}>
-        <div className='header'>Header</div>
+        <img src={logo} alt="Logo" style={{marginTop: '3.5rem'}}/>
         <div className=''>
             <div className='div-after-header'>
                 <div className='container container-nouvelle-annonce '>
