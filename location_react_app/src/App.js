@@ -15,20 +15,22 @@ class App extends Component {
         return (
             <BrowserRouter>
                 {/*Composant : barre de navigation principale*/}
-                <MainNavigation/>
-                <Routes>
-                    {/*Passer automatiquement à la page par défaut.*/}
-                    <Route path="/" element={<Navigate to={"/nouveaucompte"}/>}/>
-                    <Route path="/nouveaucompte" element={<NouveauCompte/>}/>
-                    <Route path="/nouvelleannonce" element={<NouvelleAnnonce/>}/>
-                    <Route path="/test" element={<Test/>}/>
-                    <Route path="/test2" element={<Test2/>}/>
-                    <Route path="/compte" element={<ComptePage/>}/>
-                    <Route path="/annonces" element={<AnnoncesPage/>}/>
-                    <Route path="/messages" element={<MessagesPage/>}/>
-                    <Route path="/login" element={<Login/>}/>
+                <div>
+                    <MainNavigation/>
+                    <Routes>
+                        {/*Passer automatiquement à la page par défaut.*/}
+                        <Route path="/" element={<Navigate to={"/nouveaucompte"}/>}/>
+                        <Route path="/nouveaucompte" element={<NouveauCompte/>}/>
+                        <Route path="/nouvelleannonce" element={<NouvelleAnnonce/>}/>
+                        <Route path="/test" element={<Test/>}/>
+                        <Route path="/test2" element={<Test2/>}/>
+                        <Route path="/compte" element={<ComptePage/>}/>
+                        <Route path="/annonces" element={<AnnoncesPage/>}/>
+                        <Route path="/messages" element={<MessagesPage/>}/>
+                        <Route path="/login" element={<Login/>}/>
 
-                </Routes>
+                    </Routes>
+                </div>
             </BrowserRouter>
         );
     }
