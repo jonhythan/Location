@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Accueil from "./Components/Accueil";
 import NouveauCompte from "./Components/NouveauCompte";
 import NouvelleAnnonce from "./Components/NouvelleAnnonce";
 import Test from "./Components/Test"
@@ -8,6 +9,7 @@ function App() {
     <BrowserRouter>
       <Routes>
 
+        <Route path="/" element={<Accueil />} />
         <Route path="/nouveaucompte" element={<NouveauCompte />} />
         <Route path="/nouvelleannonce" element={<NouvelleAnnonce />} />
         <Route path="/test" element={<Test />} />
