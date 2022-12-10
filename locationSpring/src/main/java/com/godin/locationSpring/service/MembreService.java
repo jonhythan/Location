@@ -15,5 +15,8 @@ public class MembreService {
 		return membreRepository.findAll().get(0);
 	}
 	
+	public void save(Membre membre) {
+		membreRepository.save(membre);
+	}
 
 }

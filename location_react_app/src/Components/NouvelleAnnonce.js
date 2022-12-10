@@ -1,5 +1,6 @@
 import React from 'react'
 import {useState, useEffect, useRef} from 'react';
+import logo from '../Logo.svg'
 
 const NouvelleAnnonce = () => {
     const [categories, setCategories]= useState([])
@@ -19,6 +20,8 @@ const NouvelleAnnonce = () => {
 
     })
     const shouldlog = useRef(true);
+    const [warning, setWarning] = useState("");
+    const [confirmation, setConfirmation] = useState("");
     useEffect(()=>{
         //fetchdata
         if(shouldlog.current){
@@ -64,43 +67,60 @@ const NouvelleAnnonce = () => {
     }
     const handleSubmit=(e)=>{
         e.preventDefault();
-        const requestOptions={
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                "listeDetail":arrayChoixCategoriePeriode,
-                "annonce":{
-                    "utilisateurProprietaireId": formState.utilisateurProprietaireId,
-                    "categorieId": formState.categorie,
-                    "etatOutilId": formState.etat,
-                    "titre": formState.titre,
-                    "description":formState.description,
-                    "image": imageByte
-                }                
-            })
+        if(arrayChoixCategoriePeriode.length===0){
+            setWarning("Vous devez choisir au moins une fourchette de prix");
+        }else{
+            setWarning("");
+            const requestOptions={
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    "listeDetail":arrayChoixCategoriePeriode,
+                    "annonce":{
+                        "utilisateurProprietaireId": formState.utilisateurProprietaireId,
+                        "categorieId": formState.categorie,
+                        "etatOutilId": formState.etat,
+                        "titre": formState.titre,
+                        "description":formState.description,
+                        "image": imageByte
+                    }                
+                })
+            }
+            console.log(requestOptions)
+            fetch('http://localhost:8080/annonce/insert', requestOptions)
+            .then(response => response.text())
+            .then((data)=>{
+                if(data==="ENREGISTRÉ"){
+                    console.log(data);
+                    setConfirmation("Annonce créé avec succès")
+                    setTimeout(() => {
+                        window.location.replace("/");
+                    }, 1000);
+                }else{
+                    console.log(data);
+                    setConfirmation("Une erreur est sourvenue, veuillez réessayer");
+                }
+                });
         }
-        console.log(requestOptions)
-        fetch('http://localhost:8080/annonce/insert', requestOptions)
-        .then(response => response.text())
-        .then(data=>console.log(data));
+
     }
 
   return (
     <div><form onSubmit={handleSubmit}>
-        <div className='header'>Header</div>
+        <img src={logo} alt="Logo" style={{marginTop: '3.5rem'}}/>
         <div className=''>
             <div className='div-after-header'>
                 <div className='container container-nouvelle-annonce '>
                     <h4 className='text-center text-secondary'>Nouvelle annonce</h4>
                     <div className='row px-5 p-3'>
                         <div className='col-1'>Titre : </div>
-                        <input type="text" className='col-11' onChange={e=>setFormState({...formState, titre : e.target.value})}></input>
+                        <input type="text" className='col-11' onChange={e=>setFormState({...formState, titre : e.target.value})} required></input>
                     </div>
                     <div className='row px-5 p-3'>
                         <div className='col-3'>
                             <label >Catégorie : </label>
                             <span className='px-3'>
-                                <select onChange={e=>setFormState({...formState, categorie : parseInt(e.target.value)})}>
+                                <select onChange={e=>setFormState({...formState, categorie : parseInt(e.target.value)})} required>
                                     {categories.map((c)=>(<option value={c.id} key={c.id}>{c.nom}</option>))}
                                 </select>
                             </span>
@@ -108,7 +128,7 @@ const NouvelleAnnonce = () => {
                         <div className='col-3'>
                             <label>État:</label>
                             <span className='px-3'>
-                                <select onChange={e=>setFormState({...formState, etat : parseInt(e.target.value)})}>
+                                <select onChange={e=>setFormState({...formState, etat : parseInt(e.target.value)})} required>
                                     {etatsOutil.map((etat)=>(<option value={etat.id} key={etat.id}>{etat.titre}</option>))}
                                 </select>
                             </span>
@@ -116,7 +136,7 @@ const NouvelleAnnonce = () => {
                     </div>
                     <div className='row px-5 p-3'>
                         <label className='col-1' >Image :</label>
-                        <input type="file"  accept="image/PNG" onChange={(e) => {imageChange(e)}} className='col-3'></input>
+                        <input type="file"  accept="image/PNG" onChange={(e) => {imageChange(e)}} className='col-3' required></input>
                     </div>
                     <div className='row px-5 p-3'>
                         <div className='col-1'></div>
@@ -124,7 +144,7 @@ const NouvelleAnnonce = () => {
                     </div>
                     <div className='row px-5 p-3'>
                         <label className='col-2'>Description :</label>
-                        <textarea className='col' onChange={e=> {setFormState({...formState, description: e.target.value})}}></textarea>                        
+                        <textarea className='col' onChange={e=> {setFormState({...formState, description: e.target.value})}} required></textarea>                        
                     </div>
                     <div className='row px-5 p-3'>
                         <label className='col-1'>Prix :</label>
@@ -137,9 +157,11 @@ const NouvelleAnnonce = () => {
                             </select>&nbsp;
                             <button className='btn btn-light' onClick={(e)=>{
                                 e.preventDefault();
+                                setWarning("");
                                 setArrayChoixCategoriePeriode([...arrayChoixCategoriePeriode.filter(choix=>choix.id!==choixCategoriePeriode), {id: choixCategoriePeriode, prix: prixCategoriePeriode}])
                                 }}>
-                                    Ajouter</button>
+                                    Ajouter</button> <br/>
+                            <span className='text-danger'>{warning}</span>
                         </div>
                         <div className='col'>
                             Mes choix:
@@ -154,8 +176,14 @@ const NouvelleAnnonce = () => {
                     </div>
                     <div className="row px-5 p-3 justify-content-center">
                         <input type="submit" value="Sauvegarder" className='col-2 btn btn-primary ' />&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input type="submit" value="Annuler" className='col-2 btn btn-danger ' />
+                        <input type="submit" value="Annuler" className='col-2 btn btn-danger ' onClick={(e)=>{
+                            e.preventDefault();
+                            window.location.replace("/");
+                        }} />
                     </div>  
+                    <div className="row px-5 p-3 justify-content-center">
+                        <h4>{confirmation}</h4>
+                    </div>
                 </div>
             </div>
         </div></form>
