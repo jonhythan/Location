@@ -15,24 +15,24 @@ public class Annonce {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Column(name="utilisateur_proprietaire_id")
 	private int utilisateurProprietaireId;
 
 	@Column(name="categorie_id")
 	private int categorieId;
-	
+
 	@Column(name="etatoutil_id")
 	private int etatOutilId;
-	
+
 	@Nullable
-	@Column(name="Administrateur_id_activateur")
+	@Column(name="administrateur_id_activateur")
 	private Integer administrateurIdActivateur;
-	
+
 	@Nullable
-	@Column(name="Administrateur_id_desactivateur")
+	@Column(name="administrateur_id_desactivateur")
 	private Integer administrateurIdDesactivateur;
-	
+
     private String titre ;
 
     private String description;
@@ -43,7 +43,7 @@ public class Annonce {
 
     @Column(name="date_creation")
     private Timestamp dateCreation;
-    
+
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "utilisateur_proprietaire_id", referencedColumnName = "utilisateur_id", insertable = false, updatable = false)
     private Membre utilisateurProprietaire;
@@ -57,11 +57,11 @@ public class Annonce {
     private EtatOutil etatOutil;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Administrateur_id_activateur", referencedColumnName = "utilisateur_id", insertable = false, updatable = false)
+    @JoinColumn(name = "administrateur_id_activateur", referencedColumnName = "utilisateur_id", insertable = false, updatable = false)
     private Administrateur administrateurActivateur;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "Administrateur_id_desactivateur", referencedColumnName = "utilisateur_id", insertable = false, updatable = false)
+    @JoinColumn(name = "administrateur_id_desactivateur", referencedColumnName = "utilisateur_id", insertable = false, updatable = false)
     private Administrateur administrateurDesactivateur;
 
 
@@ -193,8 +193,8 @@ public class Annonce {
 		this.dateCreation = dateCreation;
 	}
 
-	
-    
-    
+
+
+
 
 }

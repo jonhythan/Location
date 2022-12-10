@@ -1,5 +1,6 @@
 import React from 'react'
 import {useState, useEffect, useRef} from 'react';
+import logo from '../Logo.svg'
 
 const NouvelleAnnonce = () => {
     const [categories, setCategories]= useState([])
@@ -106,7 +107,7 @@ const NouvelleAnnonce = () => {
 
   return (
     <div><form onSubmit={handleSubmit}>
-        <div className='header'>Header</div>
+        <img src={logo} alt="Logo" style={{marginTop: '3.5rem'}}/>
         <div className=''>
             <div className='div-after-header'>
                 <div className='container container-nouvelle-annonce '>
@@ -177,7 +178,7 @@ const NouvelleAnnonce = () => {
                         <input type="submit" value="Sauvegarder" className='col-2 btn btn-primary ' />&nbsp;&nbsp;&nbsp;&nbsp;
                         <input type="submit" value="Annuler" className='col-2 btn btn-danger ' onClick={(e)=>{
                             e.preventDefault();
-                            window.location.reload();
+                            window.location.replace("/");
                         }} />
                     </div>  
                     <div className="row px-5 p-3 justify-content-center">
