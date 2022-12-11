@@ -1,5 +1,6 @@
 import {useState} from 'react'
-import logo from '../logo.svg'
+import logo from '../Logo.svg'
+
 
 const NouveauCompte = ()=>{
     const [prenom, setPrenom]=useState("");
@@ -65,7 +66,9 @@ const NouveauCompte = ()=>{
 
     return(
         <div > 
-            <img src={logo} alt="Logo" style={{marginTop: '3.5rem'}}/>
+            <div className='d-flex justify-content-center'>
+                <img src={logo} alt="Logo" style={{marginTop: '6.0rem'}}/>
+            </div>
             <h2 className="text-center text-white">Créez votre compte</h2>
             <h4 className="text-center text-secondary">Afin d'enregistrer votre compte, veuillez entrer des informations valides</h4>
             <form onSubmit={handleSubmit} className="container container-login">
