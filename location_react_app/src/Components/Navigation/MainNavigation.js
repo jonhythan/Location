@@ -1,6 +1,6 @@
 import {NavLink} from "react-router-dom";
 import "./MainNavigation.css"
-import logo from "../../Logo.svg"
+import logo from '../../logo.svg'
 
 const MainNavigation = (props) => (
     <header className="main-navigation d-flex justify-content-around">
