@@ -1,6 +1,6 @@
 import React from 'react'
 import {useState, useEffect, useRef} from 'react';
-import logo from '../logo.svg'
+import logo from '../Logo.svg'
 
 const NouvelleAnnonce = () => {
     const [categories, setCategories]= useState([])
@@ -178,7 +178,7 @@ const NouvelleAnnonce = () => {
                         <input type="submit" value="Sauvegarder" className='col-2 btn btn-primary ' />&nbsp;&nbsp;&nbsp;&nbsp;
                         <input type="submit" value="Annuler" className='col-2 btn btn-danger ' onClick={(e)=>{
                             e.preventDefault();
-                            window.location.reload();
+                            window.location.replace("/");
                         }} />
                     </div>  
                     <div className="row px-5 p-3 justify-content-center">
