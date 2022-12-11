@@ -6,7 +6,7 @@ class NouveauSignalement extends Component {
   constructor() {
     super();
     this.state = {
-      selectedReaon: 'repetitive',
+      selectedReaon: 'Cet Annonce est répétitive',
       confirmation:''
     };
     this.handleRaison = this.handleRaison.bind(this);
@@ -62,13 +62,13 @@ class NouveauSignalement extends Component {
             <div className='container container-nouveau-signalement '>
                 <h4 className='text-center text-secondary'>Signler cet annonce ... Indiquz pourquoi: </h4>
                 <div className="form-check">
-                  <input className="form-check-input" type="radio" name="raison" id="repetitive" value="Cet Annonce est répétitive" checked={this.state.selectedReaon === 'repetitive'} onChange={this.handleRaison}/>
+                  <input className="form-check-input" type="radio" name="raison" id="repetitive" value="Cet Annonce est répétitive" checked={this.state.selectedReaon === 'Cet Annonce est répétitive'} onChange={this.handleRaison}/>
                   <label className="form-check-label" htmlFor="repetitive">
                     Cet Annonce est répétitive
                   </label>
                 </div>
                 <div className="form-check">
-                  <input className="form-check-input" type="radio" name="raison" id="fausse" value="Fausse information" checked={this.state.selectedReaon === 'fausse'} onChange={this.handleRaison}/>
+                  <input className="form-check-input" type="radio" name="raison" id="fausse" value="Fausse information" checked={this.state.selectedReaon === 'Fausse information'} onChange={this.handleRaison}/>
                   <label className="form-check-label" htmlFor="fausse">
                     Fausse information
                   </label>
