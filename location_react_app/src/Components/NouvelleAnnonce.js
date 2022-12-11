@@ -1,6 +1,6 @@
 import React from 'react'
 import {useState, useEffect, useRef} from 'react';
-import logo from '../Logo.svg'
+import logo from '../logo.svg'
 
 const NouvelleAnnonce = () => {
     const [categories, setCategories]= useState([])
