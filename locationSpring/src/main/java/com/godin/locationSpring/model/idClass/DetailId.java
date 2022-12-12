@@ -2,13 +2,16 @@ package com.godin.locationSpring.model.idClass;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-
 
 public class DetailId implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("unused")
+	private int AnnonceId;
+	@SuppressWarnings("unused")
 	private int CategoriePeriodeId;
 
-	private int AnnonceId;
 }

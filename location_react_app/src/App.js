@@ -9,6 +9,7 @@ import ComptePage from "./pages/Compte";
 import AnnoncesPage from "./pages/Annonces";
 import MessagesPage from "./pages/Messages";
 import Login from "./pages/Login";
+import UneAnnonce from "./Components/UneAnnonce";
 
 class App extends Component {
     render() {
@@ -28,6 +29,7 @@ class App extends Component {
                         <Route path="/annonces" element={<AnnoncesPage/>}/>
                         <Route path="/messages" element={<MessagesPage/>}/>
                         <Route path="/login" element={<Login/>}/>
+                        <Route path="/annonce" element={<UneAnnonce/>}/>
 
                     </Routes>
                 </div>
