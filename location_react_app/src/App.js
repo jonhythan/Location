@@ -2,6 +2,7 @@ import {Component} from "react";
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import NouveauCompte from "./Components/NouveauCompte";
 import NouvelleAnnonce from "./Components/NouvelleAnnonce";
+import NouveauSignalement from "./Components/NouveauSignalement"
 import MainNavigation from "./Components/Navigation/MainNavigation";
 import Test from "./Components/Test"
 import Test2 from "./Components/Test2";
@@ -16,9 +17,9 @@ class App extends Component {
         return (
             <BrowserRouter>
                 {/*Composant : barre de navigation principale*/}
-                <div>
-                    <MainNavigation/>
-                    <Routes>
+                
+                <MainNavigation/>
+                <Routes>
                         {/*Passer automatiquement à la page par défaut.*/}
                         <Route path="/" element={<Navigate to={"/nouveaucompte"}/>}/>
                         <Route path="/nouveaucompte" element={<NouveauCompte/>}/>
@@ -31,12 +32,10 @@ class App extends Component {
                         <Route path="/login" element={<Login/>}/>
                         <Route path="/annonce" element={<UneAnnonce/>}/>
 
-                    </Routes>
-                </div>
+                </Routes>
             </BrowserRouter>
-        );
+            );
+        }
     }
-}
-
 
 export default App;
