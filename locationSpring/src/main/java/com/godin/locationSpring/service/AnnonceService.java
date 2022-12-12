@@ -1,6 +1,8 @@
 package com.godin.locationSpring.service;
 import java.sql.Timestamp;
 import java.util.Map;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.godin.locationSpring.model.Annonce;
@@ -13,8 +15,11 @@ public class AnnonceService {
 	
 	public Annonce getOneAnnonce() {
 		Annonce annonce = annonceRepository.findAll().get(1);
-
 		return annonce;
+	}
+	public Annonce getAnnonce(int id) {
+		Optional<Annonce> annonce =  annonceRepository.findById(id);
+		return annonce.get();
 	}
 	
 	public int insert(Map<String, Object> body) {

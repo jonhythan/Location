@@ -106,10 +106,8 @@ const NouvelleAnnonce = () => {
     }
 
   return (
-    <div><form onSubmit={handleSubmit}>
-        <img src={logo} alt="Logo" style={{marginTop: '3.5rem'}}/>
-        <div className=''>
-            <div className='div-after-header'>
+    <div className='div_after_header'><form onSubmit={handleSubmit}>
+            <div className='div_nouvelle_annonce'>
                 <div className='container container-nouvelle-annonce '>
                     <h4 className='text-center text-secondary'>Nouvelle annonce</h4>
                     <div className='row px-5 p-3'>
@@ -186,7 +184,7 @@ const NouvelleAnnonce = () => {
                     </div>
                 </div>
             </div>
-        </div></form>
+        </form>
     </div>
   )
 }

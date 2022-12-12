@@ -10,25 +10,27 @@ import ComptePage from "./pages/Compte";
 import AnnoncesPage from "./pages/Annonces";
 import MessagesPage from "./pages/Messages";
 import Login from "./pages/Login";
+import UneAnnonce from "./Components/UneAnnonce";
 
 class App extends Component {
     render() {
         return (
             <BrowserRouter>
                 {/*Composant : barre de navigation principale*/}
+                
                 <MainNavigation/>
                 <Routes>
-                    {/*Passer automatiquement à la page par défaut.*/}
-                    <Route path="/" element={<Navigate to={"/nouveaucompte"}/>}/>
-                    <Route path="/nouveaucompte" element={<NouveauCompte/>}/>
-                    <Route path="/nouvelleannonce" element={<NouvelleAnnonce/>}/>
-                    <Route path="/nouveausignalement" element={<NouveauSignalement/>}/>
-                    <Route path="/test" element={<Test/>}/>
-                    <Route path="/test2" element={<Test2/>}/>
-                    <Route path="/compte" element={<ComptePage/>}/>
-                    <Route path="/annonces" element={<AnnoncesPage/>}/>
-                    <Route path="/messages" element={<MessagesPage/>}/>
-                    <Route path="/login" element={<Login/>}/>
+                        {/*Passer automatiquement à la page par défaut.*/}
+                        <Route path="/" element={<Navigate to={"/nouveaucompte"}/>}/>
+                        <Route path="/nouveaucompte" element={<NouveauCompte/>}/>
+                        <Route path="/nouvelleannonce" element={<NouvelleAnnonce/>}/>
+                        <Route path="/test" element={<Test/>}/>
+                        <Route path="/test2" element={<Test2/>}/>
+                        <Route path="/compte" element={<ComptePage/>}/>
+                        <Route path="/annonces" element={<AnnoncesPage/>}/>
+                        <Route path="/messages" element={<MessagesPage/>}/>
+                        <Route path="/login" element={<Login/>}/>
+                        <Route path="/annonce" element={<UneAnnonce/>}/>
 
                 </Routes>
             </BrowserRouter>

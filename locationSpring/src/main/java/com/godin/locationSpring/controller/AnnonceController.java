@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +30,11 @@ public class AnnonceController {
 	@GetMapping("/annonces")	
 	public Annonce getAnnonces(){
 		return annonceService.getOneAnnonce();
+	}
+	
+	@GetMapping("/annonce/{id}")
+	public Annonce getAnnonce(@PathVariable String id) {
+		return annonceService.getAnnonce(Integer.parseInt(id));
 	}
 	
 	@PostMapping("annonce/insert")
