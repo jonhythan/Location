@@ -24,6 +24,7 @@ class App extends Component {
                         <Route path="/" element={<Navigate to={"/nouveaucompte"}/>}/>
                         <Route path="/nouveaucompte" element={<NouveauCompte/>}/>
                         <Route path="/nouvelleannonce" element={<NouvelleAnnonce/>}/>
+                        <Route path="/nouveausignalement" element={<NouveauSignalement/>}/>
                         <Route path="/test" element={<Test/>}/>
                         <Route path="/test2" element={<Test2/>}/>
                         <Route path="/compte" element={<ComptePage/>}/>
