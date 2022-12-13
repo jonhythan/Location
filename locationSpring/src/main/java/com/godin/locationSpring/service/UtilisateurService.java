@@ -20,4 +20,9 @@ public class UtilisateurService {
 	public int save(Utilisateur u) {
 		return utilisateurRepository.save(u).getId();
 	}
+	
+	public String getNom(int id) {
+		Utilisateur u =  utilisateurRepository.findById(id).get();
+		return (u.getPrenom()).toUpperCase();
+	}
 }

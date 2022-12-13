@@ -25,6 +25,12 @@ public class EvaluationService {
 		return evaluationRepository.findAll();
 	}
 	
+	public List<Evaluation> getByAnnonceId(int annonceId){
+		 List<Evaluation> l = getAll();
+		 l.removeIf(x->(x.getAnnonceId()!=annonceId));
+		 return l;
+	}
+	
 	public void insert(Map<String, Object> body) {
 		Evaluation evaluation = new Evaluation();
 		evaluation.setAnnonceId((Integer)body.get("annonceId"));
