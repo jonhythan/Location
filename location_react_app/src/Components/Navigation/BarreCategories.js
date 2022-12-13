@@ -18,7 +18,7 @@ const BarreCategories = () => {
 
     
   return (
-    <div className='BarreCategories'>
+    <div className='BarreCategories p-4'>
         <ul className='list-group'>
             {categories.map((c)=>(
                 <li className='list-group-item' key={c.id}>{c.nom}</li>

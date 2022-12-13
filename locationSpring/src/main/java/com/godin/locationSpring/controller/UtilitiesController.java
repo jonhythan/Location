@@ -1,8 +1,12 @@
 package com.godin.locationSpring.controller;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.godin.locationSpring.model.Categorie;
 import com.godin.locationSpring.model.CategoriePeriode;
@@ -56,6 +60,11 @@ public class UtilitiesController {
 	@GetMapping("/evaluations")
 	public List<Evaluation> getAll(){
 		return evaluationService.getAll();
+	}
+	
+	@PostMapping("/evaluation/insert")
+	public void evaluerAnnonce(@RequestBody Map<String, Object> body) {
+		evaluationService.insert(body);
 	}
 	
 }

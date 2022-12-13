@@ -60,7 +60,7 @@ class NouveauSignalement extends Component {
     <div className=''>
         <div className='div-after-header'>
             <div className='container container-nouveau-signalement '>
-                <h4 className='text-center text-secondary'>Signler cet annonce ... Indiquz pourquoi: </h4>
+                <h4 className='text-center text-secondary'>Signaler cet annonce ... Indiquez pourquoi: </h4>
                 <div className="form-check">
                   <input className="form-check-input" type="radio" name="raison" id="repetitive" value="Cet Annonce est répétitive" checked={this.state.selectedReaon === 'Cet Annonce est répétitive'} onChange={this.handleRaison}/>
                   <label className="form-check-label" htmlFor="repetitive">
