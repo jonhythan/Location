@@ -5,7 +5,7 @@ import logo from '../../logo.svg'
 const MainNavigation = (props) => (
     <header className="main-navigation d-flex justify-content-around">
         <div className="main-navigation__logo">
-            <NavLink to="/" ><img src={logo} alt="logo vers la page accueil"/></NavLink>
+            <NavLink to="/compte" ><img src={logo} alt="logo vers la page accueil"/></NavLink>
         </div>
         <nav className="main-navigation__items">
             <ul>

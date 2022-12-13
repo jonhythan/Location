@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import BarreCategories from "./Navigation/BarreCategories"
 import { AiFillStar } from 'react-icons/ai';
 import Evaluation from './Evaluation';
+import {IoPersonCircleOutline} from "react-icons/io5"
 
 
 const UneAnnonce = () => {
@@ -16,6 +17,15 @@ const UneAnnonce = () => {
     const [note, setNote]=useState(0);
     const [commentaires, setCommentaires]=useState([]);
     const [peutCommenter, setPeutCommenter]=useState(false);
+    const [evaluations, setEvaluations] = useState(()=>{
+      const requestOptions={
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      }
+      fetch('http://localhost:8080/evaluation/'+searchParams.get("id"), requestOptions)
+        .then(response => response.json())
+        .then(data=>{setEvaluations(data)})
+    });
     const [divEvaluation, setDivEvaluation]=useState("none");
     const [idAnnonce, setIdAnnonce]=useState(0);
     const [annonce, setAnnonce]= useState(()=>{
@@ -38,15 +48,22 @@ const UneAnnonce = () => {
             setNote(()=>{
               var n=0;
               data["evaluations"].map(e=>n+=e.note)
-              // console.log(data["evaluations"])
-              // console.log(n);
               if(!isNaN(n)&&data["evaluations"].length>0) return (n/data["evaluations"].length).toFixed(1);
               else return 0;
             })
             setCommentaires(data["evaluations"]);
+            // let requestOptions={            
+            //   method: 'GET',
+            //   headers: { 'Content-Type': 'application/json' }
+            // }
+            // data["evaluations"].map((c)=>{
+            //   let nom="";
+            //   fetch("http://localhost:8080/nommembre/"+c["membreId"], requestOptions).then(response=>response.text())
+            //     .then(d=>{setNomsCommentateur([...nomsCommentateur, d]); console.log(d)});
+            //   return nom;
+            // })
             setPeutCommenter(()=>{
               var commentateursId =  data["evaluations"].map(e=>e.membreId)
-              console.log(!commentateursId.includes(idMembreLoggedIn))
               return (!commentateursId.includes(idMembreLoggedIn))
             })
           });
@@ -54,7 +71,8 @@ const UneAnnonce = () => {
    
     useEffect(()=>
     {
-
+      console.log(evaluations);
+          
     })
 
   return (
@@ -72,7 +90,7 @@ const UneAnnonce = () => {
                   &nbsp;
                   {note}
                   &nbsp;
-                  ({commentaires.length} reviews)
+                  ({evaluations?.length} reviews)
                   &nbsp;
                   {peutCommenter ? <a href='.' onClick={(e)=>{
                     e.preventDefault();
@@ -112,12 +130,36 @@ const UneAnnonce = () => {
               </div>
             </div>
             <div className='row' style={{marginTop: "20px"}}>
-              hi
+              <h5>Commentaires</h5>
+              <div>
+                {evaluations?.length>0 ? evaluations?.map((c)=>{
+                  return(
+                  <div key={c["membreId"]} className="d-flex"  style={{boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px", marginBottom:"10px"}}>
+                    <div className='d-flex flex-column align-items-center flex-shrink' style={{width:"150px"}}>
+                      <IoPersonCircleOutline style={{fontSize: "3em"}} />
+                      <div>{c["nom"]}</div>
+                    </div>
+                    <div>
+                      <div>
+                        {new Array(c["note"]).fill(null).map((item, index)=> <AiFillStar key={index}/>)} {c["note"]}/10
+                      </div>
+                      <div>
+                        {c["commentaire"]}
+                      </div>
+                      <div style={{fontSize:"0.8em"}}>
+                        {c["dateEvaluation"].split().map(d=>{
+                          return d.split("T")[0]+" "+d.split("T")[1].split(".")[0];
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                )}):"Aucun commentaire"}
+              </div>
+
             </div>
           </div>
 
         </div>
-                    {divEvaluation}
       </div>
       <Evaluation d={divEvaluation} membreId={idMembreLoggedIn} annonceId={idAnnonce}/>
       
