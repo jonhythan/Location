@@ -76,7 +76,6 @@ public class UtilitiesController {
 	public Object getEvaluationAnnonce(@PathVariable String idannonce) {
 		List<Evaluation> evaluations = evaluationService.getByAnnonceId(Integer.valueOf(idannonce));
 		List<Object> object = new ArrayList<Object>();
-//		object.add("hello");
 		evaluations.forEach(x->{
 			HashMap<String, Object> map = new HashMap<>();
 			map.put("annonceId", x.getAnnonceId());
