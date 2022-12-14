@@ -1,4 +1,4 @@
-import React, { useEffect , useState} from 'react'
+import React, { useEffect , useState, useRef} from 'react'
 import { useSearchParams } from "react-router-dom";
 import BarreCategories from "./Navigation/BarreCategories"
 import { AiFillStar } from 'react-icons/ai';
@@ -9,13 +9,13 @@ import {IoPersonCircleOutline} from "react-icons/io5"
 const UneAnnonce = () => {
     const [idMembreLoggedIn, setIdMembreLoggedIn]=useState(1) //plus tard on va aller le chercher dans la session.
     const [searchParams] = useSearchParams({});
+    const [message, setMessage]=useState("");
     const [titre, setTitre]= useState("");
     const [image, setImage]= useState();
     const [periodes, setPeriodes]=useState([]);
     const [description, setDescription]=useState("");
     const [adresse, setAdresse]=useState("");
     const [note, setNote]=useState(0);
-    const [commentaires, setCommentaires]=useState([]);
     const [peutCommenter, setPeutCommenter]=useState(false);
     const [evaluations, setEvaluations] = useState(()=>{
       const requestOptions={
@@ -51,17 +51,6 @@ const UneAnnonce = () => {
               if(!isNaN(n)&&data["evaluations"].length>0) return (n/data["evaluations"].length).toFixed(1);
               else return 0;
             })
-            setCommentaires(data["evaluations"]);
-            // let requestOptions={            
-            //   method: 'GET',
-            //   headers: { 'Content-Type': 'application/json' }
-            // }
-            // data["evaluations"].map((c)=>{
-            //   let nom="";
-            //   fetch("http://localhost:8080/nommembre/"+c["membreId"], requestOptions).then(response=>response.text())
-            //     .then(d=>{setNomsCommentateur([...nomsCommentateur, d]); console.log(d)});
-            //   return nom;
-            // })
             setPeutCommenter(()=>{
               var commentateursId =  data["evaluations"].map(e=>e.membreId)
               return (!commentateursId.includes(idMembreLoggedIn))
@@ -71,9 +60,36 @@ const UneAnnonce = () => {
    
     useEffect(()=>
     {
-      console.log(evaluations);
-          
+      // console.log(message);
     })
+
+    //ref pour vider la boite message
+    let messageRef = useRef();
+    const sendMessage= ()=>{
+      if(message!==""){
+        const requestOptions={
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            "contenu": "idAnnonce="+annonce["id"]+"&&"+message,
+            "expediteurId": idMembreLoggedIn,
+            "recepteurId": annonce["utilisateurProprietaireId"]
+           })
+        
+        }
+        fetch('http://localhost:8080/message/insert', requestOptions)
+        .then(response => {if(response.status===200){
+              window.alert("message envoyé");
+            }else{
+              window.alert("Erreur");
+            }}
+          )
+        messageRef.current.value="";
+      }else{
+        window.alert("Entrez votre message");
+      }
+
+    }
 
   return (
     <div className='div_after_header d-flex flex-row justify-content-center div_une_annonce'>
@@ -114,11 +130,11 @@ const UneAnnonce = () => {
                   </svg>
                    &nbsp;&nbsp;<b>{adresse}</b></span><br></br><br></br>
                 <div className="form-floating">
-                  <textarea className="form-control" placeholder="Leave a comment here" style={{height: "100px"}}></textarea>
+                  <textarea ref={messageRef} className="form-control" placeholder="Leave a comment here" style={{height: "100px"}} required onChange={(e)=>setMessage(e.target.value)}></textarea>
                   <label >Mon message</label>
                 </div>
                 <div className='d-flex justify-content-end'>
-                  <button type="button" className="btn btn-secondary ">Envoyer</button>
+                  <button type="button" className="btn btn-secondary" onClick={()=>sendMessage()}>Envoyer</button>
                 </div>
                 <div className='d-flex flex-row flex-grow-1 justify-content-end' style={{}}>
                   <button type="button" className="btn btn-outline-danger align-self-end">
