@@ -75,3 +75,12 @@ code {
   padding: 20px
   
 }
+
+.div_signalement{
+  width: 30%;
+  position: absolute;
+  top: 20%;
+  left: 35%;
+  background-color: #A3B18A;
+  padding: 20px
+}
