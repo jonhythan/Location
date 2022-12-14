@@ -4,6 +4,7 @@ import BarreCategories from "./Navigation/BarreCategories"
 import { AiFillStar } from 'react-icons/ai';
 import Evaluation from './Evaluation';
 import {IoPersonCircleOutline} from "react-icons/io5"
+import NouveauSignalement from './NouveauSignalement';
 
 
 const UneAnnonce = () => {
@@ -27,6 +28,7 @@ const UneAnnonce = () => {
         .then(data=>{setEvaluations(data)})
     });
     const [divEvaluation, setDivEvaluation]=useState("none");
+    const [divSignalement, setDivSignalement]=useState("none");
     const [idAnnonce, setIdAnnonce]=useState(0);
     const [annonce, setAnnonce]= useState(()=>{
       const requestOptions={
@@ -137,7 +139,10 @@ const UneAnnonce = () => {
                   <button type="button" className="btn btn-secondary" onClick={()=>sendMessage()}>Envoyer</button>
                 </div>
                 <div className='d-flex flex-row flex-grow-1 justify-content-end' style={{}}>
-                  <button type="button" className="btn btn-outline-danger align-self-end">
+                  <button type="button" className="btn btn-outline-danger align-self-end" onClick={(e)=>{
+                    e.preventDefault();
+                    setDivSignalement("block");
+                  }}>
                     <i className="bi bi-flag-fill"></i>
                     &nbsp;Signaler
                   </button>
@@ -178,7 +183,7 @@ const UneAnnonce = () => {
         </div>
       </div>
       <Evaluation d={divEvaluation} membreId={idMembreLoggedIn} annonceId={idAnnonce}/>
-      
+      <NouveauSignalement displaying={divSignalement}/>
     </div>
     
   )
