@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Utilisateur")
 public class Utilisateur {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -30,7 +30,7 @@ public class Utilisateur {
     private String province;
     @Column(name = "codepostal")
     private String codePostal;
-    private String token;
+//    private String token;
 
     public Utilisateur() {
         super();
@@ -124,11 +124,28 @@ public class Utilisateur {
         this.codePostal = codePostal;
     }
 
-    public String getToken() {
-        return token;
-    }
+//    public String getToken() {
+//        return token;
+//    }
+//
+//    public void setToken(String token) {
+//        this.token = token;
+//    }
 
-    public void setToken(String token) {
-        this.token = token;
+    @Override
+    public String toString() {
+        return "Utilisateur{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", courriel='" + courriel + '\'' +
+                ", telephone=" + telephone +
+                ", password='" + password + '\'' +
+                ", numRue=" + numRue +
+                ", nomRue='" + nomRue + '\'' +
+                ", ville='" + ville + '\'' +
+                ", province='" + province + '\'' +
+                ", codePostal='" + codePostal + '\'' +
+                '}';
     }
 }

@@ -4,6 +4,7 @@ import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 
 
 import java.util.Date;
@@ -11,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JWTUtils {
-    private static final String jwtToken = "location";
+    private static final String jwtToken = "locationGODIN123locationGODIN123locationGODIN123";
 
     public static String createToken(Integer userId) {
         Map<String, Object> claims = new HashMap<>();

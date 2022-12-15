@@ -1,12 +1,15 @@
 import React, {Component} from "react";
 
 import "./Login.css"
+import AuthContext from "../context/auth-context";
 
 class LoginPage extends Component {
 
     state = {
         isLogin: true,
     };
+
+    static contextType = AuthContext;
 
     constructor(props) {
         super(props);
@@ -32,22 +35,23 @@ class LoginPage extends Component {
         }
 
         let requestBody = {
-            query: `
-            
-            `
+            "courriel": email,
+            "password": password,
+            "role": null,
+            "token": null
         }
 
-        if (!this.state.isLogin) {
-            requestBody = {
-                query: `
-            
-            `
-            }
-        }
+        /*      if (!this.state.isLogin) {
+                  requestBody = {
+                      query: `
+
+                  `
+                  }
+              }*/
 
         console.log(email, password);
 
-        fetch("http://localhost:8080/utilisateur", {
+        fetch("http://localhost:8080/login", {
             method: "POST",
             body: JSON.stringify(requestBody),
             headers: {
@@ -59,6 +63,20 @@ class LoginPage extends Component {
             }
             return res.json();
         }).then((resData) => {
+            this.setState({data: resData})
+            sessionStorage.setItem("token", resData.data.token)
+
+            if (resData.data.token) {
+                this.context.login(
+                    resData.data.token,
+                    resData.data.userId,
+                    resData.data.tokenExpiration
+                );
+            }
+
+            console.log(resData.data.token);
+            console.log("token------------");
+            console.log(sessionStorage.getItem("token"));
             console.log(resData);
         })
             .catch((err) => {
@@ -68,7 +86,7 @@ class LoginPage extends Component {
 
     render() {
         return (
-            <form className={"auth-form"} onClick={this.submitHandler}>
+            <form className={"auth-form"} onSubmit={this.submitHandler}>
                 <div className={"form-control"}>
                     <label htmlFor={"email"}>Utilisateur</label>
                     <input type={"email"} id={"email"} ref={this.emailEl}/>

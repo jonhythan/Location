@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 @RestController
 @RequestMapping("login")
@@ -22,6 +23,7 @@ public class LoginController {
     @Autowired
     private UtilisateurService utilisateurService;
 
+/*    @PostMapping
     public Utilisateur loginTest(Utilisateur utilisateur) {
         try {
             Utilisateur utilisateurServiceById = utilisateurService.findUtilisateurByCourriel(utilisateur.getCourriel());
@@ -36,19 +38,22 @@ public class LoginController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 
     @PostMapping
     public Result login(@RequestBody LoginParam loginParam) {
         return loginService.login(loginParam);
     }
 
+/*
     @GetMapping("/checkToken")
-    public Boolean checkToken(HttpServletRequest request) {
+    public Result checkToken(HttpServletRequest request) {
         String token = request.getHeader("token");
-        JWTUtils.checkToken(token);
-        return null;
+        Map<String, Object> stringObjectMap = JWTUtils.checkToken(token);
+//        "data": "{userId=1, iat=1671079432, exp=1671968465}"
+        return Result.success(stringObjectMap.get("userId"));
     }
+*/
 
 
    /* @PostMapping

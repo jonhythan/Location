@@ -1,18 +1,25 @@
 package com.godin.locationSpring.service;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.godin.locationSpring.model.Utilisateur;
+import com.godin.locationSpring.repository.UtilisateurRepository;
+import com.godin.locationSpring.vo.ErrorCode;
+import com.godin.locationSpring.vo.LoginUtilisateurVo;
+import com.godin.locationSpring.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.godin.locationSpring.model.Utilisateur;
-import com.godin.locationSpring.repository.UtilisateurRepository;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.util.StringUtils;
 
 @Service
 public class UtilisateurService {
     @Autowired
     UtilisateurRepository utilisateurRepository;
+
+    @Autowired
+    private TokenService tokenService;
 
     public List<Utilisateur> getAllUsers() {
         return utilisateurRepository.findAll();
@@ -30,5 +37,38 @@ public class UtilisateurService {
     public Utilisateur findUtilisateurByCourrielAndPassword(String courriel, String password) {
         Utilisateur utilisateur = utilisateurRepository.findUtilisateurByCourrielAndPassword(courriel, password);
         return utilisateur;
+    }
+
+    public Utilisateur findById(int id) {
+        Optional<Utilisateur> utilisateurOptional = utilisateurRepository.findById(id);
+        if (utilisateurOptional.isPresent()) {
+            Utilisateur utilisateur = utilisateurOptional.get();
+            return utilisateur;
+        }
+        return null;
+    }
+
+    public Result findUtilisateurByToekn(String token) {
+        int userId = tokenService.checkToken(token);
+        Utilisateur utilisateur = findById(userId);
+
+        if (utilisateur == null) {
+            Result.fail(ErrorCode.TOKEN_ERROR.getCode(), ErrorCode.TOKEN_ERROR.getMsg());
+        }
+
+        LoginUtilisateurVo loginUtilisateurVo = new LoginUtilisateurVo();
+        loginUtilisateurVo.setId(utilisateur.getId());
+        loginUtilisateurVo.setNom(utilisateur.getNom());
+        loginUtilisateurVo.setPrenom(utilisateur.getPrenom());
+        loginUtilisateurVo.setCourriel(utilisateur.getCourriel());
+        loginUtilisateurVo.setTelephone(utilisateur.getTelephone());
+        loginUtilisateurVo.setNumRue(utilisateur.getNumRue());
+        loginUtilisateurVo.setNomRue(utilisateur.getNomRue());
+        loginUtilisateurVo.setVille(utilisateur.getVille());
+        loginUtilisateurVo.setProvince(utilisateur.getProvince());
+        loginUtilisateurVo.setCodePostal(utilisateur.getCodePostal());
+        loginUtilisateurVo.setToken(token);
+
+        return Result.success(loginUtilisateurVo);
     }
 }
