@@ -16,6 +16,9 @@ public class UtilisateurService {
 	public List<Utilisateur> getAllUsers(){
 		return utilisateurRepository.findAll();
 	}
+	public Utilisateur getUtilisateurById(int id) {
+		return utilisateurRepository.findById(id).get();
+	}
 	
 	public int save(Utilisateur u) {
 		return utilisateurRepository.save(u).getId();
@@ -24,5 +27,12 @@ public class UtilisateurService {
 	public String getNom(int id) {
 		Utilisateur u =  utilisateurRepository.findById(id).get();
 		return (u.getPrenom()).toUpperCase();
+	}
+	
+	public Utilisateur modifierUtilisateur(Utilisateur utilisateur) {
+		Utilisateur utilisateur2 = utilisateurRepository.findById(utilisateur.getId()).get();
+		utilisateur2=utilisateur;
+		utilisateurRepository.save(utilisateur2);
+		return utilisateur2;
 	}
 }
