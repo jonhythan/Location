@@ -2,7 +2,7 @@ import {Component} from "react";
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import NouveauCompte from "./Components/NouveauCompte";
 import NouvelleAnnonce from "./Components/NouvelleAnnonce";
-import NouveauSignalement from "./Components/NouveauSignalement"
+import NouveauSignalement from "./Components/NouveauSignalement";
 import MainNavigation from "./Components/Navigation/MainNavigation";
 import Test from "./Components/Test"
 import Test2 from "./Components/Test2";
@@ -12,6 +12,8 @@ import MessagesPage from "./pages/Messages";
 import Login from "./pages/Login";
 import UneAnnonce from "./Components/UneAnnonce";
 import AuthContext from "./context/auth-context";
+import ModificationCompte from "./Components/ModificationCompte";
+
 
 class App extends Component {
 
@@ -79,6 +81,18 @@ class App extends Component {
                         }
                         {this.state.token &&
                             <Route path="/nouvelleannonce" element={<NouvelleAnnonce/>}/>
+                        }
+                        {!this.state.token &&
+                            <Route path="/nouveausignalement" element={<Navigate to={"/login"}/>}/>
+                        }
+                        {this.state.token &&
+                            <Route path="/nouveausignalement" element={<NouveauSignalement/>}/>
+                        }
+                        {!this.state.token &&
+                            <Route path="/compte/modifier" element={<Navigate to={"/login"}/>}/>
+                        }
+                        {this.state.token &&
+                            <Route path="/compte/modifier" element={<ModificationCompte/>}/>
                         }
                         <Route path="/test" element={<Test/>}/>
                         <Route path="/test2" element={<Test2/>}/>

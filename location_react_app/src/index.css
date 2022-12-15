@@ -16,7 +16,9 @@ body {
   
   
 }
-
+#root{
+  background-color: #A3B18A;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -54,8 +56,7 @@ code {
 }
 
 .div_contenu_annonce{
-  margin-right: 300px;
-  background-color: #D9D9D9;
+  
   padding: 20px;
 }
 
@@ -63,4 +64,23 @@ code {
   background-color: white;
   margin: 0;
   padding: 10px;
+}
+
+.div_evaluation{
+  width: 30%;
+  position: absolute;
+  top: 20%;
+  left: 35%;
+  background-color: #D9D9D9;
+  padding: 20px
+  
+}
+
+.div_signalement{
+  width: 30%;
+  position: absolute;
+  top: 20%;
+  left: 35%;
+  background-color: #A3B18A;
+  padding: 20px
 }

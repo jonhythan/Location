@@ -69,6 +69,10 @@ public class Annonce {
     @JoinColumn(name = "annonceid", referencedColumnName = "id", insertable = false, updatable = false)
     private List<Detail> details;
     
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="annonce_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private List<Evaluation> evaluations;
+    
 	public Membre getUtilisateurProprietaire() {
 		return utilisateurProprietaire;
 	}
@@ -203,6 +207,14 @@ public class Annonce {
 
 	public void setDetails(List<Detail> details) {
 		this.details = details;
+	}
+
+	public List<Evaluation> getEvaluations() {
+		return evaluations;
+	}
+
+	public void setEvaluations(List<Evaluation> evaluations) {
+		this.evaluations = evaluations;
 	}
 
 

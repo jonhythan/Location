@@ -15,6 +15,7 @@ import org.springframework.util.StringUtils;
 
 @Service
 public class UtilisateurService {
+
     @Autowired
     UtilisateurRepository utilisateurRepository;
 
@@ -70,5 +71,21 @@ public class UtilisateurService {
         loginUtilisateurVo.setToken(token);
 
         return Result.success(loginUtilisateurVo);
+    }
+
+    public Utilisateur getUtilisateurById(int id) {
+        return utilisateurRepository.findById(id).get();
+    }
+
+    public String getNom(int id) {
+        Utilisateur u = utilisateurRepository.findById(id).get();
+        return (u.getPrenom()).toUpperCase();
+    }
+
+    public Utilisateur modifierUtilisateur(Utilisateur utilisateur) {
+        Utilisateur utilisateur2 = utilisateurRepository.findById(utilisateur.getId()).get();
+        utilisateur2 = utilisateur;
+        utilisateurRepository.save(utilisateur2);
+        return utilisateur2;
     }
 }

@@ -114,7 +114,6 @@ const NouveauCompte = () => {
                            className='col-6' required/>
                     <input type="text" value={ville} onChange={e => setVille(e.target.value)} placeholder="Ville"
                            className='col' required/>
-
                 </div>
 
                 <div className="row px-5 p-3">
