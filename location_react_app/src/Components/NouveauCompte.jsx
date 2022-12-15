@@ -94,7 +94,7 @@ const NouveauCompte = ()=>{
                 <h4 className="text-secondary">Détails de l'adresse</h4>
                 
                 <div className="row px-5 p-3">
-                    <input type="text" value={numRue} onChange={e=>setNumRue(e.target.value)} pattern="[1-9]{}" placeholder="No" className='col-1' required/>
+                    <input type="text" value={numRue} onChange={e=>setNumRue(e.target.value)} pattern="[1-9]" placeholder="No" className='col-1' required/>
                     <input type="text" value={nomRue} onChange={e=>setNomRue(e.target.value)} placeholder="Nom rue" className='col-6' required/>
                     <input type="text" value={ville} onChange={e=>setVille(e.target.value)} placeholder="Ville" className='col' required/>
 
