@@ -66,7 +66,7 @@ public class Annonce {
     private Administrateur administrateurDesactivateur;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "annonceid", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "annonceid", referencedColumnName = "id")
     private List<Detail> details;
     
     @OneToMany(cascade = CascadeType.ALL)

@@ -1,5 +1,6 @@
 package com.godin.locationSpring.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -53,7 +54,11 @@ public class AnnonceController {
 		} catch (Exception e) {
 			return e.toString();
 		}
-		
-		
+	}
+	
+	@PostMapping("annonce/modifier")
+	public String modifierAnnonce(@RequestBody Annonce annonce) {
+		annonceService.update(annonce);
+		return "MODIFIÉ";
 	}
 }

@@ -12,6 +12,8 @@ import com.godin.locationSpring.repository.AnnonceRepository;
 public class AnnonceService {
 	@Autowired
 	AnnonceRepository annonceRepository;
+	@Autowired
+	DetailService detailService;
 	
 	public Annonce getOneAnnonce() {
 		Annonce annonce = annonceRepository.findAll().get(1);
@@ -36,5 +38,26 @@ public class AnnonceService {
 		
 		int i = annonceRepository.save(annonce).getId();	
 		return i;
+	}
+	
+	public void update(Annonce annonce) {
+		Annonce annonce2 = annonceRepository.findById(annonce.getId()).get();
+//		annonce2.getDetails().forEach(x->{
+//			detailService.deleteDetail(x);
+//		});
+//		annonce2.getDetails().forEach(x->{
+//			detailService.deleteDetail(x.getAnnonceId(), x.getCategoriePeriodeId());
+//		});
+//		annonce.getDetails().forEach(y->{
+//			detailService.insert(y);
+//		});
+		annonce2.setDetails(annonce.getDetails());
+		annonce2.setTitre(annonce.getTitre());
+		annonce2.setDescription(annonce.getDescription());
+		annonce2.setImage(annonce.getImage());
+		annonce2.setCategorieId(annonce.getCategorieId());
+		annonce2.setEtatOutilId(annonce.getEtatOutilId());
+		
+		annonceRepository.save(annonce2);
 	}
 }

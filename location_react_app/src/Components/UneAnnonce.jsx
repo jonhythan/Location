@@ -99,7 +99,7 @@ const UneAnnonce = () => {
         <div className='d-flex flex-row '>
           <BarreCategories/>   
           <div className='div_contenu_annonce container p-4'>
-            <div className='row'>
+            <div className='row boxshadowing1'>
               <div className='col d-flex flex-column justify-content-center align-items-center'>
                 <h4>{titre}</h4>
                 <img src={image} alt="annonce"/>
@@ -150,7 +150,7 @@ const UneAnnonce = () => {
                 </div>
               </div>
             </div>
-            <div className='row' style={{marginTop: "20px"}}>
+            <div className='row boxshadowing1' style={{marginTop: "20px"}}>
               <h5>Commentaires</h5>
               <div>
                 {evaluations?.length>0 ? evaluations?.map((c)=>{

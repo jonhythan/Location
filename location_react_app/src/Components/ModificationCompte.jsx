@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react'
+import React, {useState, useRef} from 'react'
 import { useSearchParams } from "react-router-dom";
 import {AiFillHome} from 'react-icons/ai'
 import {BsPersonSquare} from 'react-icons/bs'
@@ -19,24 +19,8 @@ const ModificationCompte = () => {
           fetch('http://localhost:8080/compte/'+url.get("id"), requestOptions)
             .then(response => response.json())
             .then(data=>setState(data)
-                // {
-                // setState({
-                //     "nom": data["nom"],
-                //     "prenom": data["prenom"],
-                //     "courriel":data["courriel"],
-                //     "telephone": data["telephone"],
-                //     "password": data["password"], 
-
-                //     "numRue":data["numRue"],
-                //     "nomRue":data["nomRue"],
-                //     "ville":data["ville"],
-                //     "province":data["province"],
-                //     "codePostal":data["codePostal"]
-                // })
-                // }
             )
     })
-    // useEffect(()=>console.log(state))
 
     const handleSubmit=(e)=>{
         e.preventDefault();
@@ -59,10 +43,10 @@ const ModificationCompte = () => {
 
   return (
     <div className='div_after_header d-flex flex-row justify-content-center'>
-        <div className='container d-flex py-5' style={{backgroundColor:"#D9D9D9", height:"100%"}}>
+        <div className='container d-flex py-5 boxshadowing1' style={{backgroundColor:"#D9D9D9", height:"100%"}}>
             <div className='BarreCategories p-4 py-5'>
-                <ul className='list-group'>
-                    <li className='list-group-item d-flex' onClick={()=>{
+                <ul className='list-group '>
+                    <li className='list-group-item d-flex barre-navigation-element' onClick={()=>{
                             setDivAdresse("none");
                             setDivPersonne("block");
                         }}>
@@ -73,7 +57,7 @@ const ModificationCompte = () => {
                             Renseignements personnels
                         </div>
                     </li>
-                    <li className='list-group-item d-flex' onClick={()=>{
+                    <li className='list-group-item d-flex barre-navigation-element' onClick={()=>{
                             setDivAdresse("block");
                             setDivPersonne("none");
                         }}>
@@ -93,7 +77,6 @@ const ModificationCompte = () => {
                     <div className="form-floating m-3">
                         <input type="text" className="form-control" id="floatingPrenom" placeholder="Prenom" required defaultValue={state["prenom"]} onChange={(e)=>{
                             state.prenom=e.target.value;
-                            setState(state);
                         }}/>
                         <label htmlFor="floatingPrenom">Prenom</label>
                     </div>
