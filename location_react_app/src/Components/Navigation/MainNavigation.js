@@ -36,6 +36,12 @@ const MainNavigation = (props) => (
                                     <NavLink to="/logout">Se déconnecter</NavLink>
                                 </li>
                             )}
+                            {context.token && (
+                                <li>
+                                    <label htmlFor={"prenom"}
+                                           style={{width: '200px'}}>Salut {sessionStorage.getItem("prenom")}</label>
+                                </li>
+                            )}
                         </ul>
                     </nav>
                 </header>

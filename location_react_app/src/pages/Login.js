@@ -65,6 +65,7 @@ class LoginPage extends Component {
         }).then((resData) => {
             this.setState({data: resData})
             sessionStorage.setItem("token", resData.data.token)
+            sessionStorage.setItem("prenom", resData.data.prenom)
 
             if (resData.data.token) {
                 this.context.login(
