@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.godin.locationSpring.model.Annonce;
+import com.godin.locationSpring.model.Detail;
 import com.godin.locationSpring.repository.AnnonceRepository;
 
 @Service
@@ -41,23 +42,21 @@ public class AnnonceService {
 	}
 	
 	public void update(Annonce annonce) {
+		detailService.deleteByAnnonceId(annonce.getId());
+		
+		annonce.getDetails().forEach(x->{
+			Detail detail = new Detail(x.getAnnonceId(), x.getCategoriePeriodeId(), x.getPrix());
+			detailService.insert(detail);
+		});
+		
 		Annonce annonce2 = annonceRepository.findById(annonce.getId()).get();
-//		annonce2.getDetails().forEach(x->{
-//			detailService.deleteDetail(x);
-//		});
-//		annonce2.getDetails().forEach(x->{
-//			detailService.deleteDetail(x.getAnnonceId(), x.getCategoriePeriodeId());
-//		});
-//		annonce.getDetails().forEach(y->{
-//			detailService.insert(y);
-//		});
-		annonce2.setDetails(annonce.getDetails());
+		
 		annonce2.setTitre(annonce.getTitre());
 		annonce2.setDescription(annonce.getDescription());
 		annonce2.setImage(annonce.getImage());
 		annonce2.setCategorieId(annonce.getCategorieId());
 		annonce2.setEtatOutilId(annonce.getEtatOutilId());
-		
+
 		annonceRepository.save(annonce2);
 	}
 }

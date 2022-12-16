@@ -11,23 +11,23 @@ public class DetailId implements Serializable {
 	 */
 //	private static final long serialVersionUID = 1L;
 	
-	private int AnnonceId;
+	private int annonceId;
 	
 	private int CategoriePeriodeId;
 	
 	public DetailId(int annonceId, int categoriePeriodeId) {
 		super();
-		AnnonceId = annonceId;
+		this.annonceId = annonceId;
 		CategoriePeriodeId = categoriePeriodeId;
 	}
 	public DetailId() {
 		super();
 	}
 	public int getAnnonceId() {
-		return AnnonceId;
+		return annonceId;
 	}
 	public void setAnnonceId(int annonceId) {
-		AnnonceId = annonceId;
+		this.annonceId = annonceId;
 	}
 	public int getCategoriePeriodeId() {
 		return CategoriePeriodeId;

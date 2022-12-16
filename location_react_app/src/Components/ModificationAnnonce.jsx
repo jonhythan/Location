@@ -31,8 +31,20 @@ const ModificationAnnonce = () => {
 
     const handleSubmit=(e)=>{
         e.preventDefault();
+        const requestOptions={
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(annonce)
+        }
+        fetch('http://localhost:8080/annonce/modifier', requestOptions)
+            .then(response => {
+                if(response.status===200){
+                    window.alert("Succès dans les modifications")
+                }else{
+                    window.alert("Une erreur est sourvenue")
+                }
+            })
         
-        console.log(annonce)
     }
 
     useEffect(()=>{
@@ -54,22 +66,22 @@ const ModificationAnnonce = () => {
                         <div className='col-3'>
                             <label >Catégorie : </label>
                             <span className='px-3'>
-                                <select value={annonce.categorieId} onChange={e=>{
+                                <select onChange={e=>{
                                     annonce.categorieId = parseInt(e.target.value);
                                     setAnnonce(annonce);
                                 }} required>
-                                    {categories?.map((c)=>(<option value={c.id} key={c.id}>{c.nom}</option>))}
+                                    {categories?.map((c)=>(<option value={c.id} key={c.id} selected={annonce.categorieId===c.id}>{c.nom}</option>))}
                                 </select>
                             </span>
                         </div>
                         <div className='col-3'>
                             <label>État:</label>
                             <span className='px-3'>
-                                <select value={annonce.etatOutilId} onChange={e=>{
+                                <select  onChange={e=>{
                                     annonce.etatOutilId=parseInt(e.target.value);
                                     setAnnonce(annonce);
                                 }} required>
-                                    {etatsOutil.map((etat)=>(<option value={etat.id} key={etat.id}>{etat.titre}</option>))}
+                                    {etatsOutil.map((etat)=>(<option value={etat.id} key={etat.id} selected={annonce.etatOutilId===etat.id}>{etat.titre}</option>))}
                                 </select>
                             </span>
                         </div>
@@ -78,7 +90,7 @@ const ModificationAnnonce = () => {
                         <label className='col-1' >Image :</label>
                         <img src={annonce.image} className='col-2' alt="choix"></img>
                         <label htmlFor="inputChangerImage" className='col-2' style={{cursor:"pointer", color:"blue", textDecoration:"underline"}}>Changer image</label>
-                        <input type="file" id='inputChangerImage' accept="image/PNG"  className='col-3' required style={{display:"none"}} onChange={(e)=>{
+                        <input name='inputChangerImage' type="file" id='inputChangerImage' accept="image/PNG"  className='col-3' style={{opacity:"0"}} onChange={(e)=>{
                             if(e.target.files[0]!==null){
                                 let fileReader = new FileReader();
                                 fileReader.readAsDataURL(e.target.files[0]);
@@ -116,7 +128,7 @@ const ModificationAnnonce = () => {
                                 e.preventDefault();
                                 let prix = parseFloat(inputPriceRef.current.value);
                                 let catPeriodeId= parseInt(inputCategorieRef.current.value);
-                                setAnnonce({...annonce, details:[...annonce.details.filter(x=>x.categoriePeriodeId!==catPeriodeId), {categoriePeriodeId: catPeriodeId, prix: prix} ]})
+                                setAnnonce({...annonce, details:[...annonce.details.filter(x=>x.categoriePeriodeId!==catPeriodeId), {annonceId: annonce.id , categoriePeriodeId: catPeriodeId, prix: prix} ]})
                                 // setArrayChoixCategoriePeriode([...arrayChoixCategoriePeriode.filter(choix=>choix.id!==choixCategoriePeriode), {id: choixCategoriePeriode, prix: prixCategoriePeriode}])
                                 }}>
                                     Ajouter</button> <br/>

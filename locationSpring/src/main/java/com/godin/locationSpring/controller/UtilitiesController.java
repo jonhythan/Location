@@ -97,9 +97,5 @@ public class UtilitiesController {
 		return utilisateurService.getNom(Integer.valueOf(id));
 	}
 	
-//	@PostMapping("/detail/delete")
-//	public void delete(@RequestBody Detail detail) {
-//		detailService.deleteDetail();
-//	}
-	
+
 }
