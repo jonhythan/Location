@@ -8,6 +8,7 @@ class NouveauSignalement extends Component {
         this.state = {
             selectedReason: 'Cet annonce est répétitive',
             confirmation: '',
+            idAnnonce:""
         };
         this.handleRaison = this.handleRaison.bind(this);
         //this.onSubmit = this.onSubmit.bind(this);
@@ -29,7 +30,7 @@ class NouveauSignalement extends Component {
         });
     }
     creerSignalement = (e) => {
-        let url= useSearchParams();
+        // let url= useSearchParams();
         e.preventDefault();
         const requestOptions = {
             method: 'POST',
@@ -40,7 +41,7 @@ class NouveauSignalement extends Component {
                         "utilisateurId": 3
                     },
                     "annonce": {
-                        "id": url.get("id")
+                        "id": this.props.idAnnonce
                     },
                     "administrateur": null,
                     "raison": this.state.selectedReason
@@ -51,15 +52,13 @@ class NouveauSignalement extends Component {
         fetch('http://localhost:8080/signalement', requestOptions)
             .then(() => this.setState({confirmation: "Signalement fait"}))
             .catch((error) => this.setState({confirmation: "Not Successed : " + error}))
-            .finally(window.setTimeout(window.location.reload(), 1000));
-
+            .finally(window.location.reload())
     };
 
     render() {
-
         return (
             <div className='div_signalement shadow p-3 mb-5 rounded' style={{display: this.props.displaying}}>
-                <form onSubmit={this.creerSignalement}>
+                <form >
                     <div className=''>
                         <div className='div-after-header'>
                             <div className='container container-nouveau-signalement '>
@@ -108,7 +107,10 @@ class NouveauSignalement extends Component {
                                     <button type="button" onClick={() => window.location.reload()}
                                             className="col-3 btn btn-secondary mx-3">Annuler
                                     </button>
-                                    <input type="submit" value="SIGNALEZ" className='col-3 btn btn-primary '/>
+                                    <input type="submit" value="SIGNALEZ" className='col-3 btn btn-primary ' onClick={(e)=>{
+                                        e.preventDefault();
+                                        this.creerSignalement(e)
+                                    }}/>
                                 </div>
                                 <div className="row px-5 p-3 justify-content-center">
                                     <h4>{this.state.confirmation}</h4>
