@@ -3,9 +3,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -71,7 +68,6 @@ public class UtilitiesController {
 		return evaluationService.getAll();
 	}
 	
-	@SuppressWarnings("null")
 	@GetMapping("/evaluation/{idannonce}")
 	public Object getEvaluationAnnonce(@PathVariable String idannonce) {
 		List<Evaluation> evaluations = evaluationService.getByAnnonceId(Integer.valueOf(idannonce));
@@ -101,6 +97,9 @@ public class UtilitiesController {
 		return utilisateurService.getNom(Integer.valueOf(id));
 	}
 	
-
+//	@PostMapping("/detail/delete")
+//	public void delete(@RequestBody Detail detail) {
+//		detailService.deleteDetail();
+//	}
 	
 }

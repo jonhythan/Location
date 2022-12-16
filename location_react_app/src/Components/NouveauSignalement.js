@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {useState,setState, useEffect, useRef} from 'react';
 import logo from '../logo.svg'
+import { useSearchParams } from "react-router-dom";
 
 class NouveauSignalement extends Component {
   constructor() {

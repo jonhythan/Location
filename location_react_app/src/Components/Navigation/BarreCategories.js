@@ -18,8 +18,8 @@ const BarreCategories = () => {
 
     
   return (
-    <div className='BarreCategories p-4'>
-        <ul className='list-group'>
+    <div className='BarreCategories p-4 '>
+        <ul className='list-group boxshadowing1'>
             {categories.map((c)=>(
                 <li className='list-group-item' key={c.id}>{c.nom}</li>
             ))}

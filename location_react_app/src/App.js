@@ -12,6 +12,7 @@ import MessagesPage from "./pages/Messages";
 import Login from "./pages/Login";
 import UneAnnonce from "./Components/UneAnnonce";
 import ModificationCompte from "./Components/ModificationCompte";
+import ModificationAnnonce from "./Components/ModificationAnnonce";
 
 class App extends Component {
     render() {
@@ -34,6 +35,7 @@ class App extends Component {
                         <Route path="/login" element={<Login/>}/>
                         <Route path="/annonce" element={<UneAnnonce/>}/>
                         <Route path="/compte/modifier" element={<ModificationCompte/>}/>
+                        <Route path="/annonce/modifier" element={<ModificationAnnonce/>}/>
 
                 </Routes>
             </BrowserRouter>
