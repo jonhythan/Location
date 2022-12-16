@@ -181,7 +181,7 @@ const UneAnnonce = () => {
         </div>
       </div>
       <Evaluation d={divEvaluation} membreId={idMembreLoggedIn} annonceId={idAnnonce}/>
-      <NouveauSignalement displaying={divSignalement}/>
+      <NouveauSignalement displaying={divSignalement} idAnnonce={searchParams.get("id")}/>
     </div>
     
   )
