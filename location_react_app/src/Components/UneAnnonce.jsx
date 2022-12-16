@@ -102,7 +102,7 @@ const UneAnnonce = () => {
             <div className='row boxshadowing1'>
               <div className='col d-flex flex-column justify-content-center align-items-center'>
                 <h4>{titre}</h4>
-                <img src={image} alt="annonce"/>
+                <img src={image} alt="annonce" style={{width:"100%"}}/>
                 <div style={{paddingBottom:"20px"}}>
                   <AiFillStar style={{marginBottom:"2px", fontSize:"1.5em", color:"gold"}}/>
                   &nbsp;
@@ -115,7 +115,7 @@ const UneAnnonce = () => {
                     setDivEvaluation("flex")}}>Laisser un commentaire</a> : "Vous avez soumis un commentaire"}
                 </div>
                 <ul className="list-group">
-                  {periodes.map((p)=>(
+                  {periodes?.map((p)=>(
                     <li className="list-group-item" key={p["categoriePeriodeId"]}>{p["prix"].toFixed(2)} $ / {p["categoriePeriodes"]["titre"]}</li>))}
                 </ul>
               </div>
@@ -168,9 +168,7 @@ const UneAnnonce = () => {
                         {c["commentaire"]}
                       </div>
                       <div style={{fontSize:"0.8em"}}>
-                        {c["dateEvaluation"].split().map(d=>{
-                          return d.split("T")[0]+" "+d.split("T")[1].split(".")[0];
-                        })}
+                        {c["dateEvaluation"]}
                       </div>
                     </div>
                   </div>
@@ -183,7 +181,7 @@ const UneAnnonce = () => {
         </div>
       </div>
       <Evaluation d={divEvaluation} membreId={idMembreLoggedIn} annonceId={idAnnonce}/>
-      <NouveauSignalement displaying={divSignalement}/>
+      <NouveauSignalement displaying={divSignalement} idAnnonce={searchParams.get("id")}/>
     </div>
     
   )
