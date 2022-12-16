@@ -106,10 +106,11 @@ const NouvelleAnnonce = () => {
     }
 
   return (
-    <div className='div_after_header'><form onSubmit={handleSubmit}>
+    <div className='div_after_header'>
+        <form onSubmit={handleSubmit}>
             <div className='div_nouvelle_annonce'>
-                <div className='container container-nouvelle-annonce '>
-                    <h4 className='text-center text-secondary'>Nouvelle annonce</h4>
+                <div className='container container-nouvelle-annonce boxshadowing1'>
+                    <h4 className='text-center'>Nouvelle annonce</h4>
                     <div className='row px-5 p-3'>
                         <div className='col-1'>Titre : </div>
                         <input type="text" className='col-11' onChange={e=>setFormState({...formState, titre : e.target.value})} required></input>

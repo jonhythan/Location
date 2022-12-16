@@ -13,6 +13,7 @@ import Login from "./pages/Login";
 import UneAnnonce from "./Components/UneAnnonce";
 import AuthContext from "./context/auth-context";
 import ModificationCompte from "./Components/ModificationCompte";
+import ModificationAnnonce from "./Components/ModificationAnnonce";
 
 
 class App extends Component {
@@ -93,6 +94,12 @@ class App extends Component {
                         }
                         {this.state.token &&
                             <Route path="/compte/modifier" element={<ModificationCompte/>}/>
+                        }
+                        {!this.state.token &&
+                            <Route path="/annonce/modifier" element={<Navigate to={"/login"}/>}/>
+                        }
+                        {this.state.token &&
+                            <Route path="/annonce/modifier" element={<ModificationAnnonce/>}/>
                         }
                         <Route path="/test" element={<Test/>}/>
                         <Route path="/test2" element={<Test2/>}/>
