@@ -39,6 +39,16 @@ public class DetailService {
 //		detailRepository.delete(detail2);
 		
 	}
+	
+	public void deleteByAnnonceId(int annonceId) {
+		detailRepository.findByAnnonceId(annonceId).forEach(x->{
+			detailRepository.delete(x);
+		});
+	}
+	
+	public List<Detail> getDetail(int annonceId) {
+		return detailRepository.findByAnnonceId(annonceId);
+	}
 	public void insert(Detail detail) {
 		detailRepository.save(detail);
 	}

@@ -20,7 +20,7 @@ public class Detail{
 	
 	@Id
 	@Column(name="annonceid")
-	private int AnnonceId;
+	private int annonceId;
 	
 	private double prix;
 
@@ -31,6 +31,17 @@ public class Detail{
 	public Detail() {
 		super();
 	}
+	
+
+
+	public Detail(int annonceId, int categoriePeriodeId, double prix) {
+		super();
+		CategoriePeriodeId = categoriePeriodeId;
+		this.annonceId = annonceId;
+		this.prix = prix;
+	}
+
+
 
 	public int getCategoriePeriodeId() {
 		return CategoriePeriodeId;
@@ -41,11 +52,11 @@ public class Detail{
 	}
 
 	public int getAnnonceId() {
-		return AnnonceId;
+		return annonceId;
 	}
 
 	public void setAnnonceId(int annonceId) {
-		AnnonceId = annonceId;
+		this.annonceId = annonceId;
 	}
 
 	public double getPrix() {
