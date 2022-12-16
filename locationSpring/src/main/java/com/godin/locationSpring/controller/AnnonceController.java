@@ -1,5 +1,6 @@
 package com.godin.locationSpring.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +33,11 @@ public class AnnonceController {
 		return annonceService.getOneAnnonce();
 	}
 	
+	@GetMapping("/annonce/{id}")
+	public Annonce getAnnonce(@PathVariable String id) {
+		return annonceService.getAnnonce(Integer.parseInt(id));
+	}
+	
 	@PostMapping("annonce/insert")
 	@Transactional
 	public String insertAnnonce(@RequestBody Map<String, Object> body) {
@@ -47,7 +54,11 @@ public class AnnonceController {
 		} catch (Exception e) {
 			return e.toString();
 		}
-		
-		
+	}
+	
+	@PostMapping("annonce/modifier")
+	public String modifierAnnonce(@RequestBody Annonce annonce) {
+		annonceService.update(annonce);
+		return "MODIFIÉ";
 	}
 }

@@ -5,6 +5,7 @@ import javax.persistence.*;
 import org.springframework.lang.Nullable;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 public class Annonce {
@@ -64,7 +65,14 @@ public class Annonce {
     @JoinColumn(name = "administrateur_id_desactivateur", referencedColumnName = "utilisateur_id", insertable = false, updatable = false)
     private Administrateur administrateurDesactivateur;
 
-
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "annonceid", referencedColumnName = "id")
+    private List<Detail> details;
+    
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="annonce_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private List<Evaluation> evaluations;
+    
 	public Membre getUtilisateurProprietaire() {
 		return utilisateurProprietaire;
 	}
@@ -191,6 +199,22 @@ public class Annonce {
 
 	public void setDateCreation(Timestamp dateCreation) {
 		this.dateCreation = dateCreation;
+	}
+
+	public List<Detail> getDetails() {
+		return details;
+	}
+
+	public void setDetails(List<Detail> details) {
+		this.details = details;
+	}
+
+	public List<Evaluation> getEvaluations() {
+		return evaluations;
+	}
+
+	public void setEvaluations(List<Evaluation> evaluations) {
+		this.evaluations = evaluations;
 	}
 
 

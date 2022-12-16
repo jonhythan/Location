@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.godin.locationSpring.model.Detail;
+import com.godin.locationSpring.model.idClass.DetailId;
 import com.godin.locationSpring.repository.DetailRepository;
 
 @Service
@@ -31,4 +32,25 @@ public class DetailService {
 		}
 		return true;
 	}
+	
+	public void deleteDetail(int annonceId, int categoriePeriodeId) {
+//		Detail detail2 = detailRepository.findById(new DetailId(17, 3)).get();
+		detailRepository.deleteById(new DetailId(annonceId , categoriePeriodeId));
+//		detailRepository.delete(detail2);
+		
+	}
+	
+	public void deleteByAnnonceId(int annonceId) {
+		detailRepository.findByAnnonceId(annonceId).forEach(x->{
+			detailRepository.delete(x);
+		});
+	}
+	
+	public List<Detail> getDetail(int annonceId) {
+		return detailRepository.findByAnnonceId(annonceId);
+	}
+	public void insert(Detail detail) {
+		detailRepository.save(detail);
+	}
+	
 }

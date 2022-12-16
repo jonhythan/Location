@@ -1,6 +1,6 @@
 import React from 'react'
 import {useState, useEffect, useRef} from 'react';
-import logo from '../Logo.svg'
+import logo from '../logo.svg'
 
 const NouvelleAnnonce = () => {
     const [categories, setCategories]= useState([])
@@ -106,12 +106,11 @@ const NouvelleAnnonce = () => {
     }
 
   return (
-    <div><form onSubmit={handleSubmit}>
-        <img src={logo} alt="Logo" style={{marginTop: '3.5rem'}}/>
-        <div className=''>
-            <div className='div-after-header'>
-                <div className='container container-nouvelle-annonce '>
-                    <h4 className='text-center text-secondary'>Nouvelle annonce</h4>
+    <div className='div_after_header'>
+        <form onSubmit={handleSubmit}>
+            <div className='div_nouvelle_annonce'>
+                <div className='container container-nouvelle-annonce boxshadowing1'>
+                    <h4 className='text-center'>Nouvelle annonce</h4>
                     <div className='row px-5 p-3'>
                         <div className='col-1'>Titre : </div>
                         <input type="text" className='col-11' onChange={e=>setFormState({...formState, titre : e.target.value})} required></input>
@@ -186,7 +185,7 @@ const NouvelleAnnonce = () => {
                     </div>
                 </div>
             </div>
-        </div></form>
+        </form>
     </div>
   )
 }

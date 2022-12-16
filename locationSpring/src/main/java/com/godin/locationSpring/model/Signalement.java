@@ -1,6 +1,8 @@
 package com.godin.locationSpring.model;
 
 import javax.persistence.*;
+
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 @Entity
@@ -25,7 +27,7 @@ public class Signalement {
     private String raison;
 
     @Column(name = "datesignalement")
-    private LocalDate dateSignalement;
+    private Timestamp dateSignalement;
 
     public int getIdSignalement() {
         return idSignalement;
@@ -67,11 +69,11 @@ public class Signalement {
         this.raison = raison;
     }
 
-    public LocalDate getDateSignalement() {
+    public Timestamp getDateSignalement() {
         return dateSignalement;
     }
 
-    public void setDateSignalement(LocalDate dateSignalement) {
+    public void setDateSignalement(Timestamp dateSignalement) {
         this.dateSignalement = dateSignalement;
     }
 }

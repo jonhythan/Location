@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -17,6 +18,7 @@ public class SignalementController {
 
     @PostMapping(value = "/signalement", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void createSignalement(@RequestBody Signalement signalement) {
+    	signalement.setDateSignalement(new Timestamp(System.currentTimeMillis()));
         signalementService.createSignalement(signalement);
     }
 
