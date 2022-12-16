@@ -77,7 +77,7 @@ public class UtilitiesController {
 			map.put("annonceId", x.getAnnonceId());
 			map.put("membreId", x.getMembreId());
 			map.put("commentaire", x.getCommentaire());
-			map.put("dateEvaluation", x.getDateEvaluation());
+			map.put("dateEvaluation", x.getDateEvaluation().toString().substring(0, 16));
 			map.put("note", x.getNote());
 			map.put("nom", getNomMembre(String.valueOf(x.getMembreId())));
 			object.add(map);

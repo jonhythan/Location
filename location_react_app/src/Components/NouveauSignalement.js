@@ -1,14 +1,13 @@
 import React, {Component} from 'react'
-import {useState, setState, useEffect, useRef} from 'react';
-import logo from '../logo.svg'
 import { useSearchParams } from "react-router-dom";
 
 class NouveauSignalement extends Component {
     constructor() {
         super();
+        
         this.state = {
             selectedReason: 'Cet annonce est répétitive',
-            confirmation: ''
+            confirmation: '',
         };
         this.handleRaison = this.handleRaison.bind(this);
         //this.onSubmit = this.onSubmit.bind(this);
@@ -30,6 +29,7 @@ class NouveauSignalement extends Component {
         });
     }
     creerSignalement = (e) => {
+        let url= useSearchParams();
         e.preventDefault();
         const requestOptions = {
             method: 'POST',
@@ -40,7 +40,7 @@ class NouveauSignalement extends Component {
                         "utilisateurId": 3
                     },
                     "annonce": {
-                        "id": 4
+                        "id": url.get("id")
                     },
                     "administrateur": null,
                     "raison": this.state.selectedReason

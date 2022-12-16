@@ -7,7 +7,9 @@ import com.godin.locationSpring.service.UtilisateurService;
 import com.godin.locationSpring.util.UtilisateurThreadLocal;
 import com.godin.locationSpring.vo.ErrorCode;
 import com.godin.locationSpring.vo.Result;
+
 import lombok.extern.slf4j.Slf4j;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Component
-@Slf4j
+@Slf4j 
 public class LoginInterceptor implements HandlerInterceptor {
 
     @Autowired
@@ -35,13 +37,13 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
 
         String token = request.getHeader("Authorization");
-
-        log.info("============request start=============");
-        String requestURI = request.getRequestURI();
-        log.info("request uri:{}", requestURI);
-        log.info("request method:{}", request.getMethod());
-        log.info("token:{}", token);
-        log.info("============request end=============");
+//
+//        log.info("============request start=============");
+//        String requestURI = request.getRequestURI();
+//        log.info("request uri:{}", requestURI);
+//        log.info("request method:{}", request.getMethod());
+//        log.info("token:{}", token);
+//        log.info("============request end=============");
 
         if (StringUtils.isBlank(token)) {
             Result result = Result.fail(ErrorCode.NO_LOGIN.getCode(), ErrorCode.NO_LOGIN.getMsg());
