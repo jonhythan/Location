@@ -10,122 +10,142 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 
-
 @Entity
 @Table(name = "Utilisateur")
 public class Utilisateur {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	private String nom;
-	private String prenom;
-	private String courriel;
-	private BigInteger telephone;
-	private String password;
-	@Column(name = "num_rue")
-	private int numRue;
-	@Column(name = "nom_rue")
-	private String nomRue;
-	private String ville;
-	private String province;
-	@Column(name = "codepostal")
-	private String codePostal;
-	
-	public Utilisateur() {
-		super();
-	}
-	
-	
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String nom;
+    private String prenom;
+    private String courriel;
+    private BigInteger telephone;
+    private String password;
+    @Column(name = "num_rue")
+    private int numRue;
+    @Column(name = "nom_rue")
+    private String nomRue;
+    private String ville;
+    private String province;
+    @Column(name = "codepostal")
+    private String codePostal;
+//    private String token;
 
-	public int getId() {
-		return id;
-	}
+    public Utilisateur() {
+        super();
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getNom() {
-		return nom;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
+    public String getNom() {
+        return nom;
+    }
 
-	public String getPrenom() {
-		return prenom;
-	}
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
 
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
-	}
+    public String getPrenom() {
+        return prenom;
+    }
 
-	public String getCourriel() {
-		return courriel;
-	}
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
 
-	public void setCourriel(String courriel) {
-		this.courriel = courriel;
-	}
+    public String getCourriel() {
+        return courriel;
+    }
 
-	public BigInteger getTelephone() {
-		return telephone;
-	}
+    public void setCourriel(String courriel) {
+        this.courriel = courriel;
+    }
 
-	public void setTelephone(BigInteger telephone) {
-		this.telephone = telephone;
-	}
+    public BigInteger getTelephone() {
+        return telephone;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setTelephone(BigInteger telephone) {
+        this.telephone = telephone;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public int getNumRue() {
-		return numRue;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setNumRue(int numRue) {
-		this.numRue = numRue;
-	}
+    public int getNumRue() {
+        return numRue;
+    }
 
-	public String getNomRue() {
-		return nomRue;
-	}
+    public void setNumRue(int numRue) {
+        this.numRue = numRue;
+    }
 
-	public void setNomRue(String nomRue) {
-		this.nomRue = nomRue;
-	}
+    public String getNomRue() {
+        return nomRue;
+    }
 
-	public String getVille() {
-		return ville;
-	}
+    public void setNomRue(String nomRue) {
+        this.nomRue = nomRue;
+    }
 
-	public void setVille(String ville) {
-		this.ville = ville;
-	}
+    public String getVille() {
+        return ville;
+    }
 
-	public String getProvince() {
-		return province;
-	}
+    public void setVille(String ville) {
+        this.ville = ville;
+    }
 
-	public void setProvince(String province) {
-		this.province = province;
-	}
+    public String getProvince() {
+        return province;
+    }
 
-	public String getCodePostal() {
-		return codePostal;
-	}
+    public void setProvince(String province) {
+        this.province = province;
+    }
 
-	public void setCodePostal(String codePostal) {
-		this.codePostal = codePostal;
-	}
-	
-	
-	
+    public String getCodePostal() {
+        return codePostal;
+    }
+
+    public void setCodePostal(String codePostal) {
+        this.codePostal = codePostal;
+    }
+
+//    public String getToken() {
+//        return token;
+//    }
+//
+//    public void setToken(String token) {
+//        this.token = token;
+//    }
+
+    @Override
+    public String toString() {
+        return "Utilisateur{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", courriel='" + courriel + '\'' +
+                ", telephone=" + telephone +
+                ", password='" + password + '\'' +
+                ", numRue=" + numRue +
+                ", nomRue='" + nomRue + '\'' +
+                ", ville='" + ville + '\'' +
+                ", province='" + province + '\'' +
+                ", codePostal='" + codePostal + '\'' +
+                '}';
+    }
 }
