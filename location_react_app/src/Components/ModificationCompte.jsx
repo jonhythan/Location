@@ -16,7 +16,7 @@ const ModificationCompte = () => {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
           }
-          fetch('http://localhost:8080/compte/'+url.get("id"), requestOptions)
+          fetch('http://localhost:8080/compte/'+1, requestOptions)
             .then(response => response.json())
             .then(data=>setState(data)
             )

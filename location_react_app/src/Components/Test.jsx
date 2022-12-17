@@ -1,11 +1,11 @@
 import React from 'react'
-import { useState ,useEffect} from 'react'
+import { useState ,useEffect, useContext} from 'react'
 
 const Test = () => {
   const [imageFile, setImageFile]=useState(null);
   const [imageByte, setImageByte]=useState(null);
   const [imageFileURL, setImageFileURL]=useState(null);
-
+  
   const submitFile=(e)=>{
     e.preventDefault();
     

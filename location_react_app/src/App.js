@@ -25,13 +25,15 @@ class App extends Component {
 
     login = (token, userId, tokenExpiration) => {
         this.setState({token: token, userId: userId});
+        console.log("setting token "+token);
     }
-
+    
     logout = () => {
         this.setState({token: null, userId: null});
     }
 
     render() {
+        
         return (
             <BrowserRouter>
                 <AuthContext.Provider
@@ -43,8 +45,12 @@ class App extends Component {
                     }}>
                     {/*Composant : barre de navigation principale*/}
                     <MainNavigation/>
+                    <span>{this.state.token==null?"isnull":"notnull"}</span>
                     <Routes>
-                        {/*Passer automatiquement à la page par défaut.*/}
+                        <Route path="/" element={<AnnoncesPage/>}/>
+                        <Route path="/annonces" element={<AnnoncesPage/>}/>
+                        <Route path="/login" element={<Login/>}/>
+                        {/* Passer automatiquement à la page par défaut.
                         {!this.state.token &&
                             <Route path="/" element={<Navigate to={"/annonces"}/>}/>
                         }
@@ -77,10 +83,10 @@ class App extends Component {
                         {this.state.token &&
                             <Route path="/nouveaucompte" element={<ComptePage/>}/>
                         }
-                        {!this.state.token &&
+                        {/* {!this.state.token &&
                             <Route path="/nouvelleannonce" element={<Navigate to={"/login"}/>}/>
-                        }
-                        {this.state.token &&
+                        } */}
+                        {/* {this.state.token!=null &&
                             <Route path="/nouvelleannonce" element={<NouvelleAnnonce/>}/>
                         }
                         {!this.state.token &&
@@ -89,18 +95,20 @@ class App extends Component {
                         {this.state.token &&
                             <Route path="/nouveausignalement" element={<NouveauSignalement/>}/>
                         }
-                        {!this.state.token &&
+                        {this.state.token?
+                            <Route path="/compte/modifier" element={<ModificationCompte />}/> 
+                            : <Route path="/compte/modifier" element={<Navigate to={"/login"}/>}/>
+                        }
+                        {/* {!this.state.token &&
                             <Route path="/compte/modifier" element={<Navigate to={"/login"}/>}/>
-                        }
-                        {this.state.token &&
-                            <Route path="/compte/modifier" element={<ModificationCompte/>}/>
-                        }
+                        } */}
+{/*                         
                         {!this.state.token &&
                             <Route path="/annonce/modifier" element={<Navigate to={"/login"}/>}/>
                         }
                         {this.state.token &&
                             <Route path="/annonce/modifier" element={<ModificationAnnonce/>}/>
-                        }
+                        } */} 
                         <Route path="/test" element={<Test/>}/>
                         <Route path="/test2" element={<Test2/>}/>
                     </Routes>

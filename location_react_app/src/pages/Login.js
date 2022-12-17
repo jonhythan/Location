@@ -85,6 +85,10 @@ class LoginPage extends Component {
     };
 
     render() {
+        if(sessionStorage.getItem("token")!=null){
+            console.log(sessionStorage.getItem("token"))
+            return window.location.replace("/")
+        }
         return (
             <form className={"auth-form"} onSubmit={this.submitHandler}>
                 <div className={"form-control"}>
