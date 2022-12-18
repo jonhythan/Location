@@ -61,4 +61,9 @@ public class AnnonceController {
 		annonceService.update(annonce);
 		return "MODIFIÉ";
 	}
+	
+	@GetMapping("annonce/getByUser/{id}")
+	public List<Annonce> getBasicAnnoncesByUserId(@PathVariable String id){
+		return annonceService.getBasicAnnoncesByUserId(Integer.valueOf(id));
+	}
 }

@@ -1,8 +1,7 @@
 import React from 'react'
 import {useState, useEffect, useRef} from 'react';
-import logo from '../logo.svg'
 
-const NouvelleAnnonce = () => {
+const NouvelleAnnonce = ({setdisplayNouvelleAnnonce, userId}) => {
     const [categories, setCategories]= useState([])
     const [etatsOutil, setEtatsOutil]= useState([])
     const [categoriePeriodes, setCategoriePeriodes]= useState([])
@@ -11,13 +10,11 @@ const NouvelleAnnonce = () => {
     const [arrayChoixCategoriePeriode, setArrayChoixCategoriePeriode]= useState([]);
     const [imageByte, setImageByte]=useState(null);
     const [formState, setFormState]=useState({
-        utilisateurProprietaireId: 1, //changer lorsque l'utilisateur pourra login
+        utilisateurProprietaireId: userId, 
         titre : '',
         categorie : '',
         etat: '', 
         description:'',
-
-
     })
     const shouldlog = useRef(true);
     const [warning, setWarning] = useState("");
@@ -88,25 +85,22 @@ const NouvelleAnnonce = () => {
             }
             console.log(requestOptions)
             fetch('http://localhost:8080/annonce/insert', requestOptions)
-            .then(response => response.text())
-            .then((data)=>{
-                if(data==="ENREGISTRÉ"){
-                    console.log(data);
+            .then(response => {
+                if (response.status===200){
                     setConfirmation("Annonce créé avec succès")
                     setTimeout(() => {
-                        window.location.replace("/");
+                        window.location.reload();
                     }, 1000);
                 }else{
-                    console.log(data);
                     setConfirmation("Une erreur est sourvenue, veuillez réessayer");
                 }
-                });
+            })
         }
 
     }
 
   return (
-    <div className='div_after_header'>
+    <div style={{width:"100%"}}>
         <form onSubmit={handleSubmit}>
             <div className='div_nouvelle_annonce'>
                 <div className='container container-nouvelle-annonce boxshadowing1'>
@@ -177,7 +171,7 @@ const NouvelleAnnonce = () => {
                         <input type="submit" value="Sauvegarder" className='col-2 btn btn-primary ' />&nbsp;&nbsp;&nbsp;&nbsp;
                         <input type="submit" value="Annuler" className='col-2 btn btn-danger ' onClick={(e)=>{
                             e.preventDefault();
-                            window.location.replace("/");
+                            setdisplayNouvelleAnnonce(false);
                         }} />
                     </div>  
                     <div className="row px-5 p-3 justify-content-center">
