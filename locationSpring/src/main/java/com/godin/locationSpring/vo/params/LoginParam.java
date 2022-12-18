@@ -8,4 +8,5 @@ public class LoginParam {
     private String password;
     private String role;
     private String token;
+    private String prenom;
 }
