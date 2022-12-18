@@ -1,19 +1,19 @@
 import {Component} from "react";
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import NouveauCompte from "./Components/NouveauCompte";
-import NouvelleAnnonce from "./Components/NouvelleAnnonce";
-import NouveauSignalement from "./Components/NouveauSignalement";
+// import NouvelleAnnonce from "./Components/NouvelleAnnonce";
+// import NouveauSignalement from "./Components/NouveauSignalement";
 import MainNavigation from "./Components/Navigation/MainNavigation";
-import Test from "./Components/Test"
-import Test2 from "./Components/Test2";
-import ComptePage from "./pages/Compte";
+// import Test from "./Components/Test"
+// import Test2 from "./Components/Test2";
+// import ComptePage from "./pages/Compte";
 import AnnoncesPage from "./pages/Annonces";
-import MessagesPage from "./pages/Messages";
+// import MessagesPage from "./pages/Messages";
 import Login from "./pages/Login";
-import UneAnnonce from "./Components/UneAnnonce";
-import AuthContext from "./context/auth-context";
-import ModificationCompte from "./Components/ModificationCompte";
-import ModificationAnnonce from "./Components/ModificationAnnonce";
+// import UneAnnonce from "./Components/UneAnnonce";
+// import AuthContext from "./context/auth-context";
+// import ModificationCompte from "./Components/ModificationCompte";
+// import ModificationAnnonce from "./Components/ModificationAnnonce";
 import MesAnnonces from "./pages/MesAnnonces";
 
 
