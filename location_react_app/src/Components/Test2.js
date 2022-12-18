@@ -1,24 +1,12 @@
 import React from 'react'
 import { useState ,useEffect} from 'react'
 
-const Test2 = () => {
-    const [e1, setE1]=useState('');
-    const [e2, setE2]=useState('');
-
-    const f1 = (event)=>{
-        setE1(event.target.value);
-        setE2({
-            
-          })
-        
-    }
-    useEffect(()=>{
-        console.log(e2);
-    })
+const Test2 = ({stateChanger, setStateChanger}) => {
+  
   return (
     <div>
-        <div><input type='text' onChange={e=>f1(e)}></input></div>
-        <div>{e2}</div>
+      {stateChanger?"I am displaying":"I am not displaying"}
+      <button onClick={()=>setStateChanger(false)}>Change Etat</button>
     </div>
   )
 }

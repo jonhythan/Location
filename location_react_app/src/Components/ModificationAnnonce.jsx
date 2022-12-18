@@ -1,9 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react'
-import { useSearchParams } from "react-router-dom";
 
-const ModificationAnnonce = () => {
-    const[url]=useSearchParams({});
-    const [membreLoggedIn]=useState(1); //à modifier quand le login sera fait
+const ModificationAnnonce = ({idAnnonce, setDisplayModifierAnnonce}) => {
     const[annonce, setAnnonce]=useState({});
     const[categories, setCategories]=useState([]);
     const[etatsOutil, setEtatsOutil]=useState([]);
@@ -15,7 +12,7 @@ const ModificationAnnonce = () => {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         }
-        fetch('http://localhost:8080/annonce/'+url.get("id"), requestOptions)
+        fetch('http://localhost:8080/annonce/'+idAnnonce, requestOptions)
             .then(response => response.json())
             .then(data=>setAnnonce(data))
         fetch('http://localhost:8080/categories', requestOptions)
@@ -40,6 +37,7 @@ const ModificationAnnonce = () => {
             .then(response => {
                 if(response.status===200){
                     window.alert("Succès dans les modifications")
+                    setDisplayModifierAnnonce(false);
                 }else{
                     window.alert("Une erreur est sourvenue")
                 }
@@ -51,7 +49,7 @@ const ModificationAnnonce = () => {
         console.log(annonce);
     })
   return (
-    <div className='div_after_header'>
+    <div className=''>
         <form onSubmit={handleSubmit}>
             <div className='div_nouvelle_annonce'>
                 <div className='container container-nouvelle-annonce boxshadowing1'>
@@ -138,7 +136,7 @@ const ModificationAnnonce = () => {
                         <input type="submit" value="Sauvegarder" className='col-2 btn btn-primary ' />&nbsp;&nbsp;&nbsp;&nbsp;
                         <input type="submit" value="Annuler" className='col-2 btn btn-danger ' onClick={(e)=>{
                             e.preventDefault();
-                            window.location.replace("/");
+                            setDisplayModifierAnnonce(false);
                         }} />
                     </div>
                 </div>

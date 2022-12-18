@@ -3,9 +3,8 @@ import "./MainNavigation.css"
 import logo from '../../logo.svg'
 import AuthContext from "../../context/auth-context";
 
-const MainNavigation = (props) => (
-    <AuthContext.Consumer>
-        {(context) => {
+const MainNavigation = (props) => {
+    const token = sessionStorage.getItem("token");
             return (
                 <header className="main-navigation d-flex justify-content-around">
                     <div className="main-navigation__logo">
@@ -13,35 +12,43 @@ const MainNavigation = (props) => (
                     </div>
                     <nav className="main-navigation__items">
                         <ul>
-                            {context.token && (
-                                <li>
-                                    <NavLink to="/compte">Mon compte</NavLink>
-                                </li>
-                            )}
-                            <li>
-                                <NavLink to="/annonces">Mes annonces</NavLink>
-                            </li>
-                            {context.token && (
-                                <li>
-                                    <NavLink to="/messages">Messages</NavLink>
-                                </li>
-                            )}
-                            {!context.token && (
-                                <li>
-                                    <NavLink to="/login">Se connecter</NavLink>
-                                </li>
-                            )}
-                            {context.token && (
-                                <li>
-                                    <NavLink to="/logout">Se déconnecter</NavLink>
-                                </li>
-                            )}
+                                
+                                
+                                {token ? (
+                                    <>
+                                        <li>
+                                        <NavLink to="/compte">Mon compte</NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink to="/mesannonces">Mes annonces</NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink to="/messages">Messages</NavLink>
+                                        </li>
+                                        
+                                        <li>
+                                            <NavLink to="" onClick={()=>{
+                                                sessionStorage.removeItem("token");
+                                                window.location.replace("/")                                                
+                                                }}>Se déconnecter</NavLink>
+                                        </li>
+                                    </>)
+                                    :   <>
+                                            <li>
+                                                <NavLink to="/login">Se connecter</NavLink>
+                                            </li>
+                                            ou
+                                            <li>
+                                                <NavLink to="/inscription">S'inscrire</NavLink>
+                                            </li>
+                                        </>
+                                }                            
+                                
+                       
                         </ul>
                     </nav>
                 </header>
-            );
-        }}
-    </AuthContext.Consumer>
-);
+            )
+}
 
 export default MainNavigation;
