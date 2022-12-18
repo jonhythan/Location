@@ -71,6 +71,11 @@ const NouveauCompte = () => {
         window.location.replace("/");
     }
 
+    if(sessionStorage.getItem("token")!=null){
+        sessionStorage.removeItem("token");
+        return window.location.reload();
+    }
+
     return (
         <div>
             <div className='d-flex justify-content-center'>

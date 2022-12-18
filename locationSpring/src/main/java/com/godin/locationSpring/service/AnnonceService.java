@@ -1,5 +1,6 @@
 package com.godin.locationSpring.service;
-import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -58,5 +59,19 @@ public class AnnonceService {
 		annonce2.setEtatOutilId(annonce.getEtatOutilId());
 
 		annonceRepository.save(annonce2);
+	}
+	
+	public List<Annonce> getBasicAnnoncesByUserId(int userId){
+		List<Annonce> listAnnonces=new ArrayList<>();
+		annonceRepository.findByUtilisateurProprietaireId(userId).forEach(x->{
+			Annonce annonce = new Annonce();
+			annonce.setId(x.getId());
+			annonce.setTitre(x.getTitre());
+			annonce.setDateCreation(x.getDateCreation());
+			annonce.setStatus(x.getStatus());
+			listAnnonces.add(annonce);
+		});
+		
+		return listAnnonces;
 	}
 }

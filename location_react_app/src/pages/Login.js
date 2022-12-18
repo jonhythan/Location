@@ -1,15 +1,13 @@
 import React, {Component} from "react";
 
 import "./Login.css"
-import AuthContext from "../context/auth-context";
+
 
 class LoginPage extends Component {
 
     state = {
         isLogin: true,
     };
-
-    static contextType = AuthContext;
 
     constructor(props) {
         super(props);
@@ -41,13 +39,6 @@ class LoginPage extends Component {
             "token": null
         }
 
-        /*      if (!this.state.isLogin) {
-                  requestBody = {
-                      query: `
-
-                  `
-                  }
-              }*/
 
         console.log(email, password);
 
@@ -74,18 +65,23 @@ class LoginPage extends Component {
                     resData.data.tokenExpiration
                 );
             }
-
-            console.log(resData.data.token);
             console.log("token------------");
-            console.log(sessionStorage.getItem("token"));
+            console.log(resData.data.token);
+            console.log("resData.data------------");
+            console.log(resData.data);
+            console.log("data------------");
             console.log(resData);
-        })
-            .catch((err) => {
+            window.location.replace("/")
+        }).catch((err) => {
                 console.log(err)
-            });
+        });
     };
 
     render() {
+        if(sessionStorage.getItem("token")!=null){
+            return window.location.replace("/");
+        }
+
         return (
             <form className={"auth-form"} onSubmit={this.submitHandler}>
                 <div className={"form-control"}>
