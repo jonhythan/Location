@@ -56,7 +56,15 @@ class LoginPage extends Component {
         }).then((resData) => {
             this.setState({data: resData})
             sessionStorage.setItem("token", resData.data.token)
-            // sessionStorage.setItem("abc", resData.data.prenom)
+            sessionStorage.setItem("prenom", resData.data.prenom)
+
+            if (resData.data.token) {
+                this.context.login(
+                    resData.data.token,
+                    resData.data.userId,
+                    resData.data.tokenExpiration
+                );
+            }
             console.log("token------------");
             console.log(resData.data.token);
             console.log("resData.data------------");
