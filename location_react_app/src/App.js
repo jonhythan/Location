@@ -15,6 +15,7 @@ import Login from "./pages/Login";
 // import ModificationCompte from "./Components/ModificationCompte";
 // import ModificationAnnonce from "./Components/ModificationAnnonce";
 import MesAnnonces from "./pages/MesAnnonces";
+import AdminPage from "./pages/Admin";
 
 
 class App extends Component {
@@ -35,6 +36,7 @@ class App extends Component {
                         <Route path="/test2" element={<Test2/>}/> */}
                         <Route path="/mesannonces" element={<MesAnnonces/>}/>
                         <Route path="/message" element={<MesAnnonces/>}/>
+                        <Route path="/admin" element={<AdminPage/>}/>
                         
                     </Routes>
             </BrowserRouter>

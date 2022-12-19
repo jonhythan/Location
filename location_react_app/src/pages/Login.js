@@ -71,6 +71,7 @@ class LoginPage extends Component {
             sessionStorage.setItem("token", resData.data.token)
             sessionStorage.setItem("prenom", resData.data.prenom)
             sessionStorage.setItem("userId", resData.data.userId)
+            sessionStorage.setItem("role", resData.data.role)
 
             if (resData.data.token) {
                 this.context.login(
@@ -87,7 +88,7 @@ class LoginPage extends Component {
             console.log(resData.data);
             console.log("data------------");
             console.log(resData);
-            window.location.replace("/")
+            // window.location.replace("/")
         }).catch((err) => {
             console.log(err)
         });
@@ -95,6 +96,10 @@ class LoginPage extends Component {
 
     render() {
         if (sessionStorage.getItem("token") != null) {
+            if (sessionStorage.getItem("role") === "admin")
+            {
+                return window.location.replace("/admin");
+            }
             return window.location.replace("/");
         }
 
