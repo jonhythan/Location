@@ -1,10 +1,41 @@
-import {NavLink} from "react-router-dom";
+import {NavLink, Route} from "react-router-dom";
 import "./MainNavigation.css"
 import logo from '../../logo.svg'
-// import AuthContext from "../../context/auth-context";
 
 const MainNavigation = (props) => {
     const token = sessionStorage.getItem("token");
+    const role = sessionStorage.getItem("role");
+
+    // Renvoie "NavBar" selon l'utilisateur "Rôle"
+    function renderNavBar() {
+        // Si l'utilisateur est "admin", accédez à l'administrateur "NavBar".
+        if (role == "admin") {
+            return (
+                <>
+                    <li>
+                        <NavLink to="/admin">Admin Panel</NavLink>
+                    </li>
+                </>
+            )
+        } else {
+            // Si l'utilisateur est "membre", accédez à l'utilisateur "NavBar".
+            return (
+                <>
+                    <li>
+                        <NavLink to="/compte">Mon compte</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/mesannonces">Mes annonces</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/messages">Messages</NavLink>
+                    </li>
+                </>
+            )
+        }
+    }
+
+
     return (
         <header className="main-navigation d-flex justify-content-around">
             <div className="main-navigation__logo">
@@ -14,15 +45,8 @@ const MainNavigation = (props) => {
                 <ul>
                     {token ? (
                             <>
-                                <li>
-                                    <NavLink to="/compte">Mon compte</NavLink>
-                                </li>
-                                <li>
-                                    <NavLink to="/mesannonces">Mes annonces</NavLink>
-                                </li>
-                                <li>
-                                    <NavLink to="/messages">Messages</NavLink>
-                                </li>
+                                {/*Renvoie "NavBar" selon l'utilisateur "Rôle"*/}
+                                {renderNavBar()}
 
                                 <li>
                                     <NavLink to="" onClick={() => {
