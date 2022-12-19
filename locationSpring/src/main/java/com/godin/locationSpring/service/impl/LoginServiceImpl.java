@@ -36,7 +36,6 @@ public class LoginServiceImpl implements LoginService {
         String password = loginParam.getPassword();
         String role;
         String token;
-        String prenom;
         if (StringUtils.isBlank(courriel) || StringUtils.isBlank(password)) {
             return Result.fail(ErrorCode.PARAMS_ERROR.getCode(), ErrorCode.PARAMS_ERROR.getMsg());
         }
@@ -57,6 +56,7 @@ public class LoginServiceImpl implements LoginService {
         System.out.println("token" + token);
         loginParam.setToken(token);
         loginParam.setPrenom(utilisateur.getPrenom());
+        loginParam.setUserId(utilisateur.getId());
         
         return Result.success(loginParam);
     }

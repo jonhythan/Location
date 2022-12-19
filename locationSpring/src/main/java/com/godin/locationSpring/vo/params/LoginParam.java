@@ -9,4 +9,5 @@ public class LoginParam {
     private String role;
     private String token;
     private String prenom;
+    private int userId;
 }
