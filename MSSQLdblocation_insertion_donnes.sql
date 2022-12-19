@@ -20,6 +20,10 @@ Membre(utilisateur_id,status,Administrateur_id_desactivateur,Administrateur_id_a
 INSERT INTO
 Membre(utilisateur_id,status,Administrateur_id_desactivateur,Administrateur_id_activateur) VALUES(3,1,null,1);
 
+INSERT INTO MESSAGE(expediteur_id,recepteur_id,contenu,dateEnvol) VALUES(2,3,'text1',CURRENT_TIMESTAMP());
+INSERT INTO MESSAGE(expediteur_id,recepteur_id,contenu,dateEnvol) VALUES(1,2,'text2',CURRENT_TIMESTAMP());
+INSERT INTO MESSAGE(expediteur_id,recepteur_id,contenu,dateEnvol) VALUES(3,2,'text3',CURRENT_TIMESTAMP());
+INSERT INTO MESSAGE(expediteur_id,recepteur_id,contenu,dateEnvol) VALUES(1,3,'text4',CURRENT_TIMESTAMP());
 
 INSERT INTO Categorie(nom) VALUES('cat1');
 INSERT INTO Categorie(nom) VALUES('cat2'); 

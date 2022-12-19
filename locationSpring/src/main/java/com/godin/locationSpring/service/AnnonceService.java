@@ -1,20 +1,29 @@
 package com.godin.locationSpring.service;
-import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.godin.locationSpring.model.Annonce;
+import com.godin.locationSpring.model.Detail;
 import com.godin.locationSpring.repository.AnnonceRepository;
 
 @Service
 public class AnnonceService {
 	@Autowired
 	AnnonceRepository annonceRepository;
+	@Autowired
+	DetailService detailService;
 	
 	public Annonce getOneAnnonce() {
 		Annonce annonce = annonceRepository.findAll().get(1);
-
 		return annonce;
+	}
+	public Annonce getAnnonce(int id) {
+		Optional<Annonce> annonce =  annonceRepository.findById(id);
+		return annonce.get();
 	}
 	
 	public int insert(Map<String, Object> body) {
@@ -31,5 +40,38 @@ public class AnnonceService {
 		
 		int i = annonceRepository.save(annonce).getId();	
 		return i;
+	}
+	
+	public void update(Annonce annonce) {
+		detailService.deleteByAnnonceId(annonce.getId());
+		
+		annonce.getDetails().forEach(x->{
+			Detail detail = new Detail(x.getAnnonceId(), x.getCategoriePeriodeId(), x.getPrix());
+			detailService.insert(detail);
+		});
+		
+		Annonce annonce2 = annonceRepository.findById(annonce.getId()).get();
+		
+		annonce2.setTitre(annonce.getTitre());
+		annonce2.setDescription(annonce.getDescription());
+		annonce2.setImage(annonce.getImage());
+		annonce2.setCategorieId(annonce.getCategorieId());
+		annonce2.setEtatOutilId(annonce.getEtatOutilId());
+
+		annonceRepository.save(annonce2);
+	}
+	
+	public List<Annonce> getBasicAnnoncesByUserId(int userId){
+		List<Annonce> listAnnonces=new ArrayList<>();
+		annonceRepository.findByUtilisateurProprietaireId(userId).forEach(x->{
+			Annonce annonce = new Annonce();
+			annonce.setId(x.getId());
+			annonce.setTitre(x.getTitre());
+			annonce.setDateCreation(x.getDateCreation());
+			annonce.setStatus(x.getStatus());
+			listAnnonces.add(annonce);
+		});
+		
+		return listAnnonces;
 	}
 }
