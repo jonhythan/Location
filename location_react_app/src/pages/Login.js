@@ -70,6 +70,7 @@ class LoginPage extends Component {
             this.setState({data: resData})
             sessionStorage.setItem("token", resData.data.token)
             sessionStorage.setItem("prenom", resData.data.prenom)
+            sessionStorage.setItem("userId", resData.data.userId)
 
             if (resData.data.token) {
                 this.context.login(
@@ -80,6 +81,8 @@ class LoginPage extends Component {
             }
             console.log("token------------");
             console.log(resData.data.token);
+            console.log("userId------------");
+            console.log(resData.data.userId);
             console.log("resData.data------------");
             console.log(resData.data);
             console.log("data------------");
