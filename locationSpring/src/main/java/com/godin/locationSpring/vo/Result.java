@@ -1,6 +1,6 @@
 package com.godin.locationSpring.vo;
 
-import lombok.AllArgsConstructor;
+//import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
