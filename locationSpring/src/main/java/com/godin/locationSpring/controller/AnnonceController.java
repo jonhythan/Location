@@ -73,4 +73,14 @@ public class AnnonceController {
 	public Annonce activerUnAnnonce( @PathVariable int id){
 		return annonceService.activerUnAnnounce(id);
 	}
+
+	@GetMapping("annonces/public")
+	public List<Annonce> getAllPublic(){
+		return annonceService.getAnnoncesActifs();
+	}
+
+	@DeleteMapping("annonce/delete/{id}")
+	public void softDelete(@PathVariable String id){
+		annonceService.softDeleteAnnonce(Integer.valueOf(id));
+	}
 }

@@ -49,7 +49,7 @@ const MainNavigation = (props) => {
                                 {renderNavBar()}
 
                                 <li>
-                                    <NavLink to="" onClick={() => {
+                                    <NavLink to="/logout" onClick={() => {
                                         sessionStorage.removeItem("token");
                                         window.location.replace("/")
                                     }}>Se déconnecter</NavLink>

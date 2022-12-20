@@ -129,7 +129,7 @@ class LoginPage extends Component {
                                         </div>
                                         <div className={"form-outline input-group mb-4"}>
                                             <input className={"form-control form-control-lg"}
-                                                   type={this.state.passwordType}
+                                                   type="password"
                                                    onChange={this.handlePasswordChange}
                                                    id={"password"} ref={this.passwordEl} placeholder={"Mot de passe"}/>
                                             <span className={"input-group-text"}>

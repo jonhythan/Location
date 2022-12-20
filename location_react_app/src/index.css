@@ -178,4 +178,5 @@ input:checked + .slider:before
 input:checked + .slider
 {
   box-shadow: 0 0 0 2px limeGreen, 0 0 8px limeGreen;
+  /* color: rgb(167, 142, 0); */
 }

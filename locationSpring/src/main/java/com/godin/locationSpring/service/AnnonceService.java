@@ -23,7 +23,9 @@ public class AnnonceService {
 	}
 	public Annonce getAnnonce(int id) {
 		Optional<Annonce> annonce =  annonceRepository.findById(id);
-		return annonce.get();
+
+		if(annonce.get().getStatus()!=2) return annonce.get();
+		else return new Annonce();
 	}
 	
 	public int insert(Map<String, Object> body) {
@@ -72,7 +74,7 @@ public class AnnonceService {
 			annonce.setAdministrateurIdDesactivateur(x.getAdministrateurIdDesactivateur());
 			listAnnonces.add(annonce);
 		});
-		
+		listAnnonces.removeIf(x->x.getStatus()==2);
 		return listAnnonces;
 	}
 
@@ -86,5 +88,16 @@ public class AnnonceService {
 		Annonce annonce = annonceRepository.findById(id).orElse(new Annonce());
 		annonce.setStatus(1);
 		return annonceRepository.save(annonce);
+	}
+
+	public void softDeleteAnnonce(int id){
+		Annonce annonce= annonceRepository.findById((id)).get();
+		annonce.setStatus(2);
+		annonceRepository.save(annonce);
+	}
+	public List<Annonce> getAnnoncesActifs(){
+		List<Annonce> liste = annonceRepository.findAll();
+		liste.removeIf(x->(x.getStatus()!=1));
+		return liste;
 	}
 }

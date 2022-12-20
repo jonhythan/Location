@@ -21,7 +21,7 @@ const BarreCategories = () => {
     <div className='BarreCategories p-4 '>
         <ul className='list-group boxshadowing1'>
             {categories.map((c)=>(
-                <li className='list-group-item' key={c.id}>{c.nom}</li>
+                <li className='list-group-item barre-navigation-element' key={c.id}>{c.nom}</li>
             ))}
 
         </ul>

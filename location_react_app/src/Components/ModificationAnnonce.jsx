@@ -61,7 +61,7 @@ const ModificationAnnonce = ({idAnnonce, setDisplayModifierAnnonce}) => {
                             setAnnonce(annonce) ;}} defaultValue={annonce.titre} required></input>
                     </div>
                     <div className='row px-5 p-3'>
-                        <div className='col-3'>
+                        <div className='col-4'>
                             <label >Catégorie : </label>
                             <span className='px-3'>
                                 <select onChange={e=>{
@@ -99,7 +99,7 @@ const ModificationAnnonce = ({idAnnonce, setDisplayModifierAnnonce}) => {
                         }}></input>
                     </div>
                     <div className='row px-5 p-3'>
-                        <label className='col-1' style={{fontSize:"0.85em"}}>Description :</label>
+                        <label className='col-2' >Description :</label>
                         <textarea className='col' rows={10} defaultValue={annonce.description} onChange={e=> {setAnnonce({...annonce, description: e.target.value})}} required></textarea>                        
                     </div>
                     <div className='row px-5 p-3'>
