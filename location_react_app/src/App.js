@@ -9,6 +9,8 @@ import ComptePage from "./pages/Compte";
 import ModificationCompte from "./Components/ModificationCompte";
 import Messages from "./pages/Messages";
 import UneAnnonce from "./Components/UneAnnonce";
+import AdminPage from "./pages/Admin";
+
 
 
 class App extends Component {
@@ -31,6 +33,8 @@ class App extends Component {
                         <Route path="/messages" element={<Messages/>}/>
                         <Route path="/compte" element={<ModificationCompte/>}/>
                         <Route path="/annonce" element={<UneAnnonce/>}/>
+                        <Route path="/admin" element={<AdminPage/>}/>
+
                     </Routes>
             </BrowserRouter>
         );
