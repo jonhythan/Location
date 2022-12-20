@@ -53,7 +53,7 @@ public class AnnonceController {
 		}
 	}
 	
-	@PostMapping("annonce/modifier")
+	@PutMapping("annonce/modifier")
 	public String modifierAnnonce(@RequestBody Annonce annonce) {
 		annonceService.update(annonce);
 		return "MODIFIÉ";

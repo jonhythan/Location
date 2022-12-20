@@ -29,7 +29,7 @@ const ModificationAnnonce = ({idAnnonce, setDisplayModifierAnnonce}) => {
     const handleSubmit=(e)=>{
         e.preventDefault();
         const requestOptions={
-            method: 'POST',
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(annonce)
         }
@@ -37,7 +37,7 @@ const ModificationAnnonce = ({idAnnonce, setDisplayModifierAnnonce}) => {
             .then(response => {
                 if(response.status===200){
                     window.alert("Succès dans les modifications")
-                    setDisplayModifierAnnonce(false);
+                    window.location.reload();
                 }else{
                     window.alert("Une erreur est sourvenue")
                 }

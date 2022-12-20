@@ -69,6 +69,7 @@ public class AnnonceService {
 			annonce.setTitre(x.getTitre());
 			annonce.setDateCreation(x.getDateCreation());
 			annonce.setStatus(x.getStatus());
+			annonce.setAdministrateurIdDesactivateur(x.getAdministrateurIdDesactivateur());
 			listAnnonces.add(annonce);
 		});
 		
