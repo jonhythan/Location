@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {groupBy} from "core-js/actual/array/group-by";
 import getUserId from '../Fonctions/getUserId';
 import {BsPersonCircle} from "react-icons/bs"
@@ -8,6 +8,9 @@ const Messages = () => {
   const [isLoading]=useState(true);
   const [messagesAfiche, setMessagesAffiche]=useState();
   const [annonceAfficher, setAnnonceAfficher]=useState();
+  const [destinataire, setDestinataire]=useState(0);
+  const [personneClicked, setPersonneClicked]=useState();
+  let messageRef = useRef();
   useState(()=>{
     const requestOptions={
       method: 'GET',
@@ -32,11 +35,36 @@ const Messages = () => {
           }else{
               window.alert("Une erreur est sourvenue")
           }
-        }).then(data=>{setPrenomsMessage(data); console.log(data)})
+        }).then(data=>{setPrenomsMessage(data)})
         
       });
   })
   
+  const sendMessage=()=>{
+    let message = messageRef.current.value;
+    if(message!==""){
+      const requestOptions={
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          "contenu": message,
+          "expediteurId": getUserId(),
+          "recepteurId": destinataire
+         })
+      
+      }
+      fetch('http://localhost:8080/message/insert', requestOptions)
+      .then(response => {if(response.status!==200){
+            window.alert("Erreur");
+          }
+          else{
+            fetchMessages(destinataire);
+          }
+        }
+        )
+      messageRef.current.value="";
+    }
+  }
   const fetchAnnonce=(idAnnonce)=>{
     const requestOptions={
       method: 'GET',
@@ -60,8 +88,7 @@ const Messages = () => {
               window.alert("Une erreur est sourvenue")
           }
       }).then(data=> {
-        setMessagesAffiche(data); 
-        console.log(data);
+        setMessagesAffiche(data.sort((a,b)=> a.idMessage-b.idMessage)); 
       });
   }
   useEffect(() => {
@@ -71,9 +98,9 @@ const Messages = () => {
   });
 
   const getRandomColor=(index)=>{
-    const colors = ["DC4444","AD64C5", "A20A0A", "028090", "F69E7B", "393E46", "E45826", "FC5185", "6F38C5"];
+    const colors = ["DC4444", "6F38C5","AD64C5", "A20A0A", "028090", "F69E7B", "393E46", "E45826", "FC5185"];
 
-    return "#"+colors[colors.length%index];
+    return "#"+colors[index%colors.length];
   }
 
   if(getUserId()==null){
@@ -91,22 +118,38 @@ const Messages = () => {
                 {
                   return (
                   <div key={index} className='list-group-item d-flex barre-navigation-element' style={{textTransform:"capitalize"}}
-                  onClick={()=>fetchMessages(u)} ><BsPersonCircle style={{marginTop:"4px", color:getRandomColor(index)}}/> {prenomsMessage[index]?.toLowerCase()}</div>
+                    onClick={()=>{
+                      fetchMessages(u);;
+                      setDestinataire(usersInteractedWith[index]);
+                      setPersonneClicked(prenomsMessage[index]);
+                      }
+                    }
+                    >
+                    <BsPersonCircle style={{marginTop:"4px", color:getRandomColor(index)}}/> {prenomsMessage[index]?.toLowerCase()}</div>
                   )
                 }
               )}
             </div>
           </div>
           <div className='col-4 boxshadowing1' style={{margin:"30px 5px 30px 5px", backgroundColor:"white", height:"100%"}}>
-            <h5 style={{position:"sticky", top:"0px", zIndex:"3"}}>Info personne</h5>
+            <div>
+              
+              {personneClicked?
+              <div className='d-flex flex-column align-items-center '>
+                <BsPersonCircle style={{marginTop:"4px", color:getRandomColor(prenomsMessage.indexOf(personneClicked)), fontSize:"2em"}}/>
+                <b>{personneClicked.toUpperCase()}</b>
+              </div>
+              
+              :<h5 style={{position:"sticky", top:"0px", zIndex:"3"}}>Conversation</h5>}
+            </div>
             <div id='msgDiv' style={{height:"80%", overflowY:"scroll"}}>
               {messagesAfiche?.map((e,index)=>{
                 if(e.expediteurId===getUserId()){
                   return <div className="d-flex justify-content-end  " key={index}>
+                    <div className="d-flex align-items-end" style={{fontSize:"0.5em", textAlign:"right"}}>{new Date(e.dateEnvoi).toLocaleDateString()}<br></br>{new Date(e.dateEnvoi).toLocaleTimeString()}</div>
                     <span className='message-box1' key={index}>
                       {e.contenu?.split("&&").length>1?<> <span style={{cursor:"pointer", color:"blue", textDecoration:"underline"}} onClick={
                         ()=>{
-                          console.log("clicnkg")
                           fetchAnnonce(e.contenu.split("&&")[0].split("=")[1])
                         }
                       }>Voir annonce</span> {e.contenu.split("&&")[1]} </> : e.contenu}
@@ -115,15 +158,23 @@ const Messages = () => {
                   return <div className="d-flex justify-content-start" style={{marginRight:"auto"}} key={index}>
                     <span className='message-box2'>{e.contenu?.split("&&").length>1?<> <span style={{cursor:"pointer", color:"blue", textDecoration:"underline"}} onClick={
                         ()=>{
-                          console.log("clicnkg")
                           fetchAnnonce(e.contenu.split("&&")[0].split("=")[1])
                         }
-                      }>Voir annonce</span> {e.contenu.split("&&")[1]} </> : e.contenu}</span></div>
+                      }>Voir annonce</span> {e.contenu.split("&&")[1]} </> : e.contenu}</span>
+                      <div className="d-flex align-items-end" style={{fontSize:"0.5em", textAlign:"left"}}>{new Date(e.dateEnvoi).toLocaleDateString()}<br></br>{new Date(e.dateEnvoi).toLocaleTimeString()}</div>
+                      </div>
                 }
               })}
             </div>
-            <div style={{position:"sticky", bottom:"20px", zIndex:"3", marginBottom:"20px"}}>
-              Boite de message
+            <div style={{position:"sticky", bottom:"20px", zIndex:"3", marginBottom:"10px"}}>
+              <div className="input-group">
+                <textarea className="form-control" aria-label="With textarea" ref={messageRef}></textarea>
+                <span className="input-group-text span-envoyer" onClick={()=>{
+                  if(destinataire!==0){
+                    sendMessage();
+                  }
+                }}>Envoyer</span>
+              </div>
             </div>
           </div>
           <div className='col boxshadowing1' style={{margin:"30px 30px 30px 5px", backgroundColor:"white" ,height:"100%"}}>
@@ -131,7 +182,7 @@ const Messages = () => {
             <div className='d-flex flex-column align-items-center'>
             {annonceAfficher?
               <>
-                <img src={annonceAfficher["image"]} alt="annonce" style={{width:"60%"}} className="boxshadowing2"/>
+                <img src={annonceAfficher["image"]} alt="annonce" style={{width:"50%"}} className="boxshadowing2"/>
                 <h4>{annonceAfficher["titre"]}</h4>
                 <p>{annonceAfficher["description"]}</p>
                 <ul className="list-group">
@@ -139,7 +190,7 @@ const Messages = () => {
                     <li className="list-group-item" key={p["categoriePeriodeId"]}>{p["prix"].toFixed(2)} $ / {p["categoriePeriodes"]["titre"]}</li>))}
                 </ul>
               </>
-            :"no"}
+            :"Aucun annonce selectionné"}
             </div>
           </div>
         </div>
