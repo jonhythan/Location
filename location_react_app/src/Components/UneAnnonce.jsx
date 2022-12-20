@@ -5,11 +5,19 @@ import { AiFillStar } from 'react-icons/ai';
 import Evaluation from './Evaluation';
 import {IoPersonCircleOutline} from "react-icons/io5"
 import NouveauSignalement from './NouveauSignalement';
+import getUserId from '../Fonctions/getUserId';
 
 
 const UneAnnonce = () => {
-    const [idMembreLoggedIn, setIdMembreLoggedIn]=useState(1) //plus tard on va aller le chercher dans la session.
-    const [searchParams] = useSearchParams({});
+    const [idMembreLoggedIn]=useState(()=>{
+      if(getUserId()===null) return 0;
+      return getUserId();
+    }) 
+    const [peutSignaler]=useState(()=>{
+      if(idMembreLoggedIn!==0) return true;
+      return false;
+    })
+    const [searchParams] = useSearchParams({}); //plustard à passer en param
     const [message, setMessage]=useState("");
     const [titre, setTitre]= useState("");
     const [image, setImage]= useState();
@@ -68,6 +76,7 @@ const UneAnnonce = () => {
     //ref pour vider la boite message
     let messageRef = useRef();
     const sendMessage= ()=>{
+      if(getUserId()===null) return alert("Vous devez vous connecter pour envoyer un message");
       if(message!==""){
         const requestOptions={
           method: 'POST',
@@ -110,9 +119,9 @@ const UneAnnonce = () => {
                   &nbsp;
                   ({evaluations?.length} reviews)
                   &nbsp;
-                  {peutCommenter ? <a href='.' onClick={(e)=>{
+                  {peutCommenter&&idMembreLoggedIn!==0? <a href='.' onClick={(e)=>{
                     e.preventDefault();
-                    setDivEvaluation("flex")}}>Laisser un commentaire</a> : "Vous avez soumis un commentaire"}
+                    setDivEvaluation("flex")}}>Laisser un commentaire</a> : (idMembreLoggedIn!==0? "Vous avez soumis un commentaire" : "Connectez-vous pour laisser un commentaire")}
                 </div>
                 <ul className="list-group">
                   {periodes?.map((p)=>(
@@ -141,7 +150,10 @@ const UneAnnonce = () => {
                 <div className='d-flex flex-row flex-grow-1 justify-content-end' style={{}}>
                   <button type="button" className="btn btn-outline-danger align-self-end" onClick={(e)=>{
                     e.preventDefault();
-                    setDivSignalement("block");
+                    if(!peutSignaler) alert("Connectez-vous");
+                    else{
+                      setDivSignalement("block");
+                    }
                   }}>
                     <i className="bi bi-flag-fill"></i>
                     &nbsp;Signaler

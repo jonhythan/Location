@@ -89,6 +89,9 @@ code {
 .boxshadowing1{
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
+.boxshadowing2{
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
 .barre-navigation-element{
   cursor:pointer;
 }
@@ -97,4 +100,23 @@ code {
 }
 .barre-navigation-element:active{
   background-color: rgba(0, 0, 0, 0.327);
+}
+
+.message-box1 {
+  padding: 6px 10px;
+  border-radius: 6px 0 6px 0;
+  position: relative;
+  background: rgba(100, 170, 0, .1);
+  border: 2px solid rgba(99, 170, 0, 0.438);
+  padding:10px;
+  font-size: 12px;
+}
+.message-box2 {
+  padding: 6px 10px;
+  border-radius: 6px 0 6px 0;
+  position: relative;
+  background: rgba(100, 223, 206, 0.233);
+  border: 2px solid rgba(100, 223, 207, 0.445);
+  padding:10px;
+  font-size: 12px;
 }

@@ -1,10 +1,10 @@
 package com.godin.locationSpring.vo;
 
-import lombok.AllArgsConstructor;
+//import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
+//@AllArgsConstructor
 public class Result {
 
     private boolean success;

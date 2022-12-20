@@ -71,6 +71,7 @@ class LoginPage extends Component {
             console.log(resData.data);
             console.log("data------------");
             console.log(resData);
+
             window.location.replace("/")
         }).catch((err) => {
                 console.log(err)
