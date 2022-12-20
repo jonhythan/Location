@@ -38,6 +38,7 @@ const UneAnnonce = () => {
     const [divEvaluation, setDivEvaluation]=useState("none");
     const [divSignalement, setDivSignalement]=useState("none");
     const [idAnnonce, setIdAnnonce]=useState(0);
+    const [etatOutil, setEtatOutil]=useState("");
     const [annonce, setAnnonce]= useState(()=>{
       const requestOptions={
           method: 'GET',
@@ -65,6 +66,7 @@ const UneAnnonce = () => {
               var commentateursId =  data["evaluations"].map(e=>e.membreId)
               return (!commentateursId.includes(idMembreLoggedIn))
             })
+            setEtatOutil(data["etatOutil"].titre)
           });
     })
    
@@ -133,7 +135,9 @@ const UneAnnonce = () => {
                 <p>
                   {description}
                 </p>
-                <br></br>
+                <br>
+                </br>
+                <span>État de l'outil: <b>{etatOutil}</b></span><br></br>
                 <span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pin-map" viewBox="0 0 16 16">
                     <path fillRule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z"/>

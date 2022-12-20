@@ -68,6 +68,21 @@ const MesAnnonces = () => {
     console.log(listeAnnonces);
   })
 
+  const deleteAnnonce=(id)=>{
+    const requestOptions={
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    }
+    fetch('http://localhost:8080/annonce/delete/'+id, requestOptions)
+    .then(response=>{
+      if(response.status===200){
+        alert("Supprimé avec succès");
+        window.location.reload();
+      }else{
+        alert("Erreur dans la suppression");
+      }})
+  }
+
     if(sessionStorage.getItem("token")==null){
         return window.location.replace("/login")
     }
@@ -110,10 +125,6 @@ const MesAnnonces = () => {
                         <span className="slider"></span>
                       </label> Activé &nbsp;&nbsp;&nbsp; {a.administrateurIdDesactivateur===null? "" : <span style={{color:"red", fontSize:"0.7em"}}>Desactivé par administrateur</span>}
                     </div>
-                      {/* <input type="checkbox" onChange={(event) => {
-                      setStatus(a.status===1);
-                      setAnnonceModifier(a.id);
-                      changerAnnonceStatus(event, a.id, a.status);}} checked={checked===undefined ? a.status===1 : checked} data-toggle="toggle" ></input> */}
                     </td>
                     <td>
                       <button className='btn btn-secondary' style={{marginRight:"20px"}} onClick={()=>{
@@ -121,7 +132,7 @@ const MesAnnonces = () => {
                         setAnnonceModifier(a.id);
                       }}>Modifier</button>
                       <button className='btn btn-danger' onClick={()=>{
-                        
+                        deleteAnnonce(a.id);
                       }}>Supprimer</button>
                       
                     </td>
