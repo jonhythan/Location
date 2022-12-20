@@ -24,7 +24,7 @@ const MesAnnonces = () => {
       
       setLoading(false);
   }
-  const desactiverAnnonce = (event, annonceId,status) => {
+  const changerAnnonceStatus = (event, annonceId,status) => {
     //event.preventDefault();
 
     const requestOptions = 
@@ -90,7 +90,7 @@ const MesAnnonces = () => {
                   }}>Modifier</button> <input type="checkbox" onChange={(event) => {
                     setStatus(a.status===1);
                     setAnnonceModifier(a.id);
-                    desactiverAnnonce(event, a.id, a.status);}} checked={checked===undefined ? a.status===1 : checked} data-toggle="toggle" ></input></li>
+                    changerAnnonceStatus(event, a.id, a.status);}} checked={checked===undefined ? a.status===1 : checked} data-toggle="toggle" ></input></li>
                   
                 })}
               </ul>
