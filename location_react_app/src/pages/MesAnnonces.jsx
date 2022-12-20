@@ -40,6 +40,7 @@ const MesAnnonces = () => {
             if(response.status===200){
                 setStatus(true);
                 window.alert("L'annonce a été activé");
+                window.location.reload(false);
             }else{
                 setStatus(checked);
                 window.alert("Une erreur est sourvenue");
@@ -54,6 +55,7 @@ const MesAnnonces = () => {
           if(response.status===200){
               setStatus(false);
               window.alert("L'annonce a été desactivé");
+              window.location.reload(false);
           }else{
               window.alert("Une erreur est sourvenue")
           }
