@@ -28,7 +28,7 @@ const ModificationCompte = () => {
         console.log("trying to submit");
         console.log(state);
         const requestOptions={
-            method: 'POST',
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(state)
         }

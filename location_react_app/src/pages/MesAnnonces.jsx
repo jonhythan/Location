@@ -53,7 +53,7 @@ const MesAnnonces = () => {
     fetch(url, requestOptions)
       .then(response => {
           if(response.status===200){
-             setStatus(false);
+              setStatus(false);
               window.alert("L'annonce a été desactivé");
               window.location.reload(false);
           }else{
@@ -75,26 +75,66 @@ const MesAnnonces = () => {
     }
   return (
     <div  className='div_after_header d-flex flex-row justify-content-center'>
+      <div className="" style={{backgroundColor:"#D9D9D9", height:"100%", width: "1200px", padding:"40px"}}>
         {!displayModifierAnnonce && !displayNouvelleAnnonce?
           <>
-            <button type="button" className="btn btn-secondary" onClick={()=>{
+            <button style={{marginLeft:"40px"}} type="button" className="btn btn-secondary" onClick={()=>{
                 setdisplayNouvelleAnnonce(true);
               }}>Nouvelle annonce
             </button>
 
             {/* liste d'annonces */}
-            <div>
-              <ul>
-                {listeAnnonces?.map(a=>{
-                  return <li key={a.id}>{a.titre} <button onClick={()=>{
-                    setDisplayModifierAnnonce(true);
-                    setAnnonceModifier(a.id);
-                  }}>Modifier</button> <input type="checkbox" onChange={(event) => {
-                    setAnnonceModifier(a.id);
-                    changerAnnonceStatus(event, a.id, a.status);}} checked={checked===undefined ? a.status===1 : checked} data-toggle="toggle" ></input></li>
-                  
-                })}
-              </ul>
+            <div  style={{margin:"40px"}}>
+              <table className="table table-striped boxshadowing2">
+                <tbody>
+                <tr>
+                  <th>Titre</th>
+                  <th>Date de publication</th>
+                  <th>État</th>
+                  <th></th>
+                </tr>
+                {listeAnnonces?.map((a,index)=>(
+                  <tr key={index}>
+                    <td>{a.titre}</td>
+                    <td>{new Date(a.dateCreation).toLocaleDateString()}</td>
+                    <td >
+                    <div style={{display: "flex", alignContent: "stretch", alignItems: "center" }}>
+                      Désactivé
+                      <label className="switch">
+                        <input type="checkbox" disabled={!(a.administrateurIdDesactivateur===null)}defaultChecked={a.status===1} onChange={(e)=>{
+                          console.log(e.target.checked);
+                          if(e.target.checked){
+                            changerAnnonceStatus(e, a.id, 0)
+                          }else{
+                            changerAnnonceStatus(e, a.id, 1)
+                          }
+                        }}/>
+                        <span className="slider"></span>
+                      </label> Activé &nbsp;&nbsp;&nbsp; {a.administrateurIdDesactivateur===null? "" : <span style={{color:"red", fontSize:"0.7em"}}>Desactivé par administrateur</span>}
+                    </div>
+                      {/* <input type="checkbox" onChange={(event) => {
+                      setStatus(a.status===1);
+                      setAnnonceModifier(a.id);
+                      changerAnnonceStatus(event, a.id, a.status);}} checked={checked===undefined ? a.status===1 : checked} data-toggle="toggle" ></input> */}
+                    </td>
+                    <td>
+                      <button className='btn btn-secondary' style={{marginRight:"20px"}} onClick={()=>{
+                        setDisplayModifierAnnonce(true);
+                        setAnnonceModifier(a.id);
+                      }}>Modifier</button>
+                      <button className='btn btn-danger' onClick={()=>{
+                        
+                      }}>Supprimer</button>
+                      
+                    </td>
+
+                  </tr>
+
+                ))
+                }
+                </tbody>
+              </table>
+
             </div>
           </> 
           : displayModifierAnnonce?
@@ -106,6 +146,8 @@ const MesAnnonces = () => {
             <NouvelleAnnonce setdisplayNouvelleAnnonce={setdisplayNouvelleAnnonce} userId={userId}/>
           </>
         }
+
+      </div>
 
     </div>
   )

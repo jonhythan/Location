@@ -68,7 +68,7 @@ public class UtilisateurController {
         return utilisateurService.getUtilisateurById(Integer.valueOf(id));
     }
 
-    @PostMapping("/compte/modifier")
+    @PutMapping("/compte/modifier")
     public Utilisateur modifierUtilisateur(@RequestBody Utilisateur utilisateur) {
         return utilisateurService.modifierUtilisateur(utilisateur);
     }
