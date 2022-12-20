@@ -74,4 +74,16 @@ public class AnnonceService {
 		
 		return listAnnonces;
 	}
+
+	public Annonce desactiverUnAnnounce(int id) {
+		Annonce annonce = annonceRepository.findById(id).orElse(new Annonce());
+		annonce.setStatus(0);
+		return annonceRepository.save(annonce);
+	}
+
+	public Annonce activerUnAnnounce(int id) {
+		Annonce annonce = annonceRepository.findById(id).orElse(new Annonce());
+		annonce.setStatus(1);
+		return annonceRepository.save(annonce);
+	}
 }
