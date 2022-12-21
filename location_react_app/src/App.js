@@ -14,18 +14,31 @@ import AdminPage from "./pages/Admin";
 
 
 class App extends Component {
+    constructor(props){
+        super(props);
+        this.state={mot:""};
+    }
 
+    search=(word)=>{
+        this.setState({mot:word})
+    }
 
-
+    componentDidMount(){
+    }
+    
+    componentDidUpdate(){
+    }
     render() {
         return (
             <BrowserRouter>
                 {/*Composant : barre de navigation principale*/}
-                    <MainNavigation/>
+                    <MainNavigation search={this.search} word={this.state.mot}/>
                     <Routes>
-                        <Route path="/" element={<AnnoncesPage/>}/>
-                        <Route path="/annonces" element={<AnnoncesPage/>}/> 
-                        <Route path="/login" element={<Login/>}/>
+                        <Route path="/" element={<AnnoncesPage word={this.state.mot} />}/>
+                        {/* //key={this.state.mot} */}
+                        <Route path="/annonces" element={<AnnoncesPage word={this.state.mot}/>}/> 
+                         
+                        <Route path="/login" element={<Login word={this.state.mot}/>}/>
                         <Route path="/inscription" element={<NouveauCompte/>}/>
                         {/* <Route path="/test" element={<Test/>}/>
                         <Route path="/test2" element={<Test2/>}/> */}

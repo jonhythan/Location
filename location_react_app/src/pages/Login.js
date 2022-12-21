@@ -10,13 +10,28 @@ class LoginPage extends Component {
 
     state = {
         passwordType: "password",
+        // word:this.props.word
     };
 
     constructor(props) {
         super(props);
         this.emailEl = React.createRef();
         this.passwordEl = React.createRef();
+        this.state.word=this.props.word+"yes"
     };
+
+    static getDerivedStateFromProps(nextProps, prevState){
+        if(nextProps.word!==prevState.word){
+            return {word: nextProps.word};
+        }
+        return null;
+    }
+
+    // componentDidUpdate(prevProps, prevState){
+    //     if(prevState.word!==this.state.word){
+
+    //     }
+    // }
 
     handlePasswordChange = (event) => {
         this.setState({
@@ -116,7 +131,7 @@ class LoginPage extends Component {
                                         <img src={logo} className={"rounded"} alt="logo"/>
                                     </div>
                                     <h1 className={"mb-5"} style={{letterSpacing: "9px", color: "#354446"}}>Se
-                                        connecter</h1>
+                                        connecter {this.state.word}</h1>
                                     <form onSubmit={this.submitHandler}>
                                         <div className={"form-outline input-group mb-4"}>
                                             <input className={"form-control form-control-lg"} type={"email"}
