@@ -83,4 +83,12 @@ public class AnnonceController {
 	public void softDelete(@PathVariable String id){
 		annonceService.softDeleteAnnonce(Integer.valueOf(id));
 	}
+
+	@GetMapping("/annonce/search{search}")
+	public List<Annonce> searchByWord(@RequestParam String search){
+		return annonceService.searchByWord(search);
+	}
+
+	@GetMapping("/annonce/categorie{id}")
+	public List<Annonce> searchByCategorieId(@RequestParam String id){return annonceService.searchByCategorieId(Integer.valueOf(id));}
 }

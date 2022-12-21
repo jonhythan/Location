@@ -100,4 +100,10 @@ public class AnnonceService {
 		liste.removeIf(x->(x.getStatus()!=1));
 		return liste;
 	}
+
+	public List<Annonce> searchByWord(String word){
+		return annonceRepository.searchByWord(word);
+	}
+
+	public List<Annonce> searchByCategorieId(int categorieId){return annonceRepository.searchByCategorieId(categorieId);}
 }

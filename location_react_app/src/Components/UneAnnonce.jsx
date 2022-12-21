@@ -2,6 +2,7 @@ import React, { useEffect , useState, useRef} from 'react'
 import { useSearchParams } from "react-router-dom";
 import BarreCategories from "./Navigation/BarreCategories"
 import { AiFillStar } from 'react-icons/ai';
+import { CgCloseR } from 'react-icons/cg';
 import Evaluation from './Evaluation';
 import {IoPersonCircleOutline} from "react-icons/io5"
 import NouveauSignalement from './NouveauSignalement';
@@ -108,7 +109,7 @@ const UneAnnonce = () => {
     <div className='div_after_header d-flex flex-row justify-content-center div_une_annonce'>
       <div style={{backgroundColor:"#D9D9D9"}}>
         <div className='d-flex flex-row '>
-          <BarreCategories/>   
+          {/* <BarreCategories/>    */}
           <div className='div_contenu_annonce container p-4'>
             <div className='row boxshadowing1'>
               <div className='col d-flex flex-column justify-content-center align-items-center'>
@@ -131,12 +132,16 @@ const UneAnnonce = () => {
                 </ul>
               </div>
               <div className='col d-flex flex-column'>
-                Description
+                <div className='d-flex justify-content-end ' style={{paddingTop:"10px", fontSize:"2em", color:"red", cursor:"pointer"}}>
+                  <CgCloseR className='barre-navigation-element' onClick={()=>window.history.back()}/>
+                </div>
+                <b>Description</b>
                 <p>
                   {description}
                 </p>
                 <br>
                 </br>
+                <span>Catégorie: <b>{annonce?.categorie.nom}</b></span>
                 <span>État de l'outil: <b>{etatOutil}</b></span><br></br>
                 <span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pin-map" viewBox="0 0 16 16">
