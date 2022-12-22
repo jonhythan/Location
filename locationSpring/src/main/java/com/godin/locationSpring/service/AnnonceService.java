@@ -41,7 +41,6 @@ public class AnnonceService {
         annonce.setDescription((String) body.get("description"));
         annonce.setImage((String) body.get("image"));
         annonce.setStatus(1);
-
         int i = annonceRepository.save(annonce).getId();
         return i;
     }
@@ -108,4 +107,14 @@ public class AnnonceService {
         List<Annonce> liste = annonceRepository.findAll();
         return liste;
     }
+
+
+    public List<Annonce> searchByWord(String word) {
+        return annonceRepository.searchByWord(word);
+    }
+
+    public List<Annonce> searchByCategorieId(int categorieId) {
+        return annonceRepository.searchByCategorieId(categorieId);
+    }
+
 }

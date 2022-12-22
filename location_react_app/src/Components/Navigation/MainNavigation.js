@@ -1,11 +1,14 @@
 import {NavLink, Route} from "react-router-dom";
 import "./MainNavigation.css"
 import logo from '../../logo.svg'
+import {AiOutlineSearch} from 'react-icons/ai'
+import { useRef } from "react";
 
-const MainNavigation = (props) => {
+const MainNavigation = ({search,word}) => {
     const token = sessionStorage.getItem("token");
     const role = sessionStorage.getItem("role");
-
+    const searchRef = useRef();
+    const loupeRef = useRef();
     // Renvoie "NavBar" selon l'utilisateur "Rôle"
     function renderNavBar() {
         // Si l'utilisateur est "admin", accédez à l'administrateur "NavBar".
@@ -37,9 +40,22 @@ const MainNavigation = (props) => {
 
 
     return (
-        <header className="main-navigation d-flex justify-content-around">
+        <header className="main-navigation d-flex justify-content-evenly">
             <div className="main-navigation__logo">
-                <NavLink to="/"><img src={logo} alt="logo vers la page accueil"/></NavLink>
+                <img src={logo} alt="logo vers la page accueil" onClick={()=>window.location.replace("/")} style={{cursor:"pointer"}}/>
+            </div>
+            <div className="input-group mb-3" style={{width:"20%", paddingTop:"20px"}}>
+                <input ref={searchRef} type="text" defaultValue={word} className="form-control" placeholder="Chercher" aria-label="Chercher" aria-describedby="basic-addon1"
+                    onKeyDown={(e)=>{
+                        if(e.key==='Enter'){
+                            loupeRef.current.click();
+                        }
+                    }}
+                />
+                <button ref={loupeRef} className="input-group-text barre-navigation-element" id="basic-addon1" onClick={()=>{
+                    search(searchRef.current.value)
+                    searchRef.current.value="";
+                }}><AiOutlineSearch /></button>
             </div>
             <nav className="main-navigation__items">
                 <ul>
@@ -75,6 +91,7 @@ const MainNavigation = (props) => {
                     }
                 </ul>
             </nav>
+            
         </header>
     )
 }
