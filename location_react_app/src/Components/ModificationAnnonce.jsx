@@ -1,9 +1,6 @@
 import React, {useState, useRef, useEffect} from 'react'
-import { useSearchParams } from "react-router-dom";
 
-const ModificationAnnonce = () => {
-    const[url]=useSearchParams({});
-    const [membreLoggedIn]=useState(1); //à modifier quand le login sera fait
+const ModificationAnnonce = ({idAnnonce, setDisplayModifierAnnonce}) => {
     const[annonce, setAnnonce]=useState({});
     const[categories, setCategories]=useState([]);
     const[etatsOutil, setEtatsOutil]=useState([]);
@@ -15,7 +12,7 @@ const ModificationAnnonce = () => {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         }
-        fetch('http://localhost:8080/annonce/'+url.get("id"), requestOptions)
+        fetch('http://localhost:8080/annonce/'+idAnnonce, requestOptions)
             .then(response => response.json())
             .then(data=>setAnnonce(data))
         fetch('http://localhost:8080/categories', requestOptions)
@@ -32,7 +29,7 @@ const ModificationAnnonce = () => {
     const handleSubmit=(e)=>{
         e.preventDefault();
         const requestOptions={
-            method: 'POST',
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(annonce)
         }
@@ -40,6 +37,7 @@ const ModificationAnnonce = () => {
             .then(response => {
                 if(response.status===200){
                     window.alert("Succès dans les modifications")
+                    window.location.reload();
                 }else{
                     window.alert("Une erreur est sourvenue")
                 }
@@ -51,7 +49,7 @@ const ModificationAnnonce = () => {
         console.log(annonce);
     })
   return (
-    <div className='div_after_header'>
+    <div className=''>
         <form onSubmit={handleSubmit}>
             <div className='div_nouvelle_annonce'>
                 <div className='container container-nouvelle-annonce boxshadowing1'>
@@ -63,7 +61,7 @@ const ModificationAnnonce = () => {
                             setAnnonce(annonce) ;}} defaultValue={annonce.titre} required></input>
                     </div>
                     <div className='row px-5 p-3'>
-                        <div className='col-3'>
+                        <div className='col-4'>
                             <label >Catégorie : </label>
                             <span className='px-3'>
                                 <select onChange={e=>{
@@ -101,7 +99,7 @@ const ModificationAnnonce = () => {
                         }}></input>
                     </div>
                     <div className='row px-5 p-3'>
-                        <label className='col-1' style={{fontSize:"0.85em"}}>Description :</label>
+                        <label className='col-2' >Description :</label>
                         <textarea className='col' rows={10} defaultValue={annonce.description} onChange={e=> {setAnnonce({...annonce, description: e.target.value})}} required></textarea>                        
                     </div>
                     <div className='row px-5 p-3'>
@@ -138,7 +136,7 @@ const ModificationAnnonce = () => {
                         <input type="submit" value="Sauvegarder" className='col-2 btn btn-primary ' />&nbsp;&nbsp;&nbsp;&nbsp;
                         <input type="submit" value="Annuler" className='col-2 btn btn-danger ' onClick={(e)=>{
                             e.preventDefault();
-                            window.location.replace("/");
+                            setDisplayModifierAnnonce(false);
                         }} />
                     </div>
                 </div>

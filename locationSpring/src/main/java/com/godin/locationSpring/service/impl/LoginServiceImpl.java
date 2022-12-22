@@ -55,7 +55,9 @@ public class LoginServiceImpl implements LoginService {
         token = JWTUtils.createToken(utilisateur.getId());
         System.out.println("token" + token);
         loginParam.setToken(token);
-
+        loginParam.setPrenom(utilisateur.getPrenom());
+        loginParam.setUserId(utilisateur.getId());
+        
         return Result.success(loginParam);
     }
 

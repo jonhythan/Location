@@ -1,29 +1,55 @@
 import React, {Component} from "react";
 
-import "./Login.css"
-import AuthContext from "../context/auth-context";
+// import "./Login.css"
+
+import "bootstrap/dist/css/bootstrap.css"
+import "bootstrap-icons/font/bootstrap-icons.css"
+import logo from '../logo.svg'
 
 class LoginPage extends Component {
 
     state = {
-        isLogin: true,
+        passwordType: "password",
+        // word:this.props.word
     };
-
-    static contextType = AuthContext;
 
     constructor(props) {
         super(props);
         this.emailEl = React.createRef();
         this.passwordEl = React.createRef();
+        this.state.word=this.props.word+"yes"
     };
 
-    switchModeHandler = () => {
-        this.setState((prevState) => {
-            return {
-                isLogin: !prevState.isLogin
-            };
-        });
-    };
+    static getDerivedStateFromProps(nextProps, prevState){
+        if(nextProps.word!==prevState.word){
+            return {word: nextProps.word};
+        }
+        return null;
+    }
+
+    // componentDidUpdate(prevProps, prevState){
+    //     if(prevState.word!==this.state.word){
+
+    //     }
+    // }
+
+    handlePasswordChange = (event) => {
+        this.setState({
+            passwordType: event.target.value,
+        })
+    }
+
+    togglePassword = () => {
+        if (this.state.passwordType === "password") {
+            this.setState({
+                passwordType: "text",
+            })
+        } else {
+            this.setState({
+                passwordType: "password",
+            })
+        }
+    }
 
     submitHandler = (event) => {
         event.preventDefault();
@@ -41,13 +67,6 @@ class LoginPage extends Component {
             "token": null
         }
 
-        /*      if (!this.state.isLogin) {
-                  requestBody = {
-                      query: `
-
-                  `
-                  }
-              }*/
 
         console.log(email, password);
 
@@ -65,6 +84,9 @@ class LoginPage extends Component {
         }).then((resData) => {
             this.setState({data: resData})
             sessionStorage.setItem("token", resData.data.token)
+            sessionStorage.setItem("prenom", resData.data.prenom)
+            sessionStorage.setItem("userId", resData.data.userId)
+            sessionStorage.setItem("role", resData.data.role)
 
             if (resData.data.token) {
                 this.context.login(
@@ -73,35 +95,79 @@ class LoginPage extends Component {
                     resData.data.tokenExpiration
                 );
             }
-
-            console.log(resData.data.token);
             console.log("token------------");
-            console.log(sessionStorage.getItem("token"));
+            console.log(resData.data.token);
+            console.log("userId------------");
+            console.log(resData.data.userId);
+            console.log("resData.data------------");
+            console.log(resData.data);
+            console.log("data------------");
             console.log(resData);
-        })
-            .catch((err) => {
-                console.log(err)
-            });
+            window.location.replace("/")
+
+        }).catch((err) => {
+            console.log(err)
+        });
     };
 
     render() {
+        if (sessionStorage.getItem("token") != null) {
+            if (sessionStorage.getItem("role") === "admin")
+            {
+                return window.location.replace("/admin");
+            }
+            return window.location.replace("/");
+        }
+
         return (
-            <form className={"auth-form"} onSubmit={this.submitHandler}>
-                <div className={"form-control"}>
-                    <label htmlFor={"email"}>Utilisateur</label>
-                    <input type={"email"} id={"email"} ref={this.emailEl}/>
+            <section className={"vh-75"} style={{backgroundColor: "#D9D9D9", width: "600px", borderRadius: "1rem"}}>
+                <div className={"container py-5 h-100"}>
+                    <div className={"row d-flex justify-content-center align-items-center h-100"}>
+                        {/*<div className={"col-12 col-md-8 col-lg-6 col-xl-5"}>*/}
+                        <div className={"col-10"}>
+                            <div className={"card shadow-2-strong"} style={{borderRadius: "1rem"}}>
+                                <div className={"card-body p-5 text-center"}>
+                                    <div className={"text-center"}>
+                                        <img src={logo} className={"rounded"} alt="logo"/>
+                                    </div>
+                                    <h1 className={"mb-5"} style={{letterSpacing: "9px", color: "#354446"}}>Se
+                                        connecter {this.state.word}</h1>
+                                    <form onSubmit={this.submitHandler}>
+                                        <div className={"form-outline input-group mb-4"}>
+                                            <input className={"form-control form-control-lg"} type={"email"}
+                                                   id={"email"}
+                                                   ref={this.emailEl} placeholder={"Utilisateur"}/>
+                                            <span className={"input-group-text justify-content-center"}
+                                                  style={{width: "70px"}}>
+                                                <i className={"bi bi-person"}></i>
+                                            </span>
+                                        </div>
+                                        <div className={"form-outline input-group mb-4"}>
+                                            <input className={"form-control form-control-lg"}
+                                                   type="password"
+                                                   onChange={this.handlePasswordChange}
+                                                   id={"password"} ref={this.passwordEl} placeholder={"Mot de passe"}/>
+                                            <span className={"input-group-text"}>
+                                                <button className={"btn"}
+                                                        onClick={this.togglePassword}>
+                                                    {this.state.passwordType === "password" ?
+                                                        <i className={"bi bi-eye-slash"}></i> :
+                                                        <i className={"bi bi-eye"}></i>}
+                                                </button>
+                                            </span>
+                                        </div>
+                                        <div className={"d-grid gap-2"}>
+                                            <button className={"btn  btn-lg btn-block text-uppercase"} type={"submit"}
+                                                    style={{backgroundColor: "#3A5A40", color: "#FFFFFF"}}>Entrer
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className={"form-control"}>
-                    <label htmlFor={"password"}>Mot de passe</label>
-                    <input type={"password"} id={"password"} ref={this.passwordEl}/>
-                </div>
-                <div className={"form-actions"}>
-                    <button type={"submit"}>Entrer</button>
-                    <button type={"button"} onClick={this.switchModeHandler}>
-                        Switch to {this.state.isLogin ? "Signup" : "Login"}
-                    </button>
-                </div>
-            </form>
+            </section>
         );
     }
 }

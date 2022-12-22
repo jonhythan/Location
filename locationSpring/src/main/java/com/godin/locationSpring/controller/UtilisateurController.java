@@ -1,6 +1,7 @@
 package com.godin.locationSpring.controller;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -67,9 +68,16 @@ public class UtilisateurController {
         return utilisateurService.getUtilisateurById(Integer.valueOf(id));
     }
 
-    @PostMapping("/compte/modifier")
+    @PutMapping("/compte/modifier")
     public Utilisateur modifierUtilisateur(@RequestBody Utilisateur utilisateur) {
         return utilisateurService.modifierUtilisateur(utilisateur);
+    }
+
+    @PostMapping("utilisateur/prenoms")
+    public List<String> getNomUtilisateur(@RequestBody List<Integer> listeIdUsers){
+        List<String> prenomsListe= new ArrayList<>();
+        listeIdUsers.forEach(x->prenomsListe.add(utilisateurService.findById(x).getPrenom()));
+        return prenomsListe;
     }
 
 }

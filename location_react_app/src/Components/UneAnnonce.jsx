@@ -2,14 +2,23 @@ import React, { useEffect , useState, useRef} from 'react'
 import { useSearchParams } from "react-router-dom";
 import BarreCategories from "./Navigation/BarreCategories"
 import { AiFillStar } from 'react-icons/ai';
+import { CgCloseR } from 'react-icons/cg';
 import Evaluation from './Evaluation';
 import {IoPersonCircleOutline} from "react-icons/io5"
 import NouveauSignalement from './NouveauSignalement';
+import getUserId from '../Fonctions/getUserId';
 
 
 const UneAnnonce = () => {
-    const [idMembreLoggedIn, setIdMembreLoggedIn]=useState(1) //plus tard on va aller le chercher dans la session.
-    const [searchParams] = useSearchParams({});
+    const [idMembreLoggedIn]=useState(()=>{
+      if(getUserId()===null) return 0;
+      return getUserId();
+    }) 
+    const [peutSignaler]=useState(()=>{
+      if(idMembreLoggedIn!==0) return true;
+      return false;
+    })
+    const [searchParams] = useSearchParams({}); //plustard à passer en param
     const [message, setMessage]=useState("");
     const [titre, setTitre]= useState("");
     const [image, setImage]= useState();
@@ -30,6 +39,7 @@ const UneAnnonce = () => {
     const [divEvaluation, setDivEvaluation]=useState("none");
     const [divSignalement, setDivSignalement]=useState("none");
     const [idAnnonce, setIdAnnonce]=useState(0);
+    const [etatOutil, setEtatOutil]=useState("");
     const [annonce, setAnnonce]= useState(()=>{
       const requestOptions={
           method: 'GET',
@@ -57,6 +67,7 @@ const UneAnnonce = () => {
               var commentateursId =  data["evaluations"].map(e=>e.membreId)
               return (!commentateursId.includes(idMembreLoggedIn))
             })
+            setEtatOutil(data["etatOutil"].titre)
           });
     })
    
@@ -68,6 +79,7 @@ const UneAnnonce = () => {
     //ref pour vider la boite message
     let messageRef = useRef();
     const sendMessage= ()=>{
+      if(getUserId()===null) return alert("Vous devez vous connecter pour envoyer un message");
       if(message!==""){
         const requestOptions={
           method: 'POST',
@@ -97,7 +109,7 @@ const UneAnnonce = () => {
     <div className='div_after_header d-flex flex-row justify-content-center div_une_annonce'>
       <div style={{backgroundColor:"#D9D9D9"}}>
         <div className='d-flex flex-row '>
-          <BarreCategories/>   
+          {/* <BarreCategories/>    */}
           <div className='div_contenu_annonce container p-4'>
             <div className='row boxshadowing1'>
               <div className='col d-flex flex-column justify-content-center align-items-center'>
@@ -110,9 +122,9 @@ const UneAnnonce = () => {
                   &nbsp;
                   ({evaluations?.length} reviews)
                   &nbsp;
-                  {peutCommenter ? <a href='.' onClick={(e)=>{
+                  {peutCommenter&&idMembreLoggedIn!==0? <a href='.' onClick={(e)=>{
                     e.preventDefault();
-                    setDivEvaluation("flex")}}>Laisser un commentaire</a> : "Vous avez soumis un commentaire"}
+                    setDivEvaluation("flex")}}>Laisser un commentaire</a> : (idMembreLoggedIn!==0? "Vous avez soumis un commentaire" : "Connectez-vous pour laisser un commentaire")}
                 </div>
                 <ul className="list-group">
                   {periodes?.map((p)=>(
@@ -120,11 +132,17 @@ const UneAnnonce = () => {
                 </ul>
               </div>
               <div className='col d-flex flex-column'>
-                Description
+                <div className='d-flex justify-content-end ' style={{paddingTop:"10px", fontSize:"2em", color:"red", cursor:"pointer"}}>
+                  <CgCloseR className='barre-navigation-element' onClick={()=>window.history.back()}/>
+                </div>
+                <b>Description</b>
                 <p>
                   {description}
                 </p>
-                <br></br>
+                <br>
+                </br>
+                <span>Catégorie: <b>{annonce?.categorie.nom}</b></span>
+                <span>État de l'outil: <b>{etatOutil}</b></span><br></br>
                 <span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pin-map" viewBox="0 0 16 16">
                     <path fillRule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z"/>
@@ -141,7 +159,10 @@ const UneAnnonce = () => {
                 <div className='d-flex flex-row flex-grow-1 justify-content-end' style={{}}>
                   <button type="button" className="btn btn-outline-danger align-self-end" onClick={(e)=>{
                     e.preventDefault();
-                    setDivSignalement("block");
+                    if(!peutSignaler) alert("Connectez-vous");
+                    else{
+                      setDivSignalement("block");
+                    }
                   }}>
                     <i className="bi bi-flag-fill"></i>
                     &nbsp;Signaler

@@ -2,6 +2,7 @@ package com.godin.locationSpring.service;
 
 import java.security.PublicKey;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,5 +29,26 @@ public class MessageService {
 		message.setRecepteurId((Integer)body.get("recepteurId"));
 		
 		messageRepository.save(message);
+	}
+
+	public List<Message> getByRecepteur(int recepteurId){
+//		List<List<Message>> messagesByRecepteurGroupedByExpediteur = new ArrayList<>();
+//
+//		messageRepository.findByRecepteurId(recepteurId).forEach(x->{
+//
+//		});
+		return messageRepository.findByRecepteurId(recepteurId);
+	}
+
+	public List<Message> getByUserId(int userId){
+		return messageRepository.findByUserId((userId));
+	}
+
+	public List<Integer> getUsersInteracted(int userId){
+		return messageRepository.findUsersInteracted(userId);
+	}
+
+	public List<Message> getInteractions(int userId1, int userId2){
+		return messageRepository.interactions(userId1, userId2);
 	}
 }

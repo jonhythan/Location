@@ -1,110 +1,56 @@
 import {Component} from "react";
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import NouveauCompte from "./Components/NouveauCompte";
-import NouvelleAnnonce from "./Components/NouvelleAnnonce";
-import NouveauSignalement from "./Components/NouveauSignalement";
 import MainNavigation from "./Components/Navigation/MainNavigation";
-import Test from "./Components/Test"
-import Test2 from "./Components/Test2";
-import ComptePage from "./pages/Compte";
 import AnnoncesPage from "./pages/Annonces";
-import MessagesPage from "./pages/Messages";
 import Login from "./pages/Login";
-import UneAnnonce from "./Components/UneAnnonce";
-import AuthContext from "./context/auth-context";
+import MesAnnonces from "./pages/MesAnnonces";
+import ComptePage from "./pages/Compte";
 import ModificationCompte from "./Components/ModificationCompte";
-import ModificationAnnonce from "./Components/ModificationAnnonce";
+import Messages from "./pages/Messages";
+import UneAnnonce from "./Components/UneAnnonce";
+import AdminPage from "./pages/Admin";
+import AdminPanel from "./pages/AdminPanel"
+
 
 
 class App extends Component {
-
-    state = {
-        token: null,
-        userId: null,
+    constructor(props){
+        super(props);
+        this.state={mot:""};
     }
 
-    login = (token, userId, tokenExpiration) => {
-        this.setState({token: token, userId: userId});
+    search=(word)=>{
+        this.setState({mot:word})
     }
 
-    logout = () => {
-        this.setState({token: null, userId: null});
+    componentDidMount(){
     }
-
+    
+    componentDidUpdate(){
+    }
     render() {
         return (
             <BrowserRouter>
-                <AuthContext.Provider
-                    value={{
-                        token: this.state.token,
-                        userId: this.state.userId,
-                        login: this.login,
-                        logout: this.logout,
-                    }}>
-                    {/*Composant : barre de navigation principale*/}
-                    <MainNavigation/>
+                {/*Composant : barre de navigation principale*/}
+                    <MainNavigation search={this.search} word={this.state.mot}/>
                     <Routes>
-                        {/*Passer automatiquement à la page par défaut.*/}
-                        {!this.state.token &&
-                            <Route path="/" element={<Navigate to={"/annonces"}/>}/>
-                        }
-                        {this.state.token &&
-                            <Route path="/" element={<Navigate to={"/annonces"}/>}/>
-                        }
-                        {!this.state.token &&
-                            <Route path="/login" element={<Login/>}/>
-                        }
-                        {this.state.token &&
-                            <Route path="/login" element={<Navigate to={"/annonces"}/>}/>
-                        }
-                        {!this.state.token &&
-                            <Route path="/compte" element={<Navigate to={"/login"}/>}/>
-                        }
-                        {this.state.token &&
-                            <Route path="/compte" element={<ComptePage/>}/>
-                        }
-                        <Route path="/annonces" element={<AnnoncesPage/>}/>
+                        <Route path="/" element={<AnnoncesPage word={this.state.mot} />}/>
+                        {/* //key={this.state.mot} */}
+                        <Route path="/annonces" element={<AnnoncesPage word={this.state.mot}/>}/> 
+                         
+                        <Route path="/login" element={<Login word={this.state.mot}/>}/>
+                        <Route path="/inscription" element={<NouveauCompte/>}/>
+                        {/* <Route path="/test" element={<Test/>}/>
+                        <Route path="/test2" element={<Test2/>}/> */}
+                        <Route path="/mesannonces" element={<MesAnnonces/>}/>
+                        <Route path="/messages" element={<Messages/>}/>
+                        <Route path="/compte" element={<ModificationCompte/>}/>
                         <Route path="/annonce" element={<UneAnnonce/>}/>
-                        {!this.state.token &&
-                            <Route path="/messages" element={<Navigate to={"/login"}/>}/>
-                        }
-                        {this.state.token &&
-                            <Route path="/messages" element={<MessagesPage/>}/>
-                        }
-                        {!this.state.token &&
-                            <Route path="/nouveaucompte" element={<NouveauCompte/>}/>
-                        }
-                        {this.state.token &&
-                            <Route path="/nouveaucompte" element={<ComptePage/>}/>
-                        }
-                        {!this.state.token &&
-                            <Route path="/nouvelleannonce" element={<Navigate to={"/login"}/>}/>
-                        }
-                        {this.state.token &&
-                            <Route path="/nouvelleannonce" element={<NouvelleAnnonce/>}/>
-                        }
-                        {!this.state.token &&
-                            <Route path="/nouveausignalement" element={<Navigate to={"/login"}/>}/>
-                        }
-                        {this.state.token &&
-                            <Route path="/nouveausignalement" element={<NouveauSignalement/>}/>
-                        }
-                        {!this.state.token &&
-                            <Route path="/compte/modifier" element={<Navigate to={"/login"}/>}/>
-                        }
-                        {this.state.token &&
-                            <Route path="/compte/modifier" element={<ModificationCompte/>}/>
-                        }
-                        {!this.state.token &&
-                            <Route path="/annonce/modifier" element={<Navigate to={"/login"}/>}/>
-                        }
-                        {this.state.token &&
-                            <Route path="/annonce/modifier" element={<ModificationAnnonce/>}/>
-                        }
-                        <Route path="/test" element={<Test/>}/>
-                        <Route path="/test2" element={<Test2/>}/>
+                        {/*<Route path="/admin" element={<AdminPage/>}/>*/}
+                        <Route path="/admin" element={<AdminPanel/>}/>
+
                     </Routes>
-                </AuthContext.Provider>
             </BrowserRouter>
         );
     }

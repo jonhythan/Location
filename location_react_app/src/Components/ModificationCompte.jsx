@@ -2,9 +2,10 @@ import React, {useState, useRef} from 'react'
 import { useSearchParams } from "react-router-dom";
 import {AiFillHome} from 'react-icons/ai'
 import {BsPersonSquare} from 'react-icons/bs'
+import getUserId from '../Fonctions/getUserId';
 
 const ModificationCompte = () => {
-    const[url]=useSearchParams({});
+    const[userId]=useState(getUserId());
     const[divPersonne, setDivPersonne]=useState("block")
     const[divAdresse, setDivAdresse]=useState("none")
     const [state, setState]=useState({});
@@ -16,7 +17,7 @@ const ModificationCompte = () => {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
           }
-          fetch('http://localhost:8080/compte/'+url.get("id"), requestOptions)
+          fetch('http://localhost:8080/compte/'+userId, requestOptions)
             .then(response => response.json())
             .then(data=>setState(data)
             )
@@ -27,7 +28,7 @@ const ModificationCompte = () => {
         console.log("trying to submit");
         console.log(state);
         const requestOptions={
-            method: 'POST',
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(state)
         }
