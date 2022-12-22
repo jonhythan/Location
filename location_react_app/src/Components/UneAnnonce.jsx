@@ -1,4 +1,4 @@
-import React, { useEffect , useState, useRef} from 'react'
+import React, { useState, useRef} from 'react'
 import { useSearchParams } from "react-router-dom";
 import BarreCategories from "./Navigation/BarreCategories"
 import { AiFillStar } from 'react-icons/ai';
@@ -69,11 +69,6 @@ const UneAnnonce = () => {
             })
             setEtatOutil(data["etatOutil"].titre)
           });
-    })
-   
-    useEffect(()=>
-    {
-      // console.log(message);
     })
 
     //ref pour vider la boite message

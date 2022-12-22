@@ -9,7 +9,7 @@ import ComptePage from "./pages/Compte";
 import ModificationCompte from "./Components/ModificationCompte";
 import Messages from "./pages/Messages";
 import UneAnnonce from "./Components/UneAnnonce";
-import AdminPage from "./pages/Admin";
+import AdminPage from "./pages/Admin.js";
 
 
 

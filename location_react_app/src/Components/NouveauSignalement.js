@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { useSearchParams } from "react-router-dom";
+import getUserId from '../Fonctions/getUserId';
 
 class NouveauSignalement extends Component {
     constructor() {
@@ -38,7 +38,7 @@ class NouveauSignalement extends Component {
             body: JSON.stringify(
                 {
                     "membreUtilisateur": {
-                        "utilisateurId": 3
+                        "utilisateurId": getUserId()
                     },
                     "annonce": {
                         "id": this.props.idAnnonce
