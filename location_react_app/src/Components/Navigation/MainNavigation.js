@@ -71,8 +71,12 @@ const MainNavigation = ({search,word}) => {
                                     }}>Se déconnecter</NavLink>
                                 </li>
                                 <li>
-                                    <label htmlFor={"prenom"}
-                                           style={{width: '200px'}}>Salut {sessionStorage.getItem("prenom")}</label>
+                                    <label className={"fs-5"}  htmlFor={"prenom"}
+                                           style={{width: '200px', color:'blue'}}>Salut {'\u00A0'}
+                                        <span className={"text-capitalize fw-bold"}>
+                                            {sessionStorage.getItem("prenom")}
+                                        </span>
+                                    </label>
                                 </li>
                             </>)
                         : <>
