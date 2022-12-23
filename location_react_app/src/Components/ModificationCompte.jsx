@@ -36,6 +36,8 @@ const ModificationCompte = () => {
             .then(response => {
                 if(response.status===200){
                     window.alert("Succès dans les modifications")
+                    sessionStorage.setItem("prenom", state.prenom)
+                    window.location.reload()
                 }else{
                     window.alert("Une erreur est sourvenue")
                 }

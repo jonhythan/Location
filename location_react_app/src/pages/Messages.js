@@ -102,11 +102,13 @@ const Messages = () => {
 
     return "#"+colors[index%colors.length];
   }
+  const [colorClicked, setColorClicked]=useState("");
 
   if(getUserId()==null){
     alert("Connectez-vous")
     return window.location.replace('/')
   } 
+  
   return (
     <div className='div_after_header d-flex flex-row justify-content-center' style={{height:"85%"}}>
       <div className="" style={{backgroundColor:"#D9D9D9", height:"100%", minWidth: "75%", width: "1400px"}}>
@@ -119,7 +121,8 @@ const Messages = () => {
                   return (
                   <div key={index} className='list-group-item d-flex barre-navigation-element' style={{textTransform:"capitalize"}}
                     onClick={()=>{
-                      fetchMessages(u);;
+                      fetchMessages(u);
+                      setColorClicked(getRandomColor(index));
                       setDestinataire(usersInteractedWith[index]);
                       setPersonneClicked(prenomsMessage[index]);
                       }
@@ -136,7 +139,7 @@ const Messages = () => {
               
               {personneClicked?
               <div className='d-flex flex-column align-items-center '>
-                <BsPersonCircle style={{marginTop:"4px", color:getRandomColor(prenomsMessage.indexOf(personneClicked)), fontSize:"2em"}}/>
+                <BsPersonCircle style={{marginTop:"4px", color:colorClicked, fontSize:"2em"}}/>
                 <b>{personneClicked.toUpperCase()}</b>
               </div>
               

@@ -66,13 +66,17 @@ const MainNavigation = ({search,word}) => {
 
                                 <li>
                                     <NavLink to="/logout" onClick={() => {
-                                        sessionStorage.removeItem("token");
+                                        sessionStorage.clear();
                                         window.location.replace("/")
                                     }}>Se déconnecter</NavLink>
                                 </li>
                                 <li>
-                                    <label htmlFor={"prenom"}
-                                           style={{width: '200px'}}>Salut {sessionStorage.getItem("prenom")}</label>
+                                    <label className={"fs-5"}  htmlFor={"prenom"}
+                                           style={{width: '200px', color:'blue'}}>Salut {'\u00A0'}
+                                        <span className={"text-capitalize fw-bold"}>
+                                            {sessionStorage.getItem("prenom")}
+                                        </span>
+                                    </label>
                                 </li>
                             </>)
                         : <>
