@@ -66,7 +66,7 @@ const MainNavigation = ({search,word}) => {
 
                                 <li>
                                     <NavLink to="/logout" onClick={() => {
-                                        sessionStorage.removeItem("token");
+                                        sessionStorage.clear();
                                         window.location.replace("/")
                                     }}>Se déconnecter</NavLink>
                                 </li>

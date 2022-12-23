@@ -1,5 +1,6 @@
 package com.godin.locationSpring.controller;
 
+import com.godin.locationSpring.model.Annonce;
 import com.godin.locationSpring.model.Signalement;
 import com.godin.locationSpring.service.SignalementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -24,6 +26,15 @@ public class SignalementController {
 
     @GetMapping(value = "/signalements", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Signalement> getAllSignalements() {
-        return signalementService.getAllSignalements();
+        List<Signalement> liste = signalementService.getAllSignalements();
+        liste.forEach(x->{
+            Annonce y = x.getAnnonce();
+            y.setImage(null);
+            x.setAnnonce(y);
+        });
+
+        return liste;
     }
+
+
 }
